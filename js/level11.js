@@ -11,7 +11,7 @@ preload: function() {
     game.load.image('bubble_left', 'assets/level11/bubble_left.png');
     game.load.image('bubble_right', 'assets/level11/bubble_right.png');
     game.load.image('bubble_mid', 'assets/level11/bubble_mid.png');
-    game.load.image('background', 'assets/level11/background.png');
+    game.load.image('background', 'assets/act2bg.png');
     game.load.image('person_left', 'assets/level11/person_left.png');
     game.load.image('person_right', 'assets/level11/person_right.png');
     game.load.image('person_mid', 'assets/level11/person_mid.png');
@@ -29,49 +29,26 @@ create: function() {
     game.stage.backgroundColor = '#71c5cf';
     game.add.image(0, 0, 'background');
     this.specs = game.add.sprite(0, 0, 'specs');
-//    var label = game.add.text(game.width/5, 350,
-//            'lal a la lala', { font: '20px Arial', fill: 'rgba(0,0,0,0.5)'});
-
-//    //var text = game.add.text(32, 32, '', { font: "15px Arial", fill: "#19de65" });
-//    var label = game.add.text(game.width/4, game.height/8,
-//            'I don\'t always have the easiest job.', { font: '40px Arial', fill: '#ffffff'});
     
     this.sigh1 = game.add.audio('sigh1');
     this.sigh2 = game.add.audio('sigh2');
     
     //tell phaser which keys we want to use    
-    this.cursor = game.input.keyboard.createCursorKeys();
-        
-    // Display the bird at the position x=100 and y=245
-    //this.worker_peg = game.add.sprite(0, 445, 'worker_pegs');
-    
+    this.cursor = game.input.keyboard.createCursorKeys();    
     this.person1 = game.add.sprite(game.width/3, game.height/3, 'person_left');
     this.bubble1 = game.add.sprite(game.width/3, game.height/3, 'bubble_left');
     this.person1.anchor.set(0.5,0.5);
     this.bubble1.anchor.set(0.5,0.5);
-//    var group_left = game.add.group();
-//    group_left.add(person1);
-//    group_left.add(bubble1);
     
     this.person2 = game.add.sprite(game.width*2/3, game.height/3, 'person_right');
     this.bubble2 = game.add.sprite(game.width*2/3, game.height/3, 'bubble_right');
     this.person2.anchor.set(0.5,0.5);
     this.bubble2.anchor.set(0.5,0.5);
-//    var group_right = game.add.group();
-//    group_right.add(person2);
-//    group_right.add(bubble2);
 
     this.person3 = game.add.sprite(game.width/2, game.height/2, 'person_mid');
     this.bubble3 = game.add.sprite(game.width/2, game.height/2, 'bubble_mid');
     this.person3.anchor.set(0.5,0.5);
     this.bubble3.anchor.set(0.5,0.5);
-//    var group_mid = game.add.group();
-//    group_mid.add(person3);
-//    group_mid.add(bubble3);
-
-    this.text1 = game.add.sprite(game.width/2, 300, 'text1');
-    this.text1.anchor.set(0.5,0.5);
-    
     
     this.needle = game.add.sprite(game.width/5, game.height*5/6, 'needle');
     this.line = game.add.sprite(0, game.height*4/5, 'line');
@@ -101,12 +78,6 @@ create: function() {
     game.add.tween(this.person3).to({y: this.person3.y+dist}, speed2).to({y: this.person3.y}, speed3,Phaser.Easing.Sinusoidal.InOut).loop().start();
     game.add.tween(this.specs).to({alpha: 0.2}, 5000,Phaser.Easing.Sinusoidal.InOut).loop().start();
     
-    //var tween = game.add.tween(bubble1).to( { alpha: 1 }, 2000, "Linear", true, 0, -1);
-    //create the holes for the worker pegs
-//    this.rect1 = game.add.sprite(550, 650, 'rectangle');
-//    this.rect2 = game.add.sprite(150, 650, 'rectangle');
-//    this.rect3 = game.add.sprite(350, 650, 'rectangle');
-    
     this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     this.scale.pageAlignHorizontally = true;
     this.scale.pageAlignVertically = true;
@@ -125,8 +96,10 @@ create: function() {
     
     this.needle.body.collideWorldBounds = true;
     game.add.image(0, 0, 'vignette');
+    this.vignette.alpha = 0.2;
     
-
+    this.text1 = game.add.sprite(game.width/2, 300, 'text1');
+    this.text1.anchor.set(0.5,0.5);
 
 },
 

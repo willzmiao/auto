@@ -6,7 +6,7 @@ var level20State = {
         //game.load.image('bird', 'assets/bird.png'); 
         game.load.spritesheet('heart', 'assets/heart.png', 68, 62, 6);
 		
-        game.load.image('background', 'assets/level20/background.png'); 
+        game.load.image('background', 'assets/act4bg.png'); 
         game.load.image('pipe', 'assets/level20/block_large.png');
         game.load.image('cloud1', 'assets/level20/cloud_shadow.png');
         game.load.image('cloud2', 'assets/level20/cloud_noshadow.png');
@@ -15,6 +15,7 @@ var level20State = {
         game.load.spritesheet('bird', 'assets/level5/bird_sheet.png', 215, 209, 2);
         game.load.image('bubble1', 'assets/level20/bubble1.png');
         game.load.image('bubble2', 'assets/level20/bubble2.png');
+        game.load.image('text1', 'assets/level20/text1.png');
 
 		
     },
@@ -44,13 +45,15 @@ create: function() {
     // Add gravity to the bird to make it fall
     //this.bird.body.gravity.y = 1000;  
 
-    var label = game.add.text(game.width/5, game.height/7,
-    'not sure how much \n longer i\'ll be around for', { font: '40px Arial', fill: 'rgba(0,0,0,1)'});
+//    var label = game.add.text(game.width/5, game.height/7,
+//    'not sure how much \n longer i\'ll be around for', { font: '40px Arial', fill: 'rgba(0,0,0,1)'});
 
     //this.speech1 = game.add.sprite(this.bird.x, this.bird.y-100, 'bubble1');
     //this.speech1.alpha = 0;
         
-    
+    this.text1 = game.add.sprite(game.width/2,200, 'text1');
+    this.text1.anchor.setTo(0.5,0.5);
+
         
     this.pipes = game.add.group();
     game.physics.arcade.enable(this.pipes);
@@ -72,8 +75,16 @@ create: function() {
     this.timer2 = this.game.time.events.add(7000, this.addBubble2, this);
     this.timer3 = this.game.time.events.add(9000, this.addBubble3, this);    
         
-    bird.checkWorldBounds = true;
-    bird.outOfBoundsKill = true;
+    this.bird.checkWorldBounds = true;
+    //bird.outOfBoundsKill = true;
+    this.bird.body.collideWorldBounds = true;
+
+//        if(this.bird.events.onOutOfBounds){
+//            this.nextState();
+//        }
+    
+//    this.text1 = game.add.sprite(game.width/2,200, 'text1');
+//    this.text1.anchor.setTo(0.5,0.5);
     
     },
     
@@ -97,6 +108,7 @@ update: function() {
     this.game.world.bringToTop(this.clouds);
     this.game.world.bringToTop(this.bird);
     //this.game.world.bringToTop(this.label);
+
 
     
 },

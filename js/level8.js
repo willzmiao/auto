@@ -6,6 +6,9 @@ preload: function() {
         game.load.image('coupon', 'assets/level8/coupon.png');
         game.load.image('spam', 'assets/level8/spam.png');
         game.load.image('text1', 'assets/level8/text1.png');
+    
+        game.load.image('background', 'assets/act1bg.png');
+    
         //game.load.image('worker2', 'assets/worker2.png');
         game.load.spritesheet('conveyor_automated', 'assets/level14/conveyor_automated_sheet.png', 691, 569, 6);
     
@@ -16,6 +19,8 @@ preload: function() {
 create: function() { 
     
     game.stage.backgroundColor = '#71c5cf';
+    
+    this.background = game.add.sprite(0, 0, 'background');
     this.cursor = game.input.keyboard.createCursorKeys();
     
     
@@ -133,6 +138,7 @@ display3: function(){
         this.meh.play();    
         //this.mhmm.play();
         this.timer51 = this.game.time.events.add(2000, this.mhmm1, this);
+        this.timer12381 = this.game.time.events.add(5000, this.nextState, this);
         flipFlop = true;
         }
     }

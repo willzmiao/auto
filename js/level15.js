@@ -22,7 +22,8 @@ preload: function() {
     game.load.image('person_mid2', 'assets/level11/person_mid2.png');
     game.load.image('specs', 'assets/level11/specs.png');
     game.load.image('vignette', 'assets/level11/vignette.png');
-        
+    
+    game.load.image('text1', 'assets/level15/text1.png');
     },
 
 create: function() { 
@@ -34,8 +35,8 @@ create: function() {
 //            'lal a la lala', { font: '20px Arial', fill: 'rgba(0,0,0,0.5)'});
 
 //    //var text = game.add.text(32, 32, '', { font: "15px Arial", fill: "#19de65" });
-    var label = game.add.text(game.width/4, game.height/8,
-            'We need cut costs. \nBusiness is business.', { font: '40px Arial', fill: '#ffffff'});
+//    var label = game.add.text(game.width/4, game.height/8,
+//            'We need cut costs. \nBusiness is business.', { font: '40px Arial', fill: '#ffffff'});
     
     //nextLine();
     
@@ -123,7 +124,10 @@ create: function() {
     this.scale.pageAlignHorizontally = true;
     this.scale.pageAlignVertically = true;
 
-
+    this.text1 = game.add.sprite(game.width/2, 200, 'text1');
+    this.text1.anchor.setTo(0.5,0.5);
+    this.game.world.bringToTop(this.text1);
+    
     // Add physics to the workers
     game.physics.arcade.enable(this.bubble1);
     game.physics.arcade.enable(this.bubble2);
@@ -143,6 +147,7 @@ create: function() {
     
     this.needle.body.collideWorldBounds = true;
     game.add.image(0, 0, 'vignette');
+    this.vignette.alpha = 0.5;
     
 
 
@@ -274,6 +279,7 @@ killBubble6: function(needle, bubble6){
     this.bubble6.kill();
     //this.speech2.alpha = 1.0;
     game.add.tween(this.person6).to({y: 3000}, 1000, "Exponential", false, 500).to({alpha: 0}, 200).easing(Phaser.Easing.Exponential.Out).start();
+    this.timer023390 = this.game.time.events.add(5000, this.nextState, this);
     //this.person3.alpha=0;
     //this.worker1hole.alpha = 1.0;
     //play animation

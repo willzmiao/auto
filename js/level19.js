@@ -6,6 +6,7 @@ preload: function() {
         game.load.image('hand', 'assets/level19/hand.png');
         game.load.image('speech', 'assets/level19/speech.png');
         game.load.image('background', 'assets/level19/background.png');
+        game.load.image('text1', 'assets/level19/text1.png');
         
         game.load.spritesheet('worker_anim', 'assets/level19/worker_anim.png', 95.17, 249.5, 9);
     },
@@ -16,9 +17,9 @@ create: function() {
     game.add.image(0, 0, 'background');
     this.cursor = game.input.keyboard.createCursorKeys();
     
-    var label = game.add.text(game.width/5, 350,
-            'Jeb\'s really been \non my case recently', { font: '60px Arial', fill: '#ffffff'});
-
+//    var label = game.add.text(game.width/5, 350,
+//            'Jeb\'s really been \non my case recently', { font: '60px Arial', fill: '#ffffff'});
+//
     this.timer = game.time.events.loop(3000, this.moveHand, this); 
     
     this.mole = game.add.sprite(game.width/2,game.height*4/6, 'mole');
@@ -27,6 +28,10 @@ create: function() {
     
     this.mole.body.collideWorldBounds = true;
 
+    this.timer938488 = this.game.time.events.add(7000, this.nextState, this);
+    
+    this.text1 = game.add.sprite(game.width/2,200, 'text1');
+    this.text1.anchor.setTo(0.5,0.5);
     },
 
 update: function() {

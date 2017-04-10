@@ -17,11 +17,14 @@ create: function() {
     //scaling options EXACT_FIT SHOW_ALL 
     //this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     this.game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+    //this.game.scale.compatibility.forceMinimumDocumentHeight = true;
+    //this.game.scale.compatibility.canExpandParent = false;
     
     this.scale.pageAlignHorizontally = true;
     this.scale.pageAlignVertically = true;
+    
     //this.scale.setScreenSize(true);
-    //this.game.scale.setScreenSize(true);
+    //game.scale.setScreenSize(true);
     
 
     // Start the load state

@@ -3,9 +3,15 @@ var level4State = {
     preload: function() { 
         // This function will be executed at the beginning     
         // That's where we load the images and sounds 
-        game.load.image('speech1', 'assets/speech1.png'); 
-        game.load.image('speech2', 'assets/speech2.png');
-        game.load.image('speech3', 'assets/speech3.png');
+        game.load.image('speech1', 'assets/level4/speech1.png'); 
+        game.load.image('speech2', 'assets/level4/speech2.png');
+        game.load.image('speech3', 'assets/level4/speech3.png');
+        game.load.image('speech4', 'assets/level4/speech4.png');
+        game.load.image('speech5', 'assets/level4/speech5.png');
+        
+        game.load.image('start', 'assets/level4/start.png');
+        game.load.image('mid', 'assets/level4/mid.png');
+        game.load.image('end', 'assets/level4/end.png');
         //game.load.spritesheet('heart', 'assets/heart.png', 68, 62, 6);
         //game.load.spritesheet('bird', 'assets/level5/bird_sheet.png', 215, 209, 4);
         game.load.spritesheet('bird', 'assets/heart.png', 68, 62, 6);
@@ -16,7 +22,6 @@ var level4State = {
         game.load.audio('vo4','assets/level4/vo4.wav');
         game.load.audio('vo5','assets/level4/vo5.wav');
         game.load.audio('vo6','assets/level4/vo6.wav');
-        
         
     },
     
@@ -32,19 +37,23 @@ create: function() {
 
     this.cursor = game.input.keyboard.createCursorKeys();
         
+    this.end = game.add.sprite(0, 0, 'end');
+    this.mid = game.add.sprite(0, 0, 'mid');
+    this.start = game.add.sprite(0, 0, 'start');
+    
 //    items = game.add.group();
 //    items.create(100,400,'speech1');
 //    items.create(150,200,'speech2');
 //    items.create(250,50,'speech3');
           
-    var label = game.add.text(game.width/5, game.height/7,
-    'My work excites me.', { font: '40px Arial', fill: 'rgba(0,0,0,1)'});
+//    var label = game.add.text(game.width/5, game.height/7,
+//    'My work excites me.', { font: '40px Arial', fill: 'rgba(0,0,0,1)'});
     
-    this.speech1 = game.add.sprite(300, 1100, 'speech1');
-    this.speech2 = game.add.sprite(350, 850, 'speech2');
-    this.speech3 = game.add.sprite(500, 650, 'speech3');
-    this.speech4 = game.add.sprite(450, 450, 'speech3');
-    this.speech5 = game.add.sprite(600, 250, 'speech3');
+    this.speech1 = game.add.sprite(300, 1500, 'speech1');
+    this.speech2 = game.add.sprite(350, 1300, 'speech2');
+    this.speech3 = game.add.sprite(400, 1050, 'speech3');
+    this.speech4 = game.add.sprite(500, 600, 'speech4');
+    this.speech5 = game.add.sprite(450, 400, 'speech5');
     
     //game.physics.arcade.enable(this.speech1);
     this.speech1.alpha = 0;
@@ -127,6 +136,7 @@ display3: function(){
         if(!flipFlop){
         this.speech3.alpha = 1;
         this.vo4.play();
+        game.add.tween(this.start).to({alpha: 0}, 1000).easing(Phaser.Easing.Exponential.Out).start();
             flipFlop = true;
         }
     }
@@ -153,7 +163,8 @@ display5: function(){
         if(!flipFlop){
         this.speech5.alpha = 1;
         this.vo2.play();
-        this.timer5313 = this.game.time.events.add(5000, this.nextState, this);
+        game.add.tween(this.mid).to({alpha: 0}, 1000).easing(Phaser.Easing.Exponential.Out).start();
+        this.timer5313 = this.game.time.events.add(7000, this.nextState, this);
             flipFlop = true;
         }
     }

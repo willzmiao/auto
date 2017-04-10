@@ -34,6 +34,10 @@ create: function() {
     this.speech_right = game.add.sprite(game.width/2+200, game.height/4, 'speech_right');    
     this.speech_right.anchor.setTo(0.5, 0);
 
+    this.leftdoor_closed = game.add.sprite(game.width/2-200, game.height/3+25, 'leftclosed');
+    this.leftdoor_closed.anchor.setTo(0.5, 0);
+    this.leftdoor_closed.alpha = 0;
+    
     game.add.tween(this.speech_left).to({y: this.speech_left.y+10}, 1000).to({y: this.speech_left.y}, 1000,Phaser.Easing.Sinusoidal.InOut).loop().start();
     game.add.tween(this.speech_right).to({y: this.speech_right.y+10}, 1000).to({y: this.speech_right.y}, 1000,Phaser.Easing.Sinusoidal.InOut).loop().start();
 
@@ -55,12 +59,14 @@ selectPill: function(){
     
     if(this.cursor.right.isDown ){
         this.dollar = game.add.sprite(game.width/2+300, game.height/2, 'dollar');
-        game.add.tween(this.dollar).to({y: game.height/2 -300}, 500).to({alpha: 0}, 1000,Phaser.Easing.Sinusoidal.Out).start();
+        game.add.tween(this.dollar).to({y: game.height/2 +300}, 500).to({alpha: 0}, 1000,Phaser.Easing.Sinusoidal.Out).start();
+        this.timer92840 = this.game.time.events.add(3000, this.nextState, this);
     }
     else if(this.cursor.left.isDown){
-        this.leftdoor_open.kill();
-        this.leftdoor_closed = game.add.sprite(game.width/2-200, game.height/3+25, 'leftclosed');
-        this.leftdoor_closed.anchor.setTo(0.5, 0);
+        this.leftdoor_open.alpha = 0;
+//        this.leftdoor_closed = game.add.sprite(game.width/2-200, game.height/3+25, 'leftclosed');
+//        this.leftdoor_closed.anchor.setTo(0.5, 0);
+        this.leftdoor_closed.alpha = 1;
         this.stopsign = game.add.sprite(game.width/2-350, game.height/2-200, 'stopsign');
         
     }

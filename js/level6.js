@@ -170,8 +170,8 @@ create: function() {
     //timer stuff
     var me = this;
  
-    me.startTime = new Date();
-    me.totalTime = 30;
+    
+    me.totalTime = 15;
     me.timeElapsed = 0;
  
     
@@ -262,7 +262,7 @@ killWorker2: function(worker2, worker11hole){
     
     var me = this;
     me.createTimer();
-    
+    me.startTime = new Date();
     this.womp1.play();
  
     me.gameTimer = game.time.events.loop(100, function(){
@@ -293,7 +293,11 @@ updateTimer: function(){
  
     //Time remaining in seconds
     var timeRemaining = me.totalTime - me.timeElapsed; 
- 
+    
+    if(timeRemaining < 0){
+        this.nextState();
+    }
+    
     //Convert seconds into minutes and seconds
     var minutes = Math.floor(timeRemaining / 60);
     var seconds = Math.floor(timeRemaining) - (60 * minutes);

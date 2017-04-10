@@ -11,6 +11,8 @@ preload: function() {
         game.load.image('smoke-puff', 'assets/level16/smoke-puff.png');
         game.load.image('white-smoke', 'assets/level16/white-smoke.png');
         game.load.image('curse', 'assets/level16/curse.png');
+    game.load.image('text1', 'assets/level16/text1.png');
+    
     
     game.load.image('background', 'assets/level14/background.png');
     game.load.spritesheet('conveyor_automated_left', 'assets/level14/conveyor_automated_left_sheet.png', 691, 569, 6);
@@ -26,10 +28,12 @@ create: function() {
     //tell phaser which keys we want to use    
     this.cursor = game.input.keyboard.createCursorKeys();
 
-
+    this.text1 = game.add.sprite(game.width/2, 200, 'text1');
+    this.text1.anchor.setTo(0.5,0.5);
+    
     //
-    var label = game.add.text(game.width/6, game.height/10-150,
-            'If these machines break, I\'ll be screwed', { font: '60px Arial', fill: '#ffffff', wordWrap: true, wordWrapWidth: game.width-300});
+//    var label = game.add.text(game.width/6, game.height/10-150,
+//            'If these machines break, I\'ll be screwed', { font: '60px Arial', fill: '#ffffff', wordWrap: true, wordWrapWidth: game.width-300});
 //     
 //    this.robot1 = game.add.sprite(game.width/5, 300, 'robot');
 //    this.robot2 = game.add.sprite(game.width/5+200, 300, 'robot');
@@ -54,6 +58,7 @@ create: function() {
         var beat8 = conveyor_automated4.animations.add('beat8');
         conveyor_automated4.animations.play('beat8', 6, true);
 
+    this.game.world.bringToTop(this.text1);
     
     //game.add.tween(this.vertigo).to({alpha: 0}, 3000).to({alpha: 0.9}, 500,Phaser.Easing.Elastic.Out).loop().start();
 
@@ -67,6 +72,7 @@ create: function() {
 
     emitter.setRotation(0, 0);
     emitter.setAlpha(0.1, 1, 3000,Phaser.Easing.Linear.None,true);
+    //emitter.setAlpha(0);
     emitter.setScale(0.4, 5, 0.4, 5, 6000, Phaser.Easing.Quintic.Out);
     emitter.gravity = -100;
 
@@ -76,6 +82,8 @@ create: function() {
     emitter.emitX = game.width/2;
     emitter.emitY = game.height/2;
 
+    //this.timer912381 = this.game.time.events.add(2000, this.makeSmoke, this);
+    
     //game.time.events.add(Phaser.Timer.SECOND * 4, display1, this);
      
 //    this.startTime = new Date();
@@ -178,6 +186,12 @@ display1: function(){
     }
 },
 
+makeSmoke: function(){
+
+    //emitter.start(false, 4000, 500);
+    emitter.setAlpha(0.1, 1, 3000,Phaser.Easing.Linear.None,true);
+    
+},
     
     
 //selectPill: function(){

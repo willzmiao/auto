@@ -52,6 +52,7 @@ display1: function(){
         this.comp1.kill();
         this.line = game.add.sprite(0, game.height/2-250, 'line');
         game.physics.arcade.enable(this.line);
+        this.line.scale.setTo(10,1);
     
         game.add.tween(this.comp2.scale).to({x: 2, y: 2}, 500,Phaser.Easing.Sinusoidal.Out).start();
         game.add.tween(this.comp2).to({y: this.comp2.y+400}, 500,Phaser.Easing.Sinusoidal.Out).start();

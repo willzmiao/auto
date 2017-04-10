@@ -31,6 +31,8 @@ create: function() {
     // Display the name of the game
     game.stage.backgroundColor = '#000000';
     
+    game.input.keyboard.addKeyCapture([Phaser.Keyboard.UP, Phaser.Keyboard.DOWN,Phaser.Keyboard.RIGHT,Phaser.Keyboard.LEFT]);
+    
     this.title = game.add.sprite(game.width/2,game.height/2-200,'title');
     this.title.anchor.setTo(.5,.5);
     
@@ -40,17 +42,18 @@ create: function() {
 //    var nameLabel = game.add.text(game.width/2, 80, 'Goodman Game', { font: 'karma', fill: '#ffffff' });
 //    nameLabel.anchor.setTo(0.5, 0.5);
 //    nameLabel.fontSize = 300;
-        
+    
+    var rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT); 
+    rightKey.onDown.add(this.start, this);
+
+    
     if (!game.device.desktop) {
-//        var startLabel = game.add.text(game.width/2, game.height-80, 'tap the right arrow button to start',
-//        { font: '75px Arial', fill: '#ffffff' });
-//        startLabel.anchor.setTo(0.5, 0.5)
         this.press = game.add.sprite(game.width/2,game.height-200,'press');
         this.press.anchor.setTo(.5,.5);
         game.add.tween(this.press).to({y: this.press.y+15}, 1000).to({y: this.press.y}, 1000,Phaser.Easing.Sinusoidal.InOut).loop().start();
         
         //enable touch to start
-        game.input.onDown.add(this.start, this);
+        //game.input.onDown.add(this.start, this);
         this.addMobileInputs();
     }
     else if(game.device.desktop){
@@ -63,21 +66,10 @@ create: function() {
         this.press.anchor.setTo(.5,.5);
         game.add.tween(this.press).to({y: this.press.y+15}, 1000).to({y: this.press.y}, 1000,Phaser.Easing.Sinusoidal.InOut).loop().start();
 
-        this.addMobileInputs();
+        //this.addMobileInputs();
         
     }
-    
-    // Explain how to start the game
-//    var startLabel = game.add.text(game.width/2, game.height-80, 'press the up arrow key to start',
-//        { font: '75px Arial', fill: '#ffffff' });
-    
-    //startLabel.anchor.setTo(0.5, 0.5);
-    
-    // Create a new Phaser keyboard variable: the up arrow key 
-    // When pressed, call the 'start'
-    var rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT); 
-    rightKey.onDown.add(this.start, this);
-    
+            
     
 },
 
@@ -183,7 +175,7 @@ start: function() {
 
 nextState1: function(){
     this.intro1.stop();
-    game.state.start('level2');
+    game.state.start('chooser');
 },
     
 restartGame: function() {
@@ -194,7 +186,7 @@ restartGame: function() {
     
 nextState: function(){
     this.intro1.stop();
-    game.state.start('level2');
+    game.state.start('chooser');
     
 },
 

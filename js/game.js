@@ -15,6 +15,7 @@ game.global = {
 game.state.add('boot', bootState);
 game.state.add('load', loadState);
 game.state.add('menu', menuState);
+game.state.add('chooser',chooserState);
 game.state.add('level1', level1State);
 game.state.add('level2', level2State);
 game.state.add('level3', level3State);
@@ -39,6 +40,7 @@ game.state.add('level21', level21State);
 game.state.add('level22', level22State);
 game.state.add('level23', level23State);
 game.state.add('level24', level24State);
+game.state.add('closing', closingState);
 
 
 // Start the 'boot' state

@@ -10,13 +10,14 @@ preload: function() {
         game.load.image('piece_lower_cover', 'assets/level2/piece_lower_cover.png');
     
         game.load.image('rect', 'assets/rectangle.png');
+        game.load.image('toy', 'assets/level2/toy.png');
         //game.load.image('sparkle', 'assets/level3/sparkle.png');
         game.load.image('background', 'assets/level2/background_0.png');    
-        game.load.spritesheet('workers_anim', 'assets/level2/workers_anim.png', 1080, 1920, 3);
+        game.load.spritesheet('workers_anim', 'assets/level2/workers_anim1.png', 1080, 1920, 6);
     
         game.load.audio('vo1','assets/level2/vo1.wav');
         game.load.audio('vo2','assets/level2/vo2.wav');
-        //game.load.audio('act1','assets/sound/act1.wav');
+        game.load.audio('act1','assets/sound/act1.wav');
     
         game.load.image('text1', 'assets/level2/text1.png');    
         game.load.image('text2', 'assets/level2/text2.png');    
@@ -75,12 +76,21 @@ create: function() {
 
     this.vo1 = game.add.audio('vo1');
     this.vo2 = game.add.audio('vo2');
-    this.act1 = game.add.audio('act1');
-    this.act1.play();
+    game.global.act1 = game.add.audio('act1');
+    game.global.act1.play();
     
-    if(game.device.desktop){
+    var speed;
+    
+    if(!game.device.desktop){
         this.addMobileInputs();
+        this.speed = 20;
+        
     }
+    else if(game.device.desktop){
+        this.speed = 4;
+    }
+    
+    
     
     },
 
@@ -128,6 +138,8 @@ killWorker1: function(piece1, rect1){
     var heart = game.add.sprite(0, 0, 'workers_anim');
     var beat = heart.animations.add('beat');
     heart.animations.play('beat', 6, true);
+    //this.timer501 = this.game.time.events.add(500, this.addToy, this);
+    
 
     this.vo2.play();
     
@@ -135,7 +147,7 @@ killWorker1: function(piece1, rect1){
     this.text2.anchor.setTo(.5,.5);
     game.world.bringToTop(this.text2);
     
-    this.timer5813 = this.game.time.events.add(4000, this.nextState, this);
+    this.timer1223581 = this.game.time.events.add(5000, this.nextState, this);
     //this.piece1hole.alpha = 1.0;
     //play animation
 //    var heart = game.add.sprite(game.width/2-150, game.height/2-200, 'heart');
@@ -149,6 +161,9 @@ killWorker1: function(piece1, rect1){
     //this.changeTimer = this.game.time.events.add(3000, this.restartGame, this);
     
     },
+    
+
+    
     
 killWorker2: function(piece2, rect2){
     
@@ -191,34 +206,34 @@ killWorker3: function(piece3, rect3){
     
 movePlayer1: function(){
     if(this.cursor.left.isDown || this.moveLeft){
-        this.piece1.body.x -= 4;
+        this.piece1.body.x -= this.speed;
     }
     else if(this.cursor.right.isDown || this.moveRight){
-        this.piece1.body.x += 4;
+        this.piece1.body.x += this.speed;
     }
     if(this.cursor.up.isDown || this.moveUp){
-        this.piece1.body.y -= 4;
+        this.piece1.body.y -= this.speed;
     }
     else if(this.cursor.down.isDown || this.moveDown){
-        this.piece1.body.y += 4;
+        this.piece1.body.y += this.speed;
     }   
 },
     
 movePlayer2: function(){
 
     if(this.cursor.left.isDown || this.moveLeft){
-        this.piece2.body.x -= 4;
+        this.piece2.body.x -= this.speed;
     }
     
     else if(this.cursor.right.isDown || this.moveRight){
-        this.piece2.body.x += 4;
+        this.piece2.body.x += this.speed;
     }
     
     if(this.cursor.up.isDown || this.moveUp){
-        this.piece2.body.y -= 4;
+        this.piece2.body.y -= this.speed;
     }
     else if(this.cursor.down.isDown || this.moveDown){
-        this.piece2.body.y += 4;
+        this.piece2.body.y += this.speed;
     }   
 
 },
@@ -226,18 +241,18 @@ movePlayer2: function(){
 movePlayer3: function(){
 
     if(this.cursor.left.isDown || this.moveLeft){
-        this.piece3.body.x -= 4;
+        this.piece3.body.x -= this.speed;
     }
     
     else if(this.cursor.right.isDown || this.moveRight){
-        this.piece3.body.x += 4;
+        this.piece3.body.x += this.speed;
     }
     
     if(this.cursor.up.isDown || this.moveUp){
-        this.piece3.body.y -= 4;
+        this.piece3.body.y -= this.speed;
     }
     else if(this.cursor.down.isDown || this.moveDown){
-        this.piece3.body.y += 4;
+        this.piece3.body.y += this.speed;
     }   
 
 },

@@ -10,11 +10,13 @@ preload: function() {
         game.load.image('envelope_opened_front', 'assets/level23/envelope_opened_front.png');
         game.load.image('envelope_opened_back', 'assets/level23/envelope_opened_back.png');
         game.load.image('pinkslip', 'assets/level23/pinkslip.png');
+    game.load.image('background', 'assets/act4bg.png');
     },
 
 create: function() { 
     
-    game.stage.backgroundColor = '#71c5cf';
+    //game.stage.backgroundColor = '#71c5cf';
+    this.background = game.add.sprite(0, 0, 'background');
     this.cursor = game.input.keyboard.createCursorKeys();
     
     
@@ -165,6 +167,7 @@ display4: function(){
     var t5= this.add.tween(this.envelope_opened_back).to({y: 3000}, 500,Phaser.Easing.Sinusoidal.InOut).start();    
     
     t5.onComplete.add(this.enlarge,this);
+    this.timer777 = this.game.time.events.add(7000, this.nextState, this);
     //game.add.tween(this.bird.scale).to({x: .75, y: .75}, 500,Phaser.Easing.Sinusoidal.Out).start();
             
         flipFlop = true;

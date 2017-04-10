@@ -4,7 +4,7 @@ var level10State = {
 preload: function() { 
         game.load.image('worker1', 'assets/worker1.png');
         game.load.image('worker2', 'assets/worker2.png');
-        game.load.image('scene', 'assets/level10/scene.png');
+        game.load.image('scene', 'assets/level10/background.png');
         game.load.image('speech', 'assets/level10/speech1.png');
         game.load.image('text1', 'assets/level10/text1.png');
         
@@ -19,8 +19,8 @@ create: function() {
 //    var label = game.add.text(game.width/5, 350,
 //            'The salesman promises \nan 80% productivity gain...', { font: '60px Arial', fill: 'rgba(0,0,0,0.5)'});
 
-    this.scene = game.add.sprite(game.width/2, game.height/2, 'scene');
-    this.scene.anchor.set(0.5,0.5);
+    this.scene = game.add.sprite(0, 0, 'scene');
+    //this.scene.anchor.set(0.5,0.5);
     
     this.text1 = game.add.sprite(game.width/2, 200, 'text1');
     this.text1.anchor.set(0.5,0.5);
@@ -55,7 +55,7 @@ unsure1: function(){
     
 display2: function(){
 
-        this.speech = game.add.sprite(game.width/2+100, game.height/2-75, 'speech');
+        this.speech = game.add.sprite(game.width/2-200, game.height/2-75, 'speech');
         this.speech.anchor.set(0.5,0.5);
         this.gobble.play();
         //this.unsure.play();

@@ -3,9 +3,15 @@ var level13State = {
     preload: function() { 
         // This function will be executed at the beginning     
         // That's where we load the images and sounds 
-        game.load.image('speech1', 'assets/speech1.png'); 
-        game.load.image('speech2', 'assets/speech2.png');
-        game.load.image('speech3', 'assets/speech3.png');
+
+        game.load.image('speech1', 'assets/level13/speech1.png');
+        game.load.image('speech2', 'assets/level13/speech2.png');
+        game.load.image('speech3', 'assets/level13/speech3.png');
+        game.load.image('speech4', 'assets/level13/speech4.png');
+        game.load.image('speech5', 'assets/level13/speech5.png');
+        game.load.image('background', 'assets/level13/background.png');
+        
+        game.load.image('wifespeech1','assets/level13/wifespeech1.png');
         
         game.load.audio('wife1','assets/level13/wife1.wav');
         game.load.audio('wife2','assets/level13/wife2.wav');
@@ -36,13 +42,14 @@ create: function() {
 //    items.create(250,50,'speech3');
           
     var label = game.add.text(game.width/5, game.height/7,
-    'I should\'ve upgraded \nto machines long ago', { font: '40px Arial', fill: 'rgba(0,0,0,1)'});
+    'I should\'ve upgraded \nlong ago', { font: '40px Arial', fill: 'rgba(0,0,0,1)'});
     
+    this.background = game.add.sprite(0, 0, 'background');
     this.speech1 = game.add.sprite(300, 1100, 'speech1');
-    this.speech2 = game.add.sprite(350, 850, 'speech2');
-    this.speech3 = game.add.sprite(500, 650, 'speech3');
-    this.speech4 = game.add.sprite(450, 450, 'speech3');
-    this.speech5 = game.add.sprite(600, 250, 'speech3');
+    this.speech2 = game.add.sprite(350, 900, 'speech2');
+    this.speech3 = game.add.sprite(400, 650, 'speech3');
+    this.speech4 = game.add.sprite(350, 450, 'speech4');
+    this.speech5 = game.add.sprite(400, 250, 'speech5');
     
     //game.physics.arcade.enable(this.speech1);
     this.speech1.alpha = 0;
@@ -99,6 +106,7 @@ update: function() {
 
 wifeText: function(){
   this.wife1.play();  
+  this.wifeText = game.add.sprite(50, 700, 'wifespeech1');
 },
     
 display1: function(){
@@ -106,6 +114,8 @@ display1: function(){
         if(!flipFlop){
         this.speech1.alpha = 1; 
         this.womp1.play();
+        game.world.bringToTop(this.speech1);
+        game.add.tween(this.wifeText).to({alpha: 0}, 2000).easing(Phaser.Easing.Exponential.Out).start();
             flipFlop = true;
         }
     }
@@ -120,6 +130,7 @@ display2: function(){
         if(!flipFlop){
         this.speech2.alpha = 1;
         this.womp2.play();
+            game.world.bringToTop(this.speech2);
             flipFlop = true;
         }
     }
@@ -132,6 +143,7 @@ display3: function(){
     if(this.cursor.right.isDown){
         if(!flipFlop){
         this.speech3.alpha = 1;  
+        game.world.bringToTop(this.speech3);
         this.womp3.play();
             flipFlop = true;
         }
@@ -145,6 +157,7 @@ display4: function(){
     if(this.cursor.right.isDown){
         if(!flipFlop){
         this.speech4.alpha = 1; 
+        game.world.bringToTop(this.speech4);
         this.womp4.play();
             flipFlop = true;
         }
@@ -158,7 +171,9 @@ display5: function(){
     if(this.cursor.right.isDown){
         if(!flipFlop){
         this.speech5.alpha = 1;
+        game.world.bringToTop(this.speech5);
         this.womp5.play();
+        this.timer012390 = this.game.time.events.add(7000, this.nextState, this);
             flipFlop = true;
         }
     }

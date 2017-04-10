@@ -2,46 +2,41 @@ var level9State = {
     
  
 preload: function() { 
-        game.load.image('worker1', 'assets/worker1.png');
-        game.load.image('worker2', 'assets/worker2.png');
-        game.load.image('bubble', 'assets/bubble1.png');
-        game.load.image('text1', 'assets/level9/text1.png');
+    
+    game.load.image('background', 'assets/level9/background.png');
+    game.load.image('conveyor', 'assets/level9/conveyor.png');
+    game.load.image('workers', 'assets/level9/workers.png');
+    game.load.image('workers_spotlight', 'assets/level9/workers_spotlight.png');
+    game.load.image('workers_shadow', 'assets/level9/workers_shadow.png');
+    game.load.image('light', 'assets/level9/light.png');
+    game.load.image('text1', 'assets/level9/text1.png');
         
     },
 
 create: function() { 
     
     game.stage.backgroundColor = '#71c5cf';
+    game.add.image(0, 0, 'background');
+    this.workers_shadow = game.add.sprite(game.width/3-50, game.height/2, 'workers_shadow');
+    this.workers = game.add.sprite(game.width/3-50, game.height/2, 'workers');
+    this.workers_spotlight = game.add.sprite(game.width/3+200, game.height/2+230, 'workers_spotlight');
+    this.workers.anchor.setTo(.5,.5);
+    this.workers_shadow.anchor.setTo(.5,.5);
+    this.workers_spotlight.anchor.setTo(.5,.5);
     
-    this.bubble1 = game.add.sprite(game.width/3, game.height/7, 'bubble');
-    this.bubble2 = game.add.sprite(game.width/8, game.height/3, 'bubble');
-    this.bubble3 = game.add.sprite(game.width/2, game.height*2/7, 'bubble');
-    this.bubble4 = game.add.sprite(game.width*5/7, game.height/7, 'bubble');
-    this.bubble5 = game.add.sprite(game.width/3, game.height*2/7, 'bubble');
+    this.conveyor = game.add.sprite(game.width*2/3, game.height/2+300, 'conveyor');
+    this.conveyor.anchor.setTo(.5,.5);
+    this.conveyor.alpha = 0;
     
-    var speed1 = game.rnd.between(800, 1200);
-    var speed2 = game.rnd.between(800, 1200);
-    var speed3 = game.rnd.between(800, 1200);
-    var speed4 = game.rnd.between(800, 1200);
-    var speed5 = game.rnd.between(800, 1200);
-    var dist = game.rnd.between(0, 150);
-    
-    game.physics.arcade.enable(this.bubble1);
-    game.physics.arcade.enable(this.bubble2);
-    game.physics.arcade.enable(this.bubble3);
-    game.physics.arcade.enable(this.bubble4);
-    game.physics.arcade.enable(this.bubble5);
+    this.light = game.add.sprite(game.width*2/3+30, game.height/2+350, 'light');
+    this.light.anchor.setTo(.5,.5);
+    this.light.alpha = 0;
 
-    
-    game.add.tween(this.bubble1).to({y: this.bubble1.y+dist}, speed3).to({y: this.bubble1.y}, speed4,Phaser.Easing.Sinusoidal.InOut).loop().start();
-    game.add.tween(this.bubble2).to({y: this.bubble2.y+dist}, speed1).to({y: this.bubble2.y}, speed2,Phaser.Easing.Sinusoidal.InOut).loop().start();
-    game.add.tween(this.bubble3).to({y: this.bubble3.y+dist}, speed2).to({y: this.bubble3.y}, speed3,Phaser.Easing.Sinusoidal.InOut).loop().start();
-    game.add.tween(this.bubble4).to({y: this.bubble4.y+dist}, speed4).to({y: this.bubble4.y}, speed2,Phaser.Easing.Sinusoidal.InOut).loop().start();
-    game.add.tween(this.bubble5).to({y: this.bubble5.y+dist}, speed5).to({y: this.bubble5.y}, speed1,Phaser.Easing.Sinusoidal.InOut).loop().start();
-    
+
     this.text1 = game.add.sprite(game.width/2, 200, 'text1');
     this.text1.anchor.set(0.5,0.5);
     
+    this.cursor = game.input.keyboard.createCursorKeys();
     
     },
 
@@ -54,8 +49,58 @@ update: function() {
     nKey.onDown.add(this.nextState, this);
 
     
+    if(this.conveyor.alpha === 0){
+    this.display1();
+    }
+    
+//    else if(this.workers.alive){
+//    this.display2();
+//    }
+//    
+    
 },
 
+display1: function(){
+    if(this.cursor.right.isDown){
+        if(!flipFlop){
+        this.conveyor.alpha = 1; 
+        game.add.tween(this.light).to({alpha: .9}, 700).to({alpha: 0}, 700,Phaser.Easing.Bounce.InOut).loop().start();    
+        game.add.tween(this.workers_spotlight).to({alpha: 0}, 2000).easing(Phaser.Easing.Exponential.Out).start();
+        game.add.tween(this.workers).to({alpha: 0}, 2000).easing(Phaser.Easing.Exponential.Out).start();
+        
+        //this.timer913929 = this.game.time.events.add(2000, this.killWorkers, this);    
+        this.timer91230 = this.game.time.events.add(5000, this.nextState, this);
+        //this.vo2.play();    
+            flipFlop = true;
+        }
+    }
+    
+    if (this.cursor.right.isUp){
+        flipFlop = false;
+    }
+},
+    
+
+killWorkers: function(){
+  this.workers.kill();  
+},
+    
+display2: function(){
+    if(this.cursor.right.isDown){
+        if(!flipFlop){
+        this.workers.kill();
+        this.workers_spotlight.kill();
+        this.timer91230 = this.game.time.events.add(5000, this.nextState, this);
+        //this.vo2.play();    
+            flipFlop = true;
+        }
+    }
+    
+    if (this.cursor.right.isUp){
+        flipFlop = false;
+    }
+},    
+    
 nextState: function(){
     game.state.start('level10');
 },
