@@ -179,9 +179,19 @@ create: function() {
     me.totalTime = 15;
     me.timeElapsed = 0;
  
-    if(!game.device.desktop){
-        this.addMobileInputs();        
+    var speed;
+    
+    if(game.device.desktop){
+        this.addMobileInputs();  
+        this.speed = 20;
+        this.speed2 = 30;
     }
+    else if (!game.device.desktop){
+        this.speed = 7;
+        this.speed2 = 10;
+    }
+    
+
     
 },
 
@@ -375,92 +385,92 @@ killWorker5: function(worker5, worker16hole){
     },
 
 movePlayer1: function(){
-    if(this.cursor.left.isDown){
-        this.worker1.body.x -= 4;
+    if(this.cursor.left.isDown || this.moveLeft){
+        this.worker1.body.x -= this.speed;
     }
-    else if(this.cursor.right.isDown){
-        this.worker1.body.x += 4;
+    else if(this.cursor.right.isDown || this.moveRight){
+        this.worker1.body.x += this.speed;
     }
-    if(this.cursor.up.isDown){
-        this.worker1.body.y -= 4;
+    if(this.cursor.up.isDown || this.moveUp){
+        this.worker1.body.y -= this.speed;
     }
-    else if(this.cursor.down.isDown){
-        this.worker1.body.y += 4;
+    else if(this.cursor.down.isDown  || this.moveDown){
+        this.worker1.body.y += this.speed;
     }   
 },
     
 movePlayer2: function(){
 
-    if(this.cursor.left.isDown){
-        this.worker2.body.x -= 4;
+    if(this.cursor.left.isDown || this.moveLeft){
+        this.worker2.body.x -= this.speed;
     }
     
-    else if(this.cursor.right.isDown){
-        this.worker2.body.x += 4;
+    else if(this.cursor.right.isDown || this.moveRight){
+        this.worker2.body.x += this.speed;
     }
     
-    if(this.cursor.up.isDown){
-        this.worker2.body.y -= 4;
+    if(this.cursor.up.isDown || this.moveUp){
+        this.worker2.body.y -= this.speed;
     }
-    else if(this.cursor.down.isDown){
-        this.worker2.body.y += 4;
+    else if(this.cursor.down.isDown || this.moveDown){
+        this.worker2.body.y += this.speed;
     }   
 
 },
     
 movePlayer3: function(){
 
-    if(this.cursor.left.isDown){
-        this.worker3.body.x -= 10;
+    if(this.cursor.left.isDown || this.moveLeft){
+        this.worker3.body.x -= this.speed2;
     }
     
-    else if(this.cursor.right.isDown){
-        this.worker3.body.x += 10;
+    else if(this.cursor.right.isDown || this.moveRight){
+        this.worker3.body.x += this.speed2;
     }
     
-    if(this.cursor.up.isDown){
-        this.worker3.body.y -= 10;
+    if(this.cursor.up.isDown || this.moveUp){
+        this.worker3.body.y -= this.speed2;
     }
-    else if(this.cursor.down.isDown){
-        this.worker3.body.y += 10;
+    else if(this.cursor.down.isDown || this.moveDown){
+        this.worker3.body.y += this.speed2;
     }   
 
 },
     
 movePlayer4: function(){
 
-    if(this.cursor.left.isDown){
-        this.worker4.body.x -= 10;
+    if(this.cursor.left.isDown || this.moveLeft){
+        this.worker4.body.x -= this.speed2;
     }
     
-    else if(this.cursor.right.isDown){
-        this.worker4.body.x += 10;
+    else if(this.cursor.right.isDown || this.moveRight){
+        this.worker4.body.x += this.speed2;
     }
     
-    if(this.cursor.up.isDown){
-        this.worker4.body.y -= 10;
+    if(this.cursor.up.isDown || this.moveUp){
+        this.worker4.body.y -= this.speed2;
     }
-    else if(this.cursor.down.isDown){
-        this.worker4.body.y += 10;
+    else if(this.cursor.down.isDown || this.moveDown){
+        this.worker4.body.y += this.speed2;
     }   
 
 },
     
 movePlayer5: function(){
 
-    if(this.cursor.left.isDown){
-        this.worker5.body.x -= 10;
+    if(this.cursor.left.isDown  || this.moveLeft){
+        this.worker5.body.x -= this.speed2;
     }
     
-    else if(this.cursor.right.isDown){
-        this.worker5.body.x += 10;
+    else if(this.cursor.right.isDown || this.moveRight){
+        this.worker5.body.x += this.speed2;
     }
     
-    if(this.cursor.up.isDown){
-        this.worker5.body.y -= 10;
+    if(this.cursor.up.isDown || this.moveUp){
+        this.worker5.body.y -= this.speed2;
     }
-    else if(this.cursor.down.isDown){
-        this.worker5.body.y += 10;
+    else if(this.cursor.down.isDown || this.moveDown){
+        this.worker5.body.y += this.speed2;
     }   
 
 },
@@ -473,17 +483,6 @@ nextState: function(){
     game.state.start('level8');
 },
     
-//render() {
-//    this.game.debug.text(`me.timeElapse ${timeElapsed}`, 20, game.height/2, 'yellow', '60px Arial');
-//    this.game.debug.text(`me.totalTime ${totalTime}`, 20, game.height/2+100, 'yellow', '60px Arial');
-//}
-    
-//displayDebugInfo(){
-//    this.game.debug.start(400,400);
-//    this.game.debug.line(`timeElapsed: ${this.timeElapsed}`);
-//}
-
-
 addMobileInputs: function() {
         
     // Movement variables
@@ -541,7 +540,6 @@ setLeftFalse: function() {
     
 setRightTrue: function() { 
     this.moveRight = true;
-    game.state.start('level2');
 },
     
 setRightFalse: function() { 
@@ -560,8 +558,11 @@ setDownTrue: function() {
     this.moveDown = true;
 },
     
-setLeftFalse: function() { 
+setDownFalse: function() { 
     this.moveDown = false;
 },
+
+
+
     
 };

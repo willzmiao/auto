@@ -34,8 +34,8 @@ preload: function() {
         game.load.image('right', 'assets/ui/right_arrow.png');
 
     
-    game.load.image('text1', 'assets/level3/text1.png');
-    game.load.image('text2', 'assets/level3/text2.png');
+        game.load.image('text1', 'assets/level3/text1.png');
+        game.load.image('text2', 'assets/level3/text2.png');
     
     //  There are 6 frames in the PNG
         game.load.spritesheet('heart', 'assets/heart.png', 68, 62, 6);
@@ -44,11 +44,7 @@ preload: function() {
         game.load.audio('vo1','assets/level2/vo1.wav');
         game.load.audio('vo2','assets/level2/vo2.wav');
 
-//    if(game.device.desktop){
-//        this.addMobileInputs();
-//        
-//    }
-    
+ 
     },
 
 create: function() { 
@@ -124,9 +120,6 @@ create: function() {
     game.physics.arcade.enable(this.rect2);
     game.physics.arcade.enable(this.rect3);
 
-//    var label = game.add.text(game.width/4, 300,
-//    'I solve different \npuzzles daily', { font: '60px Arial', fill: 'rgba(0,0,0,0.5)'});
-
     this.worker1.body.collideWorldBounds = true;
     this.worker2.body.collideWorldBounds = true;
     this.worker3.body.collideWorldBounds = true;
@@ -134,12 +127,17 @@ create: function() {
     this.vo1 = game.add.audio('vo1');
     this.vo2 = game.add.audio('vo2');
 
-        
-    if(!game.device.desktop){
-        this.addMobileInputs();        
+    var speed;
+    
+    if(game.device.desktop){
+        this.addMobileInputs();  
+        this.speed = 20;
+    }
+    else if (!game.device.desktop){
+        this.speed = 10;
     }
         
-    },
+},
 
 update: function() {
     
@@ -224,7 +222,7 @@ killWorker3: function(worker3, worker3hole){
     //delay switching states by X time
     //this.changeTimer = this.game.time.events.add(3000, this.restartGame, this);
     
-    },
+},
     
 restartGame: function() {
     // Start the 'menu' state, which restarts the game
@@ -237,136 +235,136 @@ nextState: function(){
     
     
 movePlayer1: function(){
-    if(this.cursor.left.isDown){
-        this.worker1.body.x -= 4;
+    if(this.cursor.left.isDown || this.moveLeft){
+        this.worker1.body.x -= this.speed;
     }
-    else if(this.cursor.right.isDown){
-        this.worker1.body.x += 4;
+    else if(this.cursor.right.isDown || this.moveRight){
+        this.worker1.body.x += this.speed;
     }
-    if(this.cursor.up.isDown){
-        this.worker1.body.y -= 4;
+    if(this.cursor.up.isDown || this.moveUp){
+        this.worker1.body.y -= this.speed;
     }
-    else if(this.cursor.down.isDown){
-        this.worker1.body.y += 4;
+    else if(this.cursor.down.isDown || this.moveDown){
+        this.worker1.body.y += this.speed;
     }   
 },
     
 movePlayer2: function(){
 
-    if(this.cursor.left.isDown){
-        this.worker2.body.x -= 4;
+    if(this.cursor.left.isDown || this.moveLeft){
+        this.worker2.body.x -= this.speed;
     }
     
-    else if(this.cursor.right.isDown){
-        this.worker2.body.x += 4;
+    else if(this.cursor.right.isDown || this.moveRight){
+        this.worker2.body.x += this.speed;
     }
     
-    if(this.cursor.up.isDown){
-        this.worker2.body.y -= 4;
+    if(this.cursor.up.isDown || this.moveUp){
+        this.worker2.body.y -= this.speed;
     }
-    else if(this.cursor.down.isDown){
-        this.worker2.body.y += 4;
+    else if(this.cursor.down.isDown || this.moveDown){
+        this.worker2.body.y += this.speed;
     }   
 
 },
     
 movePlayer3: function(){
 
-    if(this.cursor.left.isDown){
-        this.worker3.body.x -= 4;
+    if(this.cursor.left.isDown || this.moveLeft){
+        this.worker3.body.x -= this.speed;
     }
     
-    else if(this.cursor.right.isDown){
-        this.worker3.body.x += 4;
+    else if(this.cursor.right.isDown || this.moveRight){
+        this.worker3.body.x += this.speed;
     }
     
-    if(this.cursor.up.isDown){
-        this.worker3.body.y -= 4;
+    if(this.cursor.up.isDown || this.moveUp){
+        this.worker3.body.y -= this.speed;
     }
-    else if(this.cursor.down.isDown){
-        this.worker3.body.y += 4;
+    else if(this.cursor.down.isDown || this.moveDown){
+        this.worker3.body.y += this.speed;
     }   
 
 },
     
-//addMobileInputs: function() {
-//        
-//    // Movement variables
-//    this.moveLeft = false; 
-//    this.moveRight = false;
-//    this.moveUp = false;
-//    this.moveDown = false;
-//        
-//    // Add the move left button
-//    var leftButton = game.add.sprite(game.width/3,game.height-175,'left'); 
-//    leftButton.inputEnabled = true;
-//    leftButton.alpha = 0.5; 
-//    //leftButton.events.onInputOver.add(this.setLeftTrue, this); 
-//    leftButton.events.onInputOut.add(this.setLeftFalse, this); 
-//    leftButton.events.onInputDown.add(this.setLeftTrue, this); 
-//    leftButton.events.onInputUp.add(this.setLeftFalse, this);
-//        
-//    // Add the move right button
-//    var rightButton = game.add.sprite(game.width*2/3,game.height-175,'right');
-//    rightButton.inputEnabled = true;
-//    rightButton.alpha = 0.5; 
-//    //rightButton.events.onInputOver.add(this.setRightTrue, this); 
-//    rightButton.events.onInputOut.add(this.setRightFalse, this); 
-//    rightButton.events.onInputDown.add(this.setRightTrue, this); 
-//    rightButton.events.onInputUp.add(this.setRightFalse, this);
-//    
-//    // Add the move up button
-//    var upButton = game.add.sprite(game.width/2,game.height-275,'up');
-//    upButton.inputEnabled = true;
-//    upButton.alpha = 0.5; 
-//    //upButton.events.onInputOver.add(this.setUpTrue, this); 
-//    upButton.events.onInputOut.add(this.setUpFalse, this); 
-//    upButton.events.onInputDown.add(this.setUpTrue, this); 
-//    upButton.events.onInputUp.add(this.setUpFalse, this);
-//    
-//    // Add the move down button
-//    var downButton = game.add.sprite(game.width/2,game.height-150,'down');
-//    downButton.inputEnabled = true;
-//    downButton.alpha = 0.5; 
-//    //downButton.events.onInputOver.add(this.setDownTrue, this); 
-//    downButton.events.onInputOut.add(this.setDownFalse, this); 
-//    downButton.events.onInputDown.add(this.setDownTrue, this); 
-//    downButton.events.onInputUp.add(this.setDownFalse, this);
-//    
-//},
-//    
-//// Basic functions that are used in our callbacks
-//setLeftTrue: function() { 
-//    this.moveLeft = true;
-//},
-//    
-//setLeftFalse: function() { 
-//    this.moveLeft = false;
-//},
-//    
-//setRightTrue: function() { 
-//    this.moveRight = true;
-//    game.state.start('level2');
-//},
-//    
-//setRightFalse: function() { 
-//    this.moveRight = false;
-//},    
-//    
-//setUpTrue: function() { 
-//    this.moveUp = true;
-//},
-//    
-//setUpFalse: function() { 
-//    this.moveUp = false;
-//},
-//    
-//setDownTrue: function() { 
-//    this.moveDown = true;
-//},
-//    
-//setLeftFalse: function() { 
-//    this.moveDown = false;
-//},
+addMobileInputs: function() {
+        
+    // Movement variables
+    this.moveLeft = false; 
+    this.moveRight = false;
+    this.moveUp = false;
+    this.moveDown = false;
+        
+    // Add the move left button
+    var leftButton = game.add.sprite(game.width/3,game.height-175,'left'); 
+    leftButton.inputEnabled = true;
+    leftButton.alpha = 0.5; 
+    //leftButton.events.onInputOver.add(this.setLeftTrue, this); 
+    leftButton.events.onInputOut.add(this.setLeftFalse, this); 
+    leftButton.events.onInputDown.add(this.setLeftTrue, this); 
+    leftButton.events.onInputUp.add(this.setLeftFalse, this);
+        
+    // Add the move right button
+    var rightButton = game.add.sprite(game.width*2/3,game.height-175,'right');
+    rightButton.inputEnabled = true;
+    rightButton.alpha = 0.5; 
+    //rightButton.events.onInputOver.add(this.setRightTrue, this); 
+    rightButton.events.onInputOut.add(this.setRightFalse, this); 
+    rightButton.events.onInputDown.add(this.setRightTrue, this); 
+    rightButton.events.onInputUp.add(this.setRightFalse, this);
+    
+    // Add the move up button
+    var upButton = game.add.sprite(game.width/2,game.height-275,'up');
+    upButton.inputEnabled = true;
+    upButton.alpha = 0.5; 
+    //upButton.events.onInputOver.add(this.setUpTrue, this); 
+    upButton.events.onInputOut.add(this.setUpFalse, this); 
+    upButton.events.onInputDown.add(this.setUpTrue, this); 
+    upButton.events.onInputUp.add(this.setUpFalse, this);
+    
+    // Add the move down button
+    var downButton = game.add.sprite(game.width/2,game.height-150,'down');
+    downButton.inputEnabled = true;
+    downButton.alpha = 0.5; 
+    //downButton.events.onInputOver.add(this.setDownTrue, this); 
+    downButton.events.onInputOut.add(this.setDownFalse, this); 
+    downButton.events.onInputDown.add(this.setDownTrue, this); 
+    downButton.events.onInputUp.add(this.setDownFalse, this);
+    
+},
+    
+// Basic functions that are used in our callbacks
+setLeftTrue: function() { 
+    this.moveLeft = true;
+},
+    
+setLeftFalse: function() { 
+    this.moveLeft = false;
+},
+    
+setRightTrue: function() { 
+    this.moveRight = true;
+},
+    
+setRightFalse: function() { 
+    this.moveRight = false;
+},    
+    
+setUpTrue: function() { 
+    this.moveUp = true;
+},
+    
+setUpFalse: function() { 
+    this.moveUp = false;
+},
+    
+setDownTrue: function() { 
+    this.moveDown = true;
+},
+    
+setDownFalse: function() { 
+    this.moveDown = false;
+},
+    
     
 };

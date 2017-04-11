@@ -38,20 +38,6 @@ var level5State = {
 
     // Display the bird at the position x=100 and y=245
     this.bird = game.add.sprite(100, 245, 'bird1');
-    //bird = this.game.add.sprite(100, 245, 'bird');
-//    var flap = bird.animations.add('flap');
-//    bird.animations.play('flap', 6, true);
-//    bird.animations.add('beats',[0,1], 6, true);
-//    bird.animations.play('beats');
-        
-        
-//    var heart = game.add.sprite(game.width/2-150, game.height/2-200, 'heart');
-//    //var beat = heart.animations.add('beat');
-//    //heart.animations.play('beat', 4, true);
-//    heart.animations.add('beats',[0,1], 6, true);
-//    heart.animations.play('beats');
-
-        
         
     this.cursor = game.input.keyboard.createCursorKeys();
 
@@ -94,10 +80,17 @@ var level5State = {
     this.text1 = game.add.sprite(game.width/2,200,'text1');
     this.text1.anchor.setTo(.5,.5);
     
-    if(!game.device.desktop){
-        this.addMobileInputs();        
+    var speed;
+    
+    if(game.device.desktop){
+        this.addMobileInputs();  
+        this.speed = 20;
     }
-        
+    else if (!game.device.desktop){
+        this.speed = 10;
+    }
+    
+
     },
     
 update: function() {
@@ -129,10 +122,10 @@ update: function() {
     
     
 movePlayer: function(){
-    if(this.cursor.up.isDown){
+    if(this.cursor.up.isDown || this.moveUp){
         this.bird.body.y -= 10;
     }
-    else if(this.cursor.down.isDown){
+    else if(this.cursor.down.isDown || this.moveDown){
         this.bird.body.y += 10;
     }  
 
@@ -320,7 +313,6 @@ setLeftFalse: function() {
     
 setRightTrue: function() { 
     this.moveRight = true;
-    game.state.start('level2');
 },
     
 setRightFalse: function() { 
@@ -339,7 +331,7 @@ setDownTrue: function() {
     this.moveDown = true;
 },
     
-setLeftFalse: function() { 
+setDownFalse: function() { 
     this.moveDown = false;
 },
     

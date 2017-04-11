@@ -77,10 +77,15 @@ create: function() {
     this.vo5 = game.add.audio('vo5');
     this.vo6 = game.add.audio('vo6');
     
-    if(!game.device.desktop){
-        this.addMobileInputs();        
+    var speed;
+    
+    if(game.device.desktop){
+        this.addMobileInputs();  
+        this.speed = 20;
     }
-
+    else if (!game.device.desktop){
+        this.speed = 10;
+    }
     
     },
     
@@ -116,7 +121,7 @@ update: function() {
 },
 
 display1: function(){
-    if(this.cursor.right.isDown){
+    if(this.cursor.right.isDown  || this.moveRight){
         if(!flipFlop){
         this.speech1.alpha = 1; 
         this.vo2.play();    
@@ -124,26 +129,26 @@ display1: function(){
         }
     }
     
-    if (this.cursor.right.isUp){
+    if (this.cursor.right.isUp || this.moveRight){
         flipFlop = false;
     }
 },
     
 display2: function(){
-    if(this.cursor.right.isDown){
+    if(this.cursor.right.isDown || this.moveRight){
         if(!flipFlop){
         this.speech2.alpha = 1; 
         this.vo1.play();
             flipFlop = true;
         }
     }
-    if (this.cursor.right.isUp){
+    if (this.cursor.right.isUp || this.moveRight){
         flipFlop = false;
     }
 },
 
 display3: function(){
-    if(this.cursor.right.isDown){
+    if(this.cursor.right.isDown || this.moveRight){
         if(!flipFlop){
         this.speech3.alpha = 1;
         this.vo4.play();
@@ -151,26 +156,26 @@ display3: function(){
             flipFlop = true;
         }
     }
-    if (this.cursor.right.isUp){
+    if (this.cursor.right.isUp || this.moveRight){
         flipFlop = false;
     }
 },
     
 display4: function(){
-    if(this.cursor.right.isDown){
+    if(this.cursor.right.isDown || this.moveRight){
         if(!flipFlop){
         this.speech4.alpha = 1;
         this.vo6.play();
             flipFlop = true;
         }
     }
-    if (this.cursor.right.isUp){
+    if (this.cursor.right.isUp || this.moveRight){
         flipFlop = false;
     }
 },
     
 display5: function(){
-    if(this.cursor.right.isDown){
+    if(this.cursor.right.isDown || this.moveRight){
         if(!flipFlop){
         this.speech5.alpha = 1;
         this.vo2.play();
@@ -179,7 +184,7 @@ display5: function(){
             flipFlop = true;
         }
     }
-    if (this.cursor.right.isUp){
+    if (this.cursor.right.isUp || this.moveRight){
         flipFlop = false;
     }
 },
@@ -210,7 +215,7 @@ addMobileInputs: function() {
     leftButton.inputEnabled = true;
     leftButton.alpha = 0.5; 
     //leftButton.events.onInputOver.add(this.setLeftTrue, this); 
-    leftButton.events.onInputOut.add(this.setLeftFalse, this); 
+    //leftButton.events.onInputOut.add(this.setLeftFalse, this); 
     leftButton.events.onInputDown.add(this.setLeftTrue, this); 
     leftButton.events.onInputUp.add(this.setLeftFalse, this);
         
@@ -218,8 +223,8 @@ addMobileInputs: function() {
     var rightButton = game.add.sprite(game.width*2/3,game.height-175,'right');
     rightButton.inputEnabled = true;
     rightButton.alpha = 0.5; 
-    //rightButton.events.onInputOver.add(this.setRightTrue, this); 
-    rightButton.events.onInputOut.add(this.setRightFalse, this); 
+//    rightButton.events.onInputOver.add(this.setRightTrue, this); 
+//    rightButton.events.onInputOut.add(this.setRightFalse, this); 
     rightButton.events.onInputDown.add(this.setRightTrue, this); 
     rightButton.events.onInputUp.add(this.setRightFalse, this);
     
@@ -227,8 +232,8 @@ addMobileInputs: function() {
     var upButton = game.add.sprite(game.width/2,game.height-275,'up');
     upButton.inputEnabled = true;
     upButton.alpha = 0.5; 
-    //upButton.events.onInputOver.add(this.setUpTrue, this); 
-    upButton.events.onInputOut.add(this.setUpFalse, this); 
+//    upButton.events.onInputOver.add(this.setUpTrue, this); 
+//    upButton.events.onInputOut.add(this.setUpFalse, this); 
     upButton.events.onInputDown.add(this.setUpTrue, this); 
     upButton.events.onInputUp.add(this.setUpFalse, this);
     
@@ -236,8 +241,8 @@ addMobileInputs: function() {
     var downButton = game.add.sprite(game.width/2,game.height-150,'down');
     downButton.inputEnabled = true;
     downButton.alpha = 0.5; 
-    //downButton.events.onInputOver.add(this.setDownTrue, this); 
-    downButton.events.onInputOut.add(this.setDownFalse, this); 
+//    downButton.events.onInputOver.add(this.setDownTrue, this); 
+//    downButton.events.onInputOut.add(this.setDownFalse, this); 
     downButton.events.onInputDown.add(this.setDownTrue, this); 
     downButton.events.onInputUp.add(this.setDownFalse, this);
     
@@ -254,7 +259,6 @@ setLeftFalse: function() {
     
 setRightTrue: function() { 
     this.moveRight = true;
-    game.state.start('level2');
 },
     
 setRightFalse: function() { 

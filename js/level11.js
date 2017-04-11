@@ -22,11 +22,17 @@ preload: function() {
         
     game.load.audio('sigh1','assets/level11/sigh1.wav');
     game.load.audio('sigh2','assets/level11/sigh2.wav');
+    
+    game.load.image('up', 'assets/ui/up_arrow.png');
+    game.load.image('down', 'assets/ui/down_arrow.png');
+    game.load.image('left', 'assets/ui/left_arrow.png');
+    game.load.image('right', 'assets/ui/right_arrow.png');
+
     },
 
 create: function() { 
     
-    game.stage.backgroundColor = '#71c5cf';
+    //game.stage.backgroundColor = '#71c5cf';
     game.add.image(0, 0, 'background');
     this.specs = game.add.sprite(0, 0, 'specs');
     
@@ -78,9 +84,9 @@ create: function() {
     game.add.tween(this.person3).to({y: this.person3.y+dist}, speed2).to({y: this.person3.y}, speed3,Phaser.Easing.Sinusoidal.InOut).loop().start();
     game.add.tween(this.specs).to({alpha: 0.2}, 5000,Phaser.Easing.Sinusoidal.InOut).loop().start();
     
-    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    this.scale.pageAlignHorizontally = true;
-    this.scale.pageAlignVertically = true;
+//    this.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
+//    this.scale.pageAlignHorizontally = true;
+//    this.scale.pageAlignVertically = true;
 
 
     // Add physics to the workers
@@ -95,12 +101,24 @@ create: function() {
     game.physics.arcade.enable(this.line);
     
     this.needle.body.collideWorldBounds = true;
-    game.add.image(0, 0, 'vignette');
-    this.vignette.alpha = 0.2;
+    //game.add.image(0, 0, 'vignette');
+    this.vignette = game.add.sprite(0, 0, 'vignette');
+    //this.vignette.alpha = 0.2;
     
     this.text1 = game.add.sprite(game.width/2, 300, 'text1');
     this.text1.anchor.set(0.5,0.5);
+    this.game.world.bringToTop(this.text1);
+    
 
+    var speeds;
+    
+    if(game.device.desktop){
+        this.addMobileInputs();  
+        this.speeds = 20;
+    }
+    else if (!game.device.desktop){
+        this.speeds = 10;
+    }
 },
 
 update: function() {
@@ -110,7 +128,7 @@ update: function() {
     var nKey = game.input.keyboard.addKey(Phaser.Keyboard.N);
     rKey.onDown.add(this.restartGame, this);
     nKey.onDown.add(this.nextState, this);
-
+    
     this.moveNeedle();
     
     game.physics.arcade.overlap(this.bubble1, this.needle, this.killBubble1, null, this);
@@ -196,26 +214,107 @@ killBubble3: function(needle, bubble3){
 
     
 moveNeedle: function(){
-    if(this.cursor.left.isDown){
-        this.needle.body.x -= 4;
+    if(this.cursor.left.isDown || this.moveLeft){
+        this.needle.body.x -= this.speeds;
     }
-    else if(this.cursor.right.isDown){
-        this.needle.body.x += 4;
+    else if(this.cursor.right.isDown || this.moveRight){
+        this.needle.body.x += this.speeds;
     }
-    if(this.cursor.up.isDown){
-        this.needle.body.y -= 4;
+    if(this.cursor.up.isDown || this.moveUp){
+        this.needle.body.y -= this.speeds;
     }
-    else if(this.cursor.down.isDown){
-        this.needle.body.y += 4;
+    else if(this.cursor.down.isDown || this.moveDown){
+        this.needle.body.y += this.speeds;
     }   
 },
 
+    
 restartGame: function(){
     game.state.start('menu');
 },
     
+    
 nextState: function(){
     game.state.start('level12');
 },
+    
+addMobileInputs: function() {
+        
+    // Movement variables
+    this.moveLeft = false; 
+    this.moveRight = false;
+    this.moveUp = false;
+    this.moveDown = false;
+        
+    // Add the move left button
+    var leftButton = game.add.sprite(game.width/3,game.height-175,'left'); 
+    leftButton.inputEnabled = true;
+    leftButton.alpha = 0.5; 
+    //leftButton.events.onInputOver.add(this.setLeftTrue, this); 
+    leftButton.events.onInputOut.add(this.setLeftFalse, this); 
+    leftButton.events.onInputDown.add(this.setLeftTrue, this); 
+    leftButton.events.onInputUp.add(this.setLeftFalse, this);
+        
+    // Add the move right button
+    var rightButton = game.add.sprite(game.width*2/3,game.height-175,'right');
+    rightButton.inputEnabled = true;
+    rightButton.alpha = 0.5; 
+    //rightButton.events.onInputOver.add(this.setRightTrue, this); 
+    rightButton.events.onInputOut.add(this.setRightFalse, this); 
+    rightButton.events.onInputDown.add(this.setRightTrue, this); 
+    rightButton.events.onInputUp.add(this.setRightFalse, this);
+    
+    // Add the move up button
+    var upButton = game.add.sprite(game.width/2,game.height-275,'up');
+    upButton.inputEnabled = true;
+    upButton.alpha = 0.5; 
+    //upButton.events.onInputOver.add(this.setUpTrue, this); 
+    upButton.events.onInputOut.add(this.setUpFalse, this); 
+    upButton.events.onInputDown.add(this.setUpTrue, this); 
+    upButton.events.onInputUp.add(this.setUpFalse, this);
+    
+    // Add the move down button
+    var downButton = game.add.sprite(game.width/2,game.height-150,'down');
+    downButton.inputEnabled = true;
+    downButton.alpha = 0.5; 
+    //downButton.events.onInputOver.add(this.setDownTrue, this); 
+    downButton.events.onInputOut.add(this.setDownFalse, this); 
+    downButton.events.onInputDown.add(this.setDownTrue, this); 
+    downButton.events.onInputUp.add(this.setDownFalse, this);
+    
+},
+    
+// Basic functions that are used in our callbacks
+setLeftTrue: function() { 
+    this.moveLeft = true;
+},
+    
+setLeftFalse: function() { 
+    this.moveLeft = false;
+},
+    
+setRightTrue: function() { 
+    this.moveRight = true;
+},
+    
+setRightFalse: function() { 
+    this.moveRight = false;
+},    
+    
+setUpTrue: function() { 
+    this.moveUp = true;
+},
+    
+setUpFalse: function() { 
+    this.moveUp = false;
+},
+    
+setDownTrue: function() { 
+    this.moveDown = true;
+},
+    
+setDownFalse: function() { 
+    this.moveDown = false;
+},    
     
 };
