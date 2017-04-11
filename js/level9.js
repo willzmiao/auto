@@ -10,6 +10,8 @@ preload: function() {
     game.load.image('workers_shadow', 'assets/level9/workers_shadow.png');
     game.load.image('light', 'assets/level9/light.png');
     game.load.image('text1', 'assets/level9/text1.png');
+    
+    game.load.audio('act2','assets/sound/act2.wav');
         
     },
 
@@ -37,6 +39,10 @@ create: function() {
     this.text1.anchor.set(0.5,0.5);
     
     this.cursor = game.input.keyboard.createCursorKeys();
+    
+    game.global.act1.stop();
+    game.global.act2 = game.add.audio('act2');
+    game.global.act2.play();
     
     },
 

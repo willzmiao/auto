@@ -10,7 +10,7 @@ preload: function() {
 
 create: function() { 
     
-    game.stage.backgroundColor = '#71c5cf';
+    game.stage.backgroundColor = '#000000';
     //game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
     //this.scale.setScreenSize(true);

@@ -19,6 +19,8 @@ preload: function() {
     game.load.image('worker6', 'assets/level14/worker6.png');
     game.load.image('worker7', 'assets/level14/worker7.png');
     game.load.image('worker8', 'assets/level14/worker8.png');
+    
+    game.load.audio('act3','assets/sound/act3.wav');
         
     game.load.image('background', 'assets/level14/background.png');
     game.load.image('header', 'assets/level14/header.png');
@@ -114,6 +116,10 @@ create: function() {
     game.physics.arcade.enable(this.conveyor_analog4);
     
     var flipFlop;
+    
+    game.global.act2.stop();
+    game.global.act3 = game.add.audio('act3');
+    game.global.act3.play();
     
     },
 

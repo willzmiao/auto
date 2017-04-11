@@ -9,6 +9,9 @@ preload: function() {
         game.load.image('text1', 'assets/level19/text1.png');
         
         game.load.spritesheet('worker_anim', 'assets/level19/worker_anim.png', 95.17, 249.5, 9);
+    
+    game.load.audio('act4','assets/sound/act4.wav');
+    
     },
 
 create: function() { 
@@ -32,6 +35,11 @@ create: function() {
     
     this.text1 = game.add.sprite(game.width/2,200, 'text1');
     this.text1.anchor.setTo(0.5,0.5);
+    
+    game.global.act3.stop();
+    game.global.act4 = game.add.audio('act4');
+    game.global.act4.play();
+    
     },
 
 update: function() {

@@ -175,7 +175,7 @@ start: function() {
 
 nextState1: function(){
     this.intro1.stop();
-    game.state.start('chooser');
+    game.state.start('level2');
 },
     
 restartGame: function() {
@@ -186,7 +186,7 @@ restartGame: function() {
     
 nextState: function(){
     this.intro1.stop();
-    game.state.start('chooser');
+    game.state.start('level2');
     
 },
 

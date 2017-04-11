@@ -51,12 +51,12 @@ create: function() {
     
     var flipFlop;
     
-    coupon1.checkWorldBounds = true;
-    coupon1.outOfBoundsKill = true;
-    spam1.checkWorldBounds = true;
-    spam1.outOfBoundsKill = true;
-    spam2.checkWorldBounds = true;
-    spam2.outOfBoundsKill = true;
+    this.coupon1.checkWorldBounds = true;
+    this.coupon1.outOfBoundsKill = true;
+    this.spam1.checkWorldBounds = true;
+    this.spam1.outOfBoundsKill = true;
+    this.spam2.checkWorldBounds = true;
+    this.spam2.outOfBoundsKill = true;
 
     
     },

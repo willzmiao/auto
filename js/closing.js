@@ -15,7 +15,7 @@ preload: function() {
 
 create: function() { 
     
-    game.stage.backgroundColor = '#71c5cf';
+    game.stage.backgroundColor = '#000000';
     
     //tell phaser which keys we want to use    
     this.cursor = game.input.keyboard.createCursorKeys();
