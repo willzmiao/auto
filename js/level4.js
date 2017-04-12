@@ -35,7 +35,7 @@ var level4State = {
     
 create: function() { 
     // Change the background color of the game to blue
-    game.stage.backgroundColor = '#71c5cf';
+    //game.stage.backgroundColor = '#71c5cf';
 
     // Set the physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -79,11 +79,11 @@ create: function() {
     
     var speed;
     
-    if(game.device.desktop){
+    if(!game.device.desktop){
         this.addMobileInputs();  
         this.speed = 20;
     }
-    else if (!game.device.desktop){
+    else if (game.device.desktop){
         this.speed = 10;
     }
     

@@ -6,7 +6,7 @@ var level5State = {
         //game.load.image('bird', 'assets/bird.png'); 
         game.load.spritesheet('heart', 'assets/heart.png', 68, 62, 6);
 		
-        game.load.image('background', 'assets/level5/background.png'); 
+        game.load.image('background9', 'assets/level5/background9.png'); 
         game.load.image('pipe', 'assets/level5/block_large.png');
         game.load.image('cloud1', 'assets/level5/cloud1.png');
         game.load.image('cloud2', 'assets/level5/cloud2.png');
@@ -30,8 +30,8 @@ var level5State = {
 
     create: function() { 
     // Change the background color of the game to blue
-    game.stage.backgroundColor = '#71c5cf';
-    game.add.image(0, 0, 'background');
+    //game.stage.backgroundColor = '#71c5cf';
+    game.add.image(0, 0, 'background9');
         
     // Set the physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -63,7 +63,6 @@ var level5State = {
     this.clouds2 = game.add.group();
     game.physics.arcade.enable(this.clouds2);
 
-
     this.oof = game.add.audio('oof1');
     this.whistle = game.add.audio('whistle');
     this.whistle.loop = true;
@@ -82,12 +81,12 @@ var level5State = {
     
     var speed;
     
-    if(game.device.desktop){
+    if(!game.device.desktop){
         this.addMobileInputs();  
-        this.speed = 20;
+        this.speed = 24;
     }
-    else if (!game.device.desktop){
-        this.speed = 10;
+    else if (game.device.desktop){
+        this.speed = 12;
     }
     
 

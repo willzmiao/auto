@@ -129,11 +129,11 @@ create: function() {
 
     var speed;
     
-    if(game.device.desktop){
+    if(!game.device.desktop){
         this.addMobileInputs();  
         this.speed = 20;
     }
-    else if (!game.device.desktop){
+    else if (game.device.desktop){
         this.speed = 10;
     }
         
@@ -174,9 +174,9 @@ killWorker1: function(worker1, worker1hole){
     this.worker1.kill();
     this.worker1hole.alpha = 1.0;
     //play animation
-    var heart = game.add.sprite(game.width/2-150, game.height/2-200, 'heart');
-    var beat = heart.animations.add('beat');
-    heart.animations.play('beat', 4, false);
+//    var heart = game.add.sprite(game.width/2-150, game.height/2-200, 'heart');
+//    var beat = heart.animations.add('beat');
+//    heart.animations.play('beat', 4, false);
     this.vo1.play();    
     },
     
@@ -185,9 +185,9 @@ killWorker2: function(worker2, worker2hole){
     this.worker2.kill();
     this.worker2hole.alpha = 1.0;
     //play animation
-    var heart = game.add.sprite(game.width/2-50, game.height/2-200, 'heart');
-    var beat = heart.animations.add('beat');
-    heart.animations.play('beat', 4, false);
+//    var heart = game.add.sprite(game.width/2-50, game.height/2-200, 'heart');
+//    var beat = heart.animations.add('beat');
+//    heart.animations.play('beat', 4, false);
     
     this.vo1.play();
     
@@ -201,9 +201,9 @@ killWorker3: function(worker3, worker3hole){
     this.worker3.kill();
     this.worker3hole.alpha = 1.0;
     //play animation
-    var heart = game.add.sprite(350, 400, 'heart');
-    var beat = heart.animations.add('beat');
-    heart.animations.play('beat', 4, false);
+//    var heart = game.add.sprite(350, 400, 'heart');
+//    var beat = heart.animations.add('beat');
+//    heart.animations.play('beat', 4, false);
     this.sparkle = game.add.sprite(0, 0, 'sparkle');
     game.add.tween(this.sparkle).to({alpha: 0}, 2000).start();
     //game.add.tween(this.sparkle).to({alpha: 100}, 2000).to({alpha: 0}, 2000).start();

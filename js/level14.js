@@ -30,11 +30,17 @@ preload: function() {
     game.load.spritesheet('conveyor_automated_left', 'assets/level14/conveyor_automated_left_sheet.png', 691, 569, 6);
     game.load.spritesheet('conveyor_automated', 'assets/level14/conveyor_automated_sheet.png', 691, 569, 6);
     
+    game.load.image('up', 'assets/ui/up_arrow.png');
+    game.load.image('down', 'assets/ui/down_arrow.png');
+    game.load.image('left', 'assets/ui/left_arrow.png');
+    game.load.image('right', 'assets/ui/right_arrow.png');
+
+    
 },
 
 create: function() { 
     
-    game.stage.backgroundColor = '#71c5cf';
+    //game.stage.backgroundColor = '#71c5cf';
     game.add.image(0, 0, 'background');
     game.add.image(0, 0, 'header');
     
@@ -121,6 +127,17 @@ create: function() {
     game.global.act3 = game.add.audio('act3');
     game.global.act3.play();
     
+    var speed;
+    
+    if(!game.device.desktop){
+        this.addMobileInputs();  
+        this.speed = 20;
+    }
+    else if (game.device.desktop){
+        this.speed = 10;
+    }
+    
+    
     },
 
 update: function() {
@@ -153,7 +170,7 @@ update: function() {
 
     
 display1: function(){
-    if(this.cursor.right.isDown){
+    if(this.cursor.right.isDown || this.moveRight){
         if(!flipFlop){
         this.conveyor_analog1.kill(); 
         var conveyor_automated1 = game.add.sprite(-100, game.height/5-200, 'conveyor_automated_left');
@@ -177,7 +194,7 @@ display1: function(){
 },
     
 display2: function(){
-    if(this.cursor.right.isDown){
+    if(this.cursor.right.isDown || this.moveRight){
         if(!flipFlop){
         this.conveyor_analog2.kill();
         var conveyor_automated2 = game.add.sprite(game.width/2, game.height*2/5-200, 'conveyor_automated');
@@ -203,7 +220,7 @@ display2: function(){
 },
 
 display3: function(){
-    if(this.cursor.right.isDown){
+    if(this.cursor.right.isDown || this.moveRight){
         if(!flipFlop){
         this.conveyor_analog3.kill();
         var conveyor_automated3 = game.add.sprite(-100, game.height*3/5-200, 'conveyor_automated_left');
@@ -229,7 +246,7 @@ display3: function(){
 },
     
 display4: function(){
-    if(this.cursor.right.isDown){
+    if(this.cursor.right.isDown || this.moveRight){
         if(!flipFlop){
         this.conveyor_analog4.kill();
         var conveyor_automated4 = game.add.sprite(game.width/2, game.height*4/5-200, 'conveyor_automated');
@@ -260,6 +277,85 @@ display4: function(){
     
 nextState: function(){
     game.state.start('level15');
+},
+    
+addMobileInputs: function() {
+        
+    // Movement variables
+    this.moveLeft = false; 
+    this.moveRight = false;
+    this.moveUp = false;
+    this.moveDown = false;
+        
+    // Add the move left button
+    var leftButton = game.add.sprite(game.width/3,game.height-175,'left'); 
+    leftButton.inputEnabled = true;
+    leftButton.alpha = 0.5; 
+    //leftButton.events.onInputOver.add(this.setLeftTrue, this); 
+    leftButton.events.onInputOut.add(this.setLeftFalse, this); 
+    leftButton.events.onInputDown.add(this.setLeftTrue, this); 
+    leftButton.events.onInputUp.add(this.setLeftFalse, this);
+        
+    // Add the move right button
+    var rightButton = game.add.sprite(game.width*2/3,game.height-175,'right');
+    rightButton.inputEnabled = true;
+    rightButton.alpha = 0.5; 
+    //rightButton.events.onInputOver.add(this.setRightTrue, this); 
+    rightButton.events.onInputOut.add(this.setRightFalse, this); 
+    rightButton.events.onInputDown.add(this.setRightTrue, this); 
+    rightButton.events.onInputUp.add(this.setRightFalse, this);
+    
+    // Add the move up button
+    var upButton = game.add.sprite(game.width/2,game.height-275,'up');
+    upButton.inputEnabled = true;
+    upButton.alpha = 0.5; 
+    //upButton.events.onInputOver.add(this.setUpTrue, this); 
+    upButton.events.onInputOut.add(this.setUpFalse, this); 
+    upButton.events.onInputDown.add(this.setUpTrue, this); 
+    upButton.events.onInputUp.add(this.setUpFalse, this);
+    
+    // Add the move down button
+    var downButton = game.add.sprite(game.width/2,game.height-150,'down');
+    downButton.inputEnabled = true;
+    downButton.alpha = 0.5; 
+    //downButton.events.onInputOver.add(this.setDownTrue, this); 
+    downButton.events.onInputOut.add(this.setDownFalse, this); 
+    downButton.events.onInputDown.add(this.setDownTrue, this); 
+    downButton.events.onInputUp.add(this.setDownFalse, this);
+    
+},
+    
+// Basic functions that are used in our callbacks
+setLeftTrue: function() { 
+    this.moveLeft = true;
+},
+    
+setLeftFalse: function() { 
+    this.moveLeft = false;
+},
+    
+setRightTrue: function() { 
+    this.moveRight = true;
+},
+    
+setRightFalse: function() { 
+    this.moveRight = false;
+},    
+    
+setUpTrue: function() { 
+    this.moveUp = true;
+},
+    
+setUpFalse: function() { 
+    this.moveUp = false;
+},
+    
+setDownTrue: function() { 
+    this.moveDown = true;
+},
+    
+setDownFalse: function() { 
+    this.moveDown = false;
 },
     
 };

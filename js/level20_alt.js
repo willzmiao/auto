@@ -22,7 +22,7 @@ var level20State = {
 
 create: function() { 
     // Change the background color of the game to blue
-    game.stage.backgroundColor = '#71c5cf';
+    //game.stage.backgroundColor = '#71c5cf';
     game.add.image(0, 0, 'background');
         
     // Set the physics system
@@ -78,13 +78,17 @@ create: function() {
     this.bird.checkWorldBounds = true;
     //bird.outOfBoundsKill = true;
     this.bird.body.collideWorldBounds = true;
-
-//        if(this.bird.events.onOutOfBounds){
-//            this.nextState();
-//        }
     
-//    this.text1 = game.add.sprite(game.width/2,200, 'text1');
-//    this.text1.anchor.setTo(0.5,0.5);
+    var speed;
+    
+    if(!game.device.desktop){
+        this.addMobileInputs();  
+        this.speed = 20;
+    }
+    else if (game.device.desktop){
+        this.speed = 10;
+    }
+
     
     },
     
@@ -115,11 +119,11 @@ update: function() {
     
     
 movePlayer: function(){
-    if(this.cursor.up.isDown){
-        this.bird.body.y -= 10;
+    if(this.cursor.up.isDown || this.moveUp){
+        this.bird.body.y -= this.speed;
     }
-    else if(this.cursor.down.isDown){
-        this.bird.body.y += 10;
+    else if(this.cursor.down.isDown || this.moveDown){
+        this.bird.body.y += this.speed;
     }  
 
 },
@@ -254,6 +258,85 @@ restartGame: function() {
 restartLevel: function() {
     // Start the 'main' state, which restarts the game
     game.state.start('level20');
+},
+    
+addMobileInputs: function() {
+        
+    // Movement variables
+    this.moveLeft = false; 
+    this.moveRight = false;
+    this.moveUp = false;
+    this.moveDown = false;
+        
+    // Add the move left button
+    var leftButton = game.add.sprite(game.width/3,game.height-175,'left'); 
+    leftButton.inputEnabled = true;
+    leftButton.alpha = 0.5; 
+    //leftButton.events.onInputOver.add(this.setLeftTrue, this); 
+    leftButton.events.onInputOut.add(this.setLeftFalse, this); 
+    leftButton.events.onInputDown.add(this.setLeftTrue, this); 
+    leftButton.events.onInputUp.add(this.setLeftFalse, this);
+        
+    // Add the move right button
+    var rightButton = game.add.sprite(game.width*2/3,game.height-175,'right');
+    rightButton.inputEnabled = true;
+    rightButton.alpha = 0.5; 
+    //rightButton.events.onInputOver.add(this.setRightTrue, this); 
+    rightButton.events.onInputOut.add(this.setRightFalse, this); 
+    rightButton.events.onInputDown.add(this.setRightTrue, this); 
+    rightButton.events.onInputUp.add(this.setRightFalse, this);
+    
+    // Add the move up button
+    var upButton = game.add.sprite(game.width/2,game.height-275,'up');
+    upButton.inputEnabled = true;
+    upButton.alpha = 0.5; 
+    //upButton.events.onInputOver.add(this.setUpTrue, this); 
+    upButton.events.onInputOut.add(this.setUpFalse, this); 
+    upButton.events.onInputDown.add(this.setUpTrue, this); 
+    upButton.events.onInputUp.add(this.setUpFalse, this);
+    
+    // Add the move down button
+    var downButton = game.add.sprite(game.width/2,game.height-150,'down');
+    downButton.inputEnabled = true;
+    downButton.alpha = 0.5; 
+    //downButton.events.onInputOver.add(this.setDownTrue, this); 
+    downButton.events.onInputOut.add(this.setDownFalse, this); 
+    downButton.events.onInputDown.add(this.setDownTrue, this); 
+    downButton.events.onInputUp.add(this.setDownFalse, this);
+    
+},
+    
+// Basic functions that are used in our callbacks
+setLeftTrue: function() { 
+    this.moveLeft = true;
+},
+    
+setLeftFalse: function() { 
+    this.moveLeft = false;
+},
+    
+setRightTrue: function() { 
+    this.moveRight = true;
+},
+    
+setRightFalse: function() { 
+    this.moveRight = false;
+},    
+    
+setUpTrue: function() { 
+    this.moveUp = true;
+},
+    
+setUpFalse: function() { 
+    this.moveUp = false;
+},
+    
+setDownTrue: function() { 
+    this.moveDown = true;
+},
+    
+setDownFalse: function() { 
+    this.moveDown = false;
 },
     
 };

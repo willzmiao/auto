@@ -13,6 +13,8 @@ var level13State = {
         
         game.load.image('wifespeech1','assets/level13/wifespeech1.png');
         
+        game.load.image('mid', 'assets/level4/mid.png');
+        
         game.load.audio('wife1','assets/level13/wife1.wav');
         game.load.audio('wife2','assets/level13/wife2.wav');
         game.load.audio('womp1','assets/level13/womp1.wav');
@@ -20,7 +22,12 @@ var level13State = {
         game.load.audio('womp3','assets/level13/womp3.wav');
         game.load.audio('womp4','assets/level13/womp4.wav');
         game.load.audio('womp5','assets/level13/womp5.wav');        
-    
+        
+        game.load.image('up', 'assets/ui/up_arrow.png');
+        game.load.image('down', 'assets/ui/down_arrow.png');
+        game.load.image('left', 'assets/ui/left_arrow.png');
+        game.load.image('right', 'assets/ui/right_arrow.png');
+
         
     },
     
@@ -28,7 +35,7 @@ var level13State = {
     
 create: function() { 
     // Change the background color of the game to blue
-    game.stage.backgroundColor = '#71c5cf';
+    //game.stage.backgroundColor = '#71c5cf';
 
     // Set the physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -41,10 +48,11 @@ create: function() {
 //    items.create(150,200,'speech2');
 //    items.create(250,50,'speech3');
           
-    var label = game.add.text(game.width/5, game.height/7,
-    'I should\'ve upgraded \nlong ago', { font: '40px Arial', fill: 'rgba(0,0,0,1)'});
+//    var label = game.add.text(game.width/5, game.height/7,
+//    'I should\'ve upgraded \nlong ago', { font: '40px Arial', fill: 'rgba(0,0,0,1)'});
     
     this.background = game.add.sprite(0, 0, 'background');
+    this.mid = game.add.sprite(0, 0, 'mid');
     this.speech1 = game.add.sprite(300, 1100, 'speech1');
     this.speech2 = game.add.sprite(350, 900, 'speech2');
     this.speech3 = game.add.sprite(400, 650, 'speech3');
@@ -70,6 +78,15 @@ create: function() {
     
     var flipFlop;
     
+    var speed;
+    
+    if(!game.device.desktop){
+        this.addMobileInputs();  
+        this.speed = 20;
+    }
+    else if (game.device.desktop){
+        this.speed = 10;
+    }
     
     },
     
@@ -110,7 +127,7 @@ wifeText: function(){
 },
     
 display1: function(){
-    if(this.cursor.right.isDown){
+    if(this.cursor.right.isDown || this.moveRight){
         if(!flipFlop){
         this.speech1.alpha = 1; 
         this.womp1.play();
@@ -126,7 +143,7 @@ display1: function(){
 },
     
 display2: function(){
-    if(this.cursor.right.isDown){
+    if(this.cursor.right.isDown || this.moveRight){
         if(!flipFlop){
         this.speech2.alpha = 1;
         this.womp2.play();
@@ -140,7 +157,7 @@ display2: function(){
 },
 
 display3: function(){
-    if(this.cursor.right.isDown){
+    if(this.cursor.right.isDown || this.moveRight){
         if(!flipFlop){
         this.speech3.alpha = 1;  
         game.world.bringToTop(this.speech3);
@@ -154,7 +171,7 @@ display3: function(){
 },
     
 display4: function(){
-    if(this.cursor.right.isDown){
+    if(this.cursor.right.isDown || this.moveRight){
         if(!flipFlop){
         this.speech4.alpha = 1; 
         game.world.bringToTop(this.speech4);
@@ -168,7 +185,7 @@ display4: function(){
 },
     
 display5: function(){
-    if(this.cursor.right.isDown){
+    if(this.cursor.right.isDown || this.moveRight){
         if(!flipFlop){
         this.speech5.alpha = 1;
         game.world.bringToTop(this.speech5);
@@ -193,6 +210,85 @@ nextState: function(){
 restartGame: function() {
     // Start the 'main' state, which restarts the game
     game.state.start('menu');
+},
+    
+addMobileInputs: function() {
+        
+    // Movement variables
+    this.moveLeft = false; 
+    this.moveRight = false;
+    this.moveUp = false;
+    this.moveDown = false;
+        
+    // Add the move left button
+    var leftButton = game.add.sprite(game.width/3,game.height-175,'left'); 
+    leftButton.inputEnabled = true;
+    leftButton.alpha = 0.5; 
+    //leftButton.events.onInputOver.add(this.setLeftTrue, this); 
+    leftButton.events.onInputOut.add(this.setLeftFalse, this); 
+    leftButton.events.onInputDown.add(this.setLeftTrue, this); 
+    leftButton.events.onInputUp.add(this.setLeftFalse, this);
+        
+    // Add the move right button
+    var rightButton = game.add.sprite(game.width*2/3,game.height-175,'right');
+    rightButton.inputEnabled = true;
+    rightButton.alpha = 0.5; 
+    //rightButton.events.onInputOver.add(this.setRightTrue, this); 
+    rightButton.events.onInputOut.add(this.setRightFalse, this); 
+    rightButton.events.onInputDown.add(this.setRightTrue, this); 
+    rightButton.events.onInputUp.add(this.setRightFalse, this);
+    
+    // Add the move up button
+    var upButton = game.add.sprite(game.width/2,game.height-275,'up');
+    upButton.inputEnabled = true;
+    upButton.alpha = 0.5; 
+    //upButton.events.onInputOver.add(this.setUpTrue, this); 
+    upButton.events.onInputOut.add(this.setUpFalse, this); 
+    upButton.events.onInputDown.add(this.setUpTrue, this); 
+    upButton.events.onInputUp.add(this.setUpFalse, this);
+    
+    // Add the move down button
+    var downButton = game.add.sprite(game.width/2,game.height-150,'down');
+    downButton.inputEnabled = true;
+    downButton.alpha = 0.5; 
+    //downButton.events.onInputOver.add(this.setDownTrue, this); 
+    downButton.events.onInputOut.add(this.setDownFalse, this); 
+    downButton.events.onInputDown.add(this.setDownTrue, this); 
+    downButton.events.onInputUp.add(this.setDownFalse, this);
+    
+},
+    
+// Basic functions that are used in our callbacks
+setLeftTrue: function() { 
+    this.moveLeft = true;
+},
+    
+setLeftFalse: function() { 
+    this.moveLeft = false;
+},
+    
+setRightTrue: function() { 
+    this.moveRight = true;
+},
+    
+setRightFalse: function() { 
+    this.moveRight = false;
+},    
+    
+setUpTrue: function() { 
+    this.moveUp = true;
+},
+    
+setUpFalse: function() { 
+    this.moveUp = false;
+},
+    
+setDownTrue: function() { 
+    this.moveDown = true;
+},
+    
+setDownFalse: function() { 
+    this.moveDown = false;
 },
     
 };

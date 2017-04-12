@@ -20,7 +20,7 @@ preload: function() {
 
 create: function() { 
     
-    game.stage.backgroundColor = '#71c5cf';
+    //game.stage.backgroundColor = '#71c5cf';
     
     this.scene = game.add.sprite(0, 0, 'scene');
     //this.scene.anchor.set(0.5,0.5);
@@ -33,11 +33,11 @@ create: function() {
     
     var speed;
     
-    if(game.device.desktop){
+    if(!game.device.desktop){
         this.addMobileInputs();  
         this.speed = 20;
     }
-    else if (!game.device.desktop){
+    else if (game.device.desktop){
         this.speed = 10;
     }
 

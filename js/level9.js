@@ -22,7 +22,7 @@ preload: function() {
 
 create: function() { 
     
-    game.stage.backgroundColor = '#71c5cf';
+    //game.stage.backgroundColor = '#71c5cf';
     game.add.image(0, 0, 'background');
     this.workers_shadow = game.add.sprite(game.width/3-50, game.height/2, 'workers_shadow');
     this.workers = game.add.sprite(game.width/3-50, game.height/2, 'workers');
@@ -52,11 +52,11 @@ create: function() {
     
     var speed;
     
-    if(game.device.desktop){
+    if(!game.device.desktop){
         this.addMobileInputs();  
         this.speed = 20;
     }
-    else if (!game.device.desktop){
+    else if (game.device.desktop){
         this.speed = 10;
     }
     },

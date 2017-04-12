@@ -169,7 +169,7 @@ start: function() {
     game.add.tween(this.title).to({x: -1000}, 2000, "Exponential").easing(Phaser.Easing.Exponential.Out).start();
     game.add.tween(this.press).to({x: -1000}, 2000, "Exponential").easing(Phaser.Easing.Exponential.Out).start();
     game.add.tween(this.intro).to({x: game.width/2}, 2000, "Exponential").easing(Phaser.Easing.Exponential.Out).start();
-    this.timer591 = this.game.time.events.add(7000, this.nextState1, this);
+    this.timer591 = this.game.time.events.add(10000, this.nextState1, this);
     //game.state.start('level1');
 }, 
 

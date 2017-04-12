@@ -112,11 +112,11 @@ create: function() {
 
     var speeds;
     
-    if(game.device.desktop){
+    if(!game.device.desktop){
         this.addMobileInputs();  
         this.speeds = 20;
     }
-    else if (!game.device.desktop){
+    else if (game.device.desktop){
         this.speeds = 10;
     }
 },

@@ -42,7 +42,7 @@ preload: function() {
 create: function() { 
     
     this.cursor = game.input.keyboard.createCursorKeys();
-    game.stage.backgroundColor = '#71c5cf';
+    //game.stage.backgroundColor = '#71c5cf';
     game.add.image(0, 0, 'background');
     //this.workers = game.add.group();
     //this.timer = game.time.events.loop(3000, this.addRowOfWorkers, this); 
@@ -181,12 +181,12 @@ create: function() {
  
     var speed;
     
-    if(game.device.desktop){
+    if(!game.device.desktop){
         this.addMobileInputs();  
         this.speed = 20;
         this.speed2 = 30;
     }
-    else if (!game.device.desktop){
+    else if (game.device.desktop){
         this.speed = 7;
         this.speed2 = 10;
     }
@@ -250,9 +250,9 @@ killWorker1: function(worker1, worker1hole){
     this.worker1.kill();
     this.worker1hole.alpha = 1.0;
     //play animation
-    var heart = game.add.sprite(game.width/2-150, game.height/2-200, 'heart');
-    var beat = heart.animations.add('beat');
-    heart.animations.play('beat', 4, false);
+//    var heart = game.add.sprite(game.width/2-150, game.height/2-200, 'heart');
+//    var beat = heart.animations.add('beat');
+//    heart.animations.play('beat', 4, false);
     
     this.affirmative1.play();
 
@@ -266,9 +266,9 @@ killWorker2: function(worker2, worker11hole){
     this.worker2.kill();
     this.worker11hole.alpha = 1.0;
     //play animation
-    var heart = game.add.sprite(game.width/2-50, game.height/2-200, 'heart');
-    var beat = heart.animations.add('beat');
-    heart.animations.play('beat', 4, false);
+//    var heart = game.add.sprite(game.width/2-50, game.height/2-200, 'heart');
+//    var beat = heart.animations.add('beat');
+//    heart.animations.play('beat', 4, false);
     
     this.affirmative1.play();
     
@@ -334,9 +334,9 @@ killWorker3: function(worker3, worker2hole){
     this.worker3.kill();
     this.worker2hole.alpha = 1.0;
     //play animation
-    var heart = game.add.sprite(game.width/2-50, game.height/2-200, 'heart');
-    var beat = heart.animations.add('beat');
-    heart.animations.play('beat', 4, false);
+//    var heart = game.add.sprite(game.width/2-50, game.height/2-200, 'heart');
+//    var beat = heart.animations.add('beat');
+//    heart.animations.play('beat', 4, false);
 
     this.nervous1.play();
     
@@ -350,9 +350,9 @@ killWorker4: function(worker4, worker12hole){
     this.worker4.kill();
     this.worker12hole.alpha = 1.0;
     //play animation
-    var heart = game.add.sprite(game.width/2-50, game.height/2-200, 'heart');
-    var beat = heart.animations.add('beat');
-    heart.animations.play('beat', 4, false);
+//    var heart = game.add.sprite(game.width/2-50, game.height/2-200, 'heart');
+//    var beat = heart.animations.add('beat');
+//    heart.animations.play('beat', 4, false);
 
     this.nervous2.play();
     //delay switching states by X time
@@ -365,9 +365,9 @@ killWorker5: function(worker5, worker16hole){
     this.worker5.kill();
     this.worker16hole.alpha = 1.0;
     //play animation
-    var heart = game.add.sprite(game.width/2-50, game.height/2-200, 'heart');
-    var beat = heart.animations.add('beat');
-    heart.animations.play('beat', 4, false);
+//    var heart = game.add.sprite(game.width/2-50, game.height/2-200, 'heart');
+//    var beat = heart.animations.add('beat');
+//    heart.animations.play('beat', 4, false);
 
     this.nervous1.play();
     

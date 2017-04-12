@@ -4,8 +4,6 @@ var level16State = {
 
 preload: function() { 
         game.load.image('robot', 'assets/robot_row.png');
-        game.load.image('stripes', 'assets/stripes.png');
-        game.load.image('metal', 'assets/metal.png');
         game.load.image('vertigo', 'assets/vertigo.png');
         game.load.image('rising-smoke', 'assets/level16/rising-smoke.png');
         game.load.image('smoke-puff', 'assets/level16/smoke-puff.png');
@@ -18,12 +16,16 @@ preload: function() {
     game.load.spritesheet('conveyor_automated_left', 'assets/level14/conveyor_automated_left_sheet.png', 691, 569, 6);
     game.load.spritesheet('conveyor_automated', 'assets/level14/conveyor_automated_sheet.png', 691, 569, 6);
 
-    
+        game.load.image('up', 'assets/ui/up_arrow.png');
+        game.load.image('down', 'assets/ui/down_arrow.png');
+        game.load.image('left', 'assets/ui/left_arrow.png');
+        game.load.image('right', 'assets/ui/right_arrow.png');
+
     },
 
 create: function() { 
     
-    game.stage.backgroundColor = '#71c5cf';
+    //game.stage.backgroundColor = '#71c5cf';
     game.add.image(0, 0, 'background');
     //tell phaser which keys we want to use    
     this.cursor = game.input.keyboard.createCursorKeys();
@@ -82,77 +84,16 @@ create: function() {
     emitter.emitX = game.width/2;
     emitter.emitY = game.height/2;
 
-    //this.timer912381 = this.game.time.events.add(2000, this.makeSmoke, this);
+
+    var speed;
     
-    //game.time.events.add(Phaser.Timer.SECOND * 4, display1, this);
-     
-//    this.startTime = new Date();
-//    this.totalTime = 30;
-//    this.timeElapsed = 0;
-//    var currentTime = new Date();
-//    var timeDifference = me.startTime.getTime() - currentTime.getTime();
-//    this.timeElapsed = Math.abs(timeDifference / 1000);
-    
-//    var filter;
-//    var sprite;
-//
-//        
-//        var fragmentSrc = [
-//
-//        "precision mediump float;",
-//
-//        "uniform float     time;",
-//        "uniform vec2      resolution;",
-//        "uniform sampler2D iChannel0;",
-//
-//        "#ifdef GL_ES",
-//        "precision highp float;",
-//        "#endif",
-//
-//        "#define PI 3.1416",
-//
-//        "void main( void ) {",
-//
-//            "//map the xy pixel co-ordinates to be between -1.0 to +1.0 on x and y axes",
-//            "//and alter the x value according to the aspect ratio so it isn't 'stretched'",
-//
-//            "vec2 p = (2.0 * gl_FragCoord.xy / resolution.xy - 1.0) * vec2(resolution.x / resolution.y, 1.0);",
-//
-//            "//now, this is the usual part that uses the formula for texture mapping a ray-",
-//            "//traced cylinder using the vector p that describes the position of the pixel",
-//            "//from the centre.",
-//
-//            "vec2 uv = vec2(atan(p.y, p.x) * 1.0/PI, 1.0 / sqrt(dot(p, p))) * vec2(2.0, 1.0);",
-//
-//            "//now this just 'warps' the texture read by altering the u coordinate depending on",
-//            "//the val of the v coordinate and the current time",
-//
-//            "uv.x += sin(2.0 * uv.y + time * 0.5);",
-//
-//            "//this divison makes the color value 'darker' into the distance, otherwise",
-//            "//everything will be a uniform brightness and no sense of depth will be present.",
-//
-//            "vec3 c = texture2D(iChannel0, uv).xyz / (uv.y * 0.5 + 1.0);",
-//
-//            "gl_FragColor = vec4(c, 1.0);",
-//
-//        "}"
-//    ];
-//
-//    //  Texture must be power-of-two sized or the filter will break
-//    sprite = game.add.sprite(0, 0, 'metal');
-//    sprite.width = 800;
-//    sprite.height = 600;
-//
-//    var customUniforms = {
-//        iChannel0: { type: 'sampler2D', value: sprite.texture, textureData: { repeat: true } }
-//    };
-//
-//    filter = new Phaser.Filter(game, customUniforms, fragmentSrc);
-//    filter.setResolution(800, 600);
-//
-//    sprite.filters = [ filter ];
-        
+    if(!game.device.desktop){
+        this.addMobileInputs();  
+        this.speed = 20;
+    }
+    else if (game.device.desktop){
+        this.speed = 10;
+    }
     
 },
 
@@ -169,7 +110,7 @@ update: function() {
 },
 
 display1: function(){
-    if(this.cursor.right.isDown){
+    if(this.cursor.right.isDown || this.moveRight){
         if(!flipFlop){
         this.curse = game.add.sprite(game.width/2, game.height-500, 'curse');
         this.curse.anchor.set(0.5,0.5);
@@ -220,4 +161,83 @@ nextState: function(){
     game.state.start('level17');
 },
 
+addMobileInputs: function() {
+        
+    // Movement variables
+    this.moveLeft = false; 
+    this.moveRight = false;
+    this.moveUp = false;
+    this.moveDown = false;
+        
+    // Add the move left button
+    var leftButton = game.add.sprite(game.width/3,game.height-175,'left'); 
+    leftButton.inputEnabled = true;
+    leftButton.alpha = 0.5; 
+    //leftButton.events.onInputOver.add(this.setLeftTrue, this); 
+    leftButton.events.onInputOut.add(this.setLeftFalse, this); 
+    leftButton.events.onInputDown.add(this.setLeftTrue, this); 
+    leftButton.events.onInputUp.add(this.setLeftFalse, this);
+        
+    // Add the move right button
+    var rightButton = game.add.sprite(game.width*2/3,game.height-175,'right');
+    rightButton.inputEnabled = true;
+    rightButton.alpha = 0.5; 
+    //rightButton.events.onInputOver.add(this.setRightTrue, this); 
+    rightButton.events.onInputOut.add(this.setRightFalse, this); 
+    rightButton.events.onInputDown.add(this.setRightTrue, this); 
+    rightButton.events.onInputUp.add(this.setRightFalse, this);
+    
+    // Add the move up button
+    var upButton = game.add.sprite(game.width/2,game.height-275,'up');
+    upButton.inputEnabled = true;
+    upButton.alpha = 0.5; 
+    //upButton.events.onInputOver.add(this.setUpTrue, this); 
+    upButton.events.onInputOut.add(this.setUpFalse, this); 
+    upButton.events.onInputDown.add(this.setUpTrue, this); 
+    upButton.events.onInputUp.add(this.setUpFalse, this);
+    
+    // Add the move down button
+    var downButton = game.add.sprite(game.width/2,game.height-150,'down');
+    downButton.inputEnabled = true;
+    downButton.alpha = 0.5; 
+    //downButton.events.onInputOver.add(this.setDownTrue, this); 
+    downButton.events.onInputOut.add(this.setDownFalse, this); 
+    downButton.events.onInputDown.add(this.setDownTrue, this); 
+    downButton.events.onInputUp.add(this.setDownFalse, this);
+    
+},
+    
+// Basic functions that are used in our callbacks
+setLeftTrue: function() { 
+    this.moveLeft = true;
+},
+    
+setLeftFalse: function() { 
+    this.moveLeft = false;
+},
+    
+setRightTrue: function() { 
+    this.moveRight = true;
+},
+    
+setRightFalse: function() { 
+    this.moveRight = false;
+},    
+    
+setUpTrue: function() { 
+    this.moveUp = true;
+},
+    
+setUpFalse: function() { 
+    this.moveUp = false;
+},
+    
+setDownTrue: function() { 
+    this.moveDown = true;
+},
+    
+setDownFalse: function() { 
+    this.moveDown = false;
+},    
+    
 };

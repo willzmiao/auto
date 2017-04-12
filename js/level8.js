@@ -2,9 +2,10 @@ var level8State = {
     
  
 preload: function() { 
-        game.load.image('newspaper', 'assets/newspaper.png');
+        game.load.image('newspaper', 'assets/level8/newspaper.png');
         game.load.image('coupon', 'assets/level8/coupon.png');
-        game.load.image('spam', 'assets/level8/spam.png');
+        game.load.image('spam', 'assets/level8/spam2.png');
+        game.load.image('spam1', 'assets/level8/spam.png');
         game.load.image('text1', 'assets/level8/text1.png');
     
         game.load.image('background', 'assets/act1bg.png');
@@ -23,15 +24,13 @@ preload: function() {
     },
 
 create: function() { 
-    
-    game.stage.backgroundColor = '#71c5cf';
-    
+        
     this.background = game.add.sprite(0, 0, 'background');
     this.cursor = game.input.keyboard.createCursorKeys();
     
-    
-    this.robot = game.add.sprite(game.width/2, game.height/2, 'newspaper');
+    this.robot = game.add.sprite(game.width/2+50, game.height/2-50, 'newspaper');
     this.robot.anchor.set(0.5,0.5);
+    this.robot.scale.set(1.2,1.2);
     
     this.coupon1 = game.add.sprite(game.width/2, game.height/2, 'coupon');
     this.coupon1.anchor.set(0.5,0.5);
@@ -39,7 +38,7 @@ create: function() {
     this.spam1 = game.add.sprite(game.width/2, game.height/2, 'spam');
     this.spam1.anchor.set(0.5,0.5);
     
-    this.spam2 = game.add.sprite(game.width/2, game.height/2+100, 'spam');
+    this.spam2 = game.add.sprite(game.width/2, game.height/2+100, 'spam1');
     this.spam2.anchor.set(0.5,0.5);
     
     game.physics.arcade.enable(this.coupon1);
@@ -56,11 +55,11 @@ create: function() {
         
     var speed;
     
-    if(game.device.desktop){
+    if(!game.device.desktop){
         this.addMobileInputs();  
         this.speed = 20;
     }
-    else if (!game.device.desktop){
+    else if (game.device.desktop){
         this.speed = 10;
     }
     
@@ -139,8 +138,9 @@ display3: function(){
         if(!flipFlop){
         var t3= this.add.tween(this.coupon1).to({x: 2000}, 500,Phaser.Easing.Sinusoidal.InOut).start();
         t3.onComplete.add(this.kill3,this);
-        var conveyor_automated1 = game.add.sprite(200, game.height/3-150, 'conveyor_automated');
+        var conveyor_automated1 = game.add.sprite(200, game.height/3+100, 'conveyor_automated');
         //this.conveyor_automated1.anchor.set(0.5,0.5);
+        //this.conveyor_automated1.scale.setTo(.8,.8);
         var beat5 = conveyor_automated1.animations.add('beat5');
         conveyor_automated1.animations.play('beat5', 6, true);
                     
