@@ -69,12 +69,12 @@ var level5State = {
     this.whistle.play();
         
     //this.timer = game.time.events.loop(3000, this.addRowOfPipes, this); 
-    this.changeTimer = this.game.time.events.add(15000, this.nextState, this);
+    this.changeTimer = this.game.time.events.add(10000, this.nextState, this);
     this.timerCloud = game.time.events.loop(2000, this.addRowOfClouds, this); 
     this.timerCloud2 = game.time.events.loop(4000, this.addRowOfClouds2, this);
     this.timer = game.time.events.loop(3000, this.addRowOfPipes, this); 
         
-    this.timerText = this.game.time.events.add(10000, this.addText, this);
+    this.timerText = this.game.time.events.add(5000, this.addText, this);
     
     this.text1 = game.add.sprite(game.width/2,200,'text1');
     this.text1.anchor.setTo(.5,.5);

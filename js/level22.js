@@ -10,7 +10,9 @@ preload: function() {
     game.load.image('down', 'assets/ui/down_arrow.png');
     game.load.image('left', 'assets/ui/left_arrow.png');
     game.load.image('right', 'assets/ui/right_arrow.png');
-
+    game.load.audio('vibrate', 'assets/level22/vibrate.wav');
+    game.load.audio('flip', 'assets/level22/flip.mp3');
+    
     game.load.spritesheet('phone_anim', 'assets/level22/closed_sheet.png', 286, 556, 5);
     game.load.image('open', 'assets/level22/open.png');
     
@@ -24,6 +26,9 @@ create: function() {
     this.cursor = game.input.keyboard.createCursorKeys();
             
     this.background = game.add.sprite(0, 0, 'background');
+    
+    this.buzz = game.add.audio('vibrate');
+    this.flip = game.add.audio('flip');
     
     this.closed = game.add.sprite(game.width/2, game.height/2, 'phone_anim');
     this.closed.anchor.set(.5,.5);
@@ -58,15 +63,24 @@ update: function() {
     if(this.moveRight){
         this.display2();
     }
+    
+    if(!game.global.act4.isPlaying){
+        game.global.act4.play();
+    }
+
 
 },
 
 vibrate: function(){
-  this.closed.animations.play('beat1', 3, true);  
+  this.closed.animations.play('beat1', 3, true);
+    this.buzz.loop = true;
+    this.buzz.play();
+    
 },
     
 display2: function(){
-    
+    this.buzz.stop();
+    this.flip.play();
     this.open = game.add.sprite(game.width/2, game.height/2-250, 'open');
     this.open.anchor.set(.5,.5);
     this.closed.kill();
@@ -85,6 +99,7 @@ restartGame: function() {
 },
 
 nextState: function(){
+    this.buzz.stop();
     game.state.start('level23');
 },
     

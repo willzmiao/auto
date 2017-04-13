@@ -25,6 +25,7 @@ create: function() {
     
     this.intro1 = game.add.audio('intro');
     this.intro1.loop = true;
+    this.intro1.volume = 0.1;
     this.intro1.play();
 
     

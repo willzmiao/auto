@@ -22,13 +22,16 @@ preload: function() {
     game.load.image('person_mid2', 'assets/level11/person_mid2.png');
     game.load.image('specs', 'assets/level11/specs.png');
     game.load.image('vignette', 'assets/level11/vignette.png');
-    
+    game.load.audio('hum','assets/level15/hum.wav');
     game.load.image('text1', 'assets/level15/text1.png');
     
     game.load.image('up', 'assets/ui/up_arrow.png');
     game.load.image('down', 'assets/ui/down_arrow.png');
     game.load.image('left', 'assets/ui/left_arrow.png');
     game.load.image('right', 'assets/ui/right_arrow.png');
+    
+    game.load.audio('womp1','assets/level13/womp1.wav');
+    game.load.audio('pop','assets/level11/pop.wav');
 
     },
 
@@ -105,6 +108,13 @@ create: function() {
     var speed6 = game.rnd.between(800, 1200);
     var dist = game.rnd.between(0, 20);
     
+    this.hum = game.add.audio('hum');
+    this.hum.loop = true;
+    this.hum.play();
+    
+    this.womp = game.add.audio('womp1');
+    this.pop = game.add.audio('pop');
+    
     game.add.tween(this.bubble1).to({y: this.bubble1.y+dist}, speed3).to({y: this.bubble1.y}, speed4,Phaser.Easing.Sinusoidal.InOut).loop().start();
     game.add.tween(this.bubble2).to({y: this.bubble2.y+dist}, speed1).to({y: this.bubble2.y}, speed2,Phaser.Easing.Sinusoidal.InOut).loop().start();
     game.add.tween(this.bubble3).to({y: this.bubble3.y+dist}, speed2).to({y: this.bubble3.y}, speed3,Phaser.Easing.Sinusoidal.InOut).loop().start();
@@ -165,6 +175,9 @@ create: function() {
         this.speed = 15;
     }
 
+    if(!this.churn.isPlaying){
+        this.churn.stop();
+    }
 
 },
 
@@ -187,6 +200,10 @@ update: function() {
     
     game.physics.arcade.overlap(this.line, this.needle, this.showSpeech1, null, this);
     
+    if(!game.global.act3.isPlaying){
+        game.global.act3.play();
+    }
+
 
 },
    
@@ -194,6 +211,7 @@ showSpeech1: function(needle, line){
     
     //this.bubble1.kill();
     this.speech1.alpha = 1.0;
+    
     //play animation
 //    var heart = game.add.sprite(550, 400, 'heart');
 //    var beat = heart.animations.add('beat');
@@ -207,9 +225,12 @@ showSpeech1: function(needle, line){
 killBubble1: function(needle, bubble1){
     
     this.bubble1.kill();
-    this.speech3.alpha = 1.0;
+    //this.speech3.alpha = 1.0;
+    this.pop.play();
     this.speech2.kill();
-
+    this.womp.volume = 2;
+    this.womp.play();
+    this.timer02290 = this.game.time.events.add(1000, this.showSpeech, this);
     game.add.tween(this.person1).to({y: 3000}, 1000, "Exponential", false, 500).to({alpha: 0}, 200).easing(Phaser.Easing.Exponential.Out).start();
     //game.add.tween(this.needle).to({y: this.needle.y-500}, 500,Phaser.Easing.Exponential.Out).start();
     //play animation
@@ -222,10 +243,16 @@ killBubble1: function(needle, bubble1){
     
     },
 
+showSpeech: function(){
+  
+    this.speech3.alpha = 1.0;
+},    
+    
 killBubble2: function(needle, bubble2){
     
     this.bubble2.kill();
     game.add.tween(this.person2).to({y: 3000}, 1000, "Exponential", false, 500).to({alpha: 0}, 200).easing(Phaser.Easing.Exponential.Out).start();
+    this.pop.play();
     //this.person2.alpha=0;
     //this.worker1hole.alpha = 1.0;
     //play animation
@@ -242,6 +269,7 @@ killBubble3: function(needle, bubble3){
     
     this.bubble3.kill();
     this.speech2.alpha = 1.0;
+    this.pop.play();
     game.add.tween(this.person3).to({y: 3000}, 1000, "Exponential", false, 500).to({alpha: 0}, 200).easing(Phaser.Easing.Exponential.Out).start();
     //this.person3.alpha=0;
     //this.worker1hole.alpha = 1.0;
@@ -259,6 +287,7 @@ killBubble4: function(needle, bubble4){
     
     this.bubble4.kill();
     //this.speech2.alpha = 1.0;
+    this.pop.play();
     game.add.tween(this.person4).to({y: 3000}, 1000, "Exponential", false, 500).to({alpha: 0}, 200).easing(Phaser.Easing.Exponential.Out).start();
     //this.person3.alpha=0;
     //this.worker1hole.alpha = 1.0;
@@ -276,6 +305,7 @@ killBubble5: function(needle, bubble5){
     
     this.bubble5.kill();
     //this.speech2.alpha = 1.0;
+    this.pop.play();
     game.add.tween(this.person5).to({y: 3000}, 1000, "Exponential", false, 500).to({alpha: 0}, 200).easing(Phaser.Easing.Exponential.Out).start();
     //this.person3.alpha=0;
     //this.worker1hole.alpha = 1.0;
@@ -293,6 +323,7 @@ killBubble6: function(needle, bubble6){
     
     this.bubble6.kill();
     //this.speech2.alpha = 1.0;
+    this.pop.play();
     game.add.tween(this.person6).to({y: 3000}, 1000, "Exponential", false, 500).to({alpha: 0}, 200).easing(Phaser.Easing.Exponential.Out).start();
     this.timer023390 = this.game.time.events.add(5000, this.nextState, this);
     //this.person3.alpha=0;
@@ -330,6 +361,7 @@ restartGame: function(){
     
 nextState: function(){
     game.state.start('level16');
+    this.hum.stop();
 },
     
 

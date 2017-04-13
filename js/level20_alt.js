@@ -15,8 +15,10 @@ var level20State = {
         game.load.spritesheet('bird', 'assets/level5/bird_sheet.png', 215, 209, 2);
         game.load.image('bubble1', 'assets/level20/bubble1.png');
         game.load.image('bubble2', 'assets/level20/bubble2.png');
+        game.load.image('bubble3', 'assets/level20/bubble3.png');
         game.load.image('text1', 'assets/level20/text1.png');
 
+        game.load.audio('sigh', 'assets/level20/sigh.png')
 		
     },
 
@@ -38,6 +40,8 @@ create: function() {
                 
     this.cursor = game.input.keyboard.createCursorKeys();
         
+    this.sigh = game.add.audio('sigh');
+    
     // Add physics to the bird
     game.physics.arcade.enable(this.bird);
     //this.bird.body.collideWorldBounds = true;
@@ -113,6 +117,9 @@ update: function() {
     this.game.world.bringToTop(this.bird);
     //this.game.world.bringToTop(this.label);
 
+    if(!game.global.act4.isPlaying){
+        game.global.act4.play();
+    }
 
     
 },
@@ -225,6 +232,7 @@ addRowOfClouds2: function() {
 addBubble1: function() {
 
     game.add.tween(this.bird.scale).to({x: .75, y: .75}, 500,Phaser.Easing.Sinusoidal.Out).start();
+    this.sigh.play();
     this.speech1 = game.add.sprite(this.bird.x, this.bird.y-100, 'bubble1');
     
 },
@@ -232,7 +240,8 @@ addBubble1: function() {
 addBubble2: function() {
 
     game.add.tween(this.bird.scale).to({x: .5, y: .5}, 500,Phaser.Easing.Sinusoidal.Out).start();
-    this.speech2 = game.add.sprite(this.bird.x, this.bird.y-100, 'bubble1');
+    this.speech2 = game.add.sprite(this.bird.x+100, this.bird.y-100, 'bubble2');
+    this.sigh.play();
     //this.bird.body.gravity.y = 100;  
     game.add.tween(this.bird).to({y: this.bird.y+100}, 100).easing(Phaser.Easing.Exponential.In).start();
 },
@@ -240,7 +249,8 @@ addBubble2: function() {
 addBubble3: function() {
 
     game.add.tween(this.bird.scale).to({x: .3, y: .3}, 500,Phaser.Easing.Sinusoidal.Out).start();
-    this.speech3 = game.add.sprite(this.bird.x, this.bird.y-100, 'bubble1');
+    this.speech3 = game.add.sprite(this.bird.x+150, this.bird.y-100, 'bubble3');
+    this.sigh.play();
     this.bird.body.gravity.y = 100;
     
 },

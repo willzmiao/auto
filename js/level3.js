@@ -208,9 +208,9 @@ killWorker3: function(worker3, worker3hole){
     game.add.tween(this.sparkle).to({alpha: 0}, 2000).start();
     //game.add.tween(this.sparkle).to({alpha: 100}, 2000).to({alpha: 0}, 2000).start();
     
-    this.text2 = game.add.sprite(game.width/2,game.height-200,'text2');
-    this.text2.anchor.setTo(.5,.5);
-    
+//    this.text2 = game.add.sprite(game.width/2,game.height-200,'text2');
+//    this.text2.anchor.setTo(.5,.5);
+//    
 //    var label = game.add.text(game.width/5, game.height-300,
 //            'My workers love me for \nassigning them to the jobs that they like.', { font: '60px Arial', fill: 'rgba(0,0,0,0.5)'});
     

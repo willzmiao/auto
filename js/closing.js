@@ -13,7 +13,7 @@ preload: function() {
         
     game.load.spritesheet('robot_anim', 'assets/level25/robot.png', 1080, 765, 4);
     
-    game.load.audio('exit','assets/sound/exit.wav');
+    //game.load.audio('exit','assets/sound/exit.wav');
     },
 
 create: function() { 
@@ -29,10 +29,6 @@ create: function() {
     //this.heart.anchor(0,1);
     var beat = heart.animations.add('beat');
     heart.animations.play('beat', 2, true);
-
-    game.global.act4.stop();
-    game.global.act5 = game.add.audio('exit');
-    game.global.act5.play();
 
     this.timer98501 = game.time.events.loop(1800, this.blowBubbles, this); 
     //this.timer48501 = game.time.events.loop(100, this.moveCamera, this); 
@@ -82,8 +78,8 @@ restartGame: function() {
 },
 
 nextState: function(){
-    game.state.start('menu');
     game.global.act5.stop();
+    game.state.start('menu');
 },
     
 fade: function() {

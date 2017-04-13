@@ -20,6 +20,9 @@ preload: function() {
         game.load.image('down', 'assets/ui/down_arrow.png');
         game.load.image('left', 'assets/ui/left_arrow.png');
         game.load.image('right', 'assets/ui/right_arrow.png');
+    
+    game.load.audio('growl','assets/level16/growl.wav');
+    game.load.audio('churn','assets/level12/churn.wav');
 
     },
 
@@ -32,33 +35,28 @@ create: function() {
 
     this.text1 = game.add.sprite(game.width/2, 200, 'text1');
     this.text1.anchor.setTo(0.5,0.5);
+    this.growl = game.add.audio('growl');
+    this.churn = game.add.audio('churn');
     
-    //
-//    var label = game.add.text(game.width/6, game.height/10-150,
-//            'If these machines break, I\'ll be screwed', { font: '60px Arial', fill: '#ffffff', wordWrap: true, wordWrapWidth: game.width-300});
-//     
-//    this.robot1 = game.add.sprite(game.width/5, 300, 'robot');
-//    this.robot2 = game.add.sprite(game.width/5+200, 300, 'robot');
-//    this.robot3 = game.add.sprite(game.width/5+400, 300, 'robot');
-//    this.vertigo = game.add.sprite(game.width/2, game.height/2, 'vertigo');
-//    this.vertigo.scale.setTo(4, 4);
-//    this.vertigo.anchor.set(0.5,0.5);
-     
-        var conveyor_automated1 = game.add.sprite(-100, game.height/5-200, 'conveyor_automated_left');
-        var beat5 = conveyor_automated1.animations.add('beat5');
-        conveyor_automated1.animations.play('beat5', 6, true);
+    this.churn.loop = true;
+    this.churn.play();
 
-        var conveyor_automated2 = game.add.sprite(game.width/2, game.height*2/5-200, 'conveyor_automated');
-        var beat6 = conveyor_automated2.animations.add('beat6');
-        conveyor_automated2.animations.play('beat6', 6, true);
 
-        var conveyor_automated3 = game.add.sprite(-100, game.height*3/5-200, 'conveyor_automated_left');
-        var beat7 = conveyor_automated3.animations.add('beat7');
-        conveyor_automated3.animations.play('beat7', 6, true);
+    var conveyor_automated1 = game.add.sprite(-100, game.height/5-200, 'conveyor_automated_left');
+    var beat5 = conveyor_automated1.animations.add('beat5');
+    conveyor_automated1.animations.play('beat5', 6, true);
 
-        var conveyor_automated4 = game.add.sprite(game.width/2, game.height*4/5-200, 'conveyor_automated');
-        var beat8 = conveyor_automated4.animations.add('beat8');
-        conveyor_automated4.animations.play('beat8', 6, true);
+    var conveyor_automated2 = game.add.sprite(game.width/2, game.height*2/5-200, 'conveyor_automated');
+    var beat6 = conveyor_automated2.animations.add('beat6');
+    conveyor_automated2.animations.play('beat6', 6, true);
+
+    var conveyor_automated3 = game.add.sprite(-100, game.height*3/5-200, 'conveyor_automated_left');
+    var beat7 = conveyor_automated3.animations.add('beat7');
+    conveyor_automated3.animations.play('beat7', 6, true);
+
+    var conveyor_automated4 = game.add.sprite(game.width/2, game.height*4/5-200, 'conveyor_automated');
+    var beat8 = conveyor_automated4.animations.add('beat8');
+    conveyor_automated4.animations.play('beat8', 6, true);
 
     this.game.world.bringToTop(this.text1);
     
@@ -107,6 +105,11 @@ update: function() {
 
     this.display1();
     //filter.update();
+    
+    if(!game.global.act3.isPlaying){
+        game.global.act3.play();
+    }
+
 },
 
 display1: function(){
@@ -115,6 +118,7 @@ display1: function(){
         this.curse = game.add.sprite(game.width/2, game.height-500, 'curse');
         this.curse.anchor.set(0.5,0.5);
         this.changeTimer = this.game.time.events.add(5000, this.nextState, this);
+        this.growl.play();
         //this.shake();
         //this.camera.shake(0.05, 500);
         //this.game.camera.shake(0.02, 300);
@@ -158,7 +162,9 @@ restartGame: function() {
 },
 
 nextState: function(){
+    this.churn.stop();
     game.state.start('level17');
+    
 },
 
 addMobileInputs: function() {

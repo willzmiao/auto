@@ -23,6 +23,8 @@ preload: function() {
     game.load.audio('sigh1','assets/level11/sigh1.wav');
     game.load.audio('sigh2','assets/level11/sigh2.wav');
     
+    game.load.audio('pop','assets/level11/pop.wav');
+    
     game.load.image('up', 'assets/ui/up_arrow.png');
     game.load.image('down', 'assets/ui/down_arrow.png');
     game.load.image('left', 'assets/ui/left_arrow.png');
@@ -59,9 +61,13 @@ create: function() {
     this.needle = game.add.sprite(game.width/5, game.height*5/6, 'needle');
     this.line = game.add.sprite(0, game.height*4/5, 'line');
     
-    this.speech1 = game.add.sprite(game.width/3, game.height*2/3, 'speech1');
-    this.speech2 = game.add.sprite(-50, game.height/2-200, 'speech2');
-    this.speech3 = game.add.sprite(game.width/3, game.height*2/3, 'speech3');
+    this.speech1 = game.add.sprite(game.width/3, game.height*2/3+200, 'speech1');
+    this.speech2 = game.add.sprite(400, game.height/2-200, 'speech2');
+    this.speech3 = game.add.sprite(game.width/3, game.height*2/3+200, 'speech3');
+    
+    this.speech1.scale.set(1.5,1.5);
+    this.speech2.scale.set(1.5,1.5);
+    this.speech3.scale.set(1.5,1.5);
     
     this.speech1.alpha = 0;
     this.speech2.alpha = 0;
@@ -88,6 +94,7 @@ create: function() {
 //    this.scale.pageAlignHorizontally = true;
 //    this.scale.pageAlignVertically = true;
 
+    this.pop = game.add.audio('pop');
 
     // Add physics to the workers
     game.physics.arcade.enable(this.bubble1);
@@ -109,7 +116,6 @@ create: function() {
     this.text1.anchor.set(0.5,0.5);
     this.game.world.bringToTop(this.text1);
     
-
     var speeds;
     
     if(!game.device.desktop){
@@ -136,7 +142,11 @@ update: function() {
     game.physics.arcade.overlap(this.bubble3, this.needle, this.killBubble3, null, this);
     game.physics.arcade.overlap(this.line, this.needle, this.showSpeech1, null, this);
     
+    if(!game.global.act2.isPlaying){
+        game.global.act2.play();
+    }
 
+    
 },
    
 showSpeech1: function(needle, line){
@@ -161,6 +171,7 @@ killBubble1: function(needle, bubble1){
     this.speech3.alpha = 1.0;
     this.speech2.kill();
     this.sigh1.play();
+    this.pop.play();
 
     game.add.tween(this.person1).to({y: 3000}, 1000, "Exponential", false, 500).to({alpha: 0}, 200).easing(Phaser.Easing.Exponential.Out).start();
     //game.add.tween(this.needle).to({y: this.needle.y-500}, 500,Phaser.Easing.Exponential.Out).start();
@@ -182,6 +193,7 @@ killBubble2: function(needle, bubble2){
     game.add.tween(this.needle).to({y: this.needle.y+300}, 200).easing(Phaser.Easing.Exponential.In).start();
     this.changeTimer = this.game.time.events.add(4000, this.nextState, this);
     this.sigh1.play();
+    this.pop.play();
     
     //play animation
 //    var heart = game.add.sprite(550, 400, 'heart');
@@ -197,9 +209,11 @@ killBubble3: function(needle, bubble3){
     
     this.bubble3.kill();
     this.speech2.alpha = 1.0;
+    game.add.tween(this.speech1).to({alpha: 0}, 1000).easing(Phaser.Easing.Exponential.Out).start();
     game.add.tween(this.person3).to({y: 3000}, 1000, "Exponential", false, 500).to({alpha: 0}, 200).easing(Phaser.Easing.Exponential.Out).start();
     game.add.tween(this.needle).to({y: this.needle.y+300}, 200).easing(Phaser.Easing.Exponential.In).start();
     this.sigh1.play();
+    this.pop.play();
     
     //play animation
 //    var heart = game.add.sprite(550, 400, 'heart');

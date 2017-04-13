@@ -17,6 +17,10 @@ preload: function() {
         game.load.image('down', 'assets/ui/down_arrow.png');
         game.load.image('left', 'assets/ui/left_arrow.png');
         game.load.image('right', 'assets/ui/right_arrow.png');
+    
+    game.load.audio('uhhleft','assets/level17/uhhh_left.wav');
+    game.load.audio('uhhright','assets/level17/uhhh_right.wav');
+    game.load.audio('door','assets/level17/door.wav');
 
     
     },
@@ -31,6 +35,10 @@ create: function() {
         
 //    this.doors_open = game.add.sprite(game.width/2, game.height/2, 'doors_open');
 //    this.doors_open.anchor.setTo(0.5, 0);
+    
+    this.uhhleft = game.add.audio('uhhleft');
+    this.uhhright = game.add.audio('uhhright');
+    this.door = game.add.audio('door');
     
     this.leftdoor_open = game.add.sprite(game.width/2-200, game.height/3+25, 'leftopen');
     this.leftdoor_open.anchor.setTo(0.5, 0);
@@ -67,6 +75,11 @@ update: function() {
     var nKey = game.input.keyboard.addKey(Phaser.Keyboard.N);
     rKey.onDown.add(this.restartGame, this);
     nKey.onDown.add(this.nextState, this);
+    
+        if(!game.global.act3.isPlaying){
+        game.global.act3.play();
+    }
+
 
 },
 
@@ -76,6 +89,7 @@ selectPill: function(){
     if(this.cursor.right.isDown || this.moveRight){
         this.dollar = game.add.sprite(game.width/2+300, game.height/2, 'dollar');
         game.add.tween(this.dollar).to({y: game.height/2 +300}, 500).to({alpha: 0}, 1000,Phaser.Easing.Sinusoidal.Out).start();
+        this.uhhright.play();
         this.timer92840 = this.game.time.events.add(3000, this.nextState, this);
     }
     else if(this.cursor.left.isDown || this.moveLeft){
@@ -83,6 +97,8 @@ selectPill: function(){
 //        this.leftdoor_closed = game.add.sprite(game.width/2-200, game.height/3+25, 'leftclosed');
 //        this.leftdoor_closed.anchor.setTo(0.5, 0);
         this.leftdoor_closed.alpha = 1;
+        this.uhhleft.play();
+        this.door.play();
         this.stopsign = game.add.sprite(game.width/2-350, game.height/2-200, 'stopsign');
         
     }

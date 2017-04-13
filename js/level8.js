@@ -87,6 +87,10 @@ update: function() {
         this.display3();
     }
     
+    if(!game.global.act1.isPlaying){
+        game.global.act1.play();
+    }
+    
 },
     
 

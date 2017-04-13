@@ -9,27 +9,34 @@ preload: function() {
         game.load.image('speech_left', 'assets/level17/speech_left.png');
         game.load.image('speech_right', 'assets/level17/speech_right.png');
         game.load.image('dollar', 'assets/level17/dollar.png');
-    game.load.image('background', 'assets/level24/background.png');
-    game.load.image('speech1', 'assets/level24/speech1.png');
-    game.load.image('speech2', 'assets/level24/speech2.png');
-    game.load.image('text1', 'assets/level24/text1.png');
+        game.load.image('background', 'assets/level24/background.png');
+        game.load.image('speech1', 'assets/level24/speech1.png');
+        game.load.image('speech2', 'assets/level24/speech2.png');
+        game.load.image('speech3', 'assets/level24/speech3.png');
+        game.load.image('text1', 'assets/level24/text1.png');
+        game.load.image('finalspeech', 'assets/level24/finalspeech.png');
+        game.load.image('black', 'assets/level24/black.png');
     
         game.load.image('up', 'assets/ui/up_arrow.png');
         game.load.image('down', 'assets/ui/down_arrow.png');
         game.load.image('left', 'assets/ui/left_arrow.png');
         game.load.image('right', 'assets/ui/right_arrow.png');
 
-        
+        game.load.audio('exit','assets/sound/exit.wav');
     },
 
 create: function() { 
         
     this.background = game.add.sprite(0,0, 'background');
-    this.speech1 = game.add.sprite(300,1000, 'speech1');
-    this.speech2 = game.add.sprite(400,700, 'speech2');
-//    this.text1 = game.add.sprite(game.width/2,game.height-200, 'text1');
-//    this.text1.anchor.setTo(0.5,0.5);
+    this.speech1 = game.add.sprite(400,1200, 'speech1');
+    this.speech2 = game.add.sprite(500,900, 'speech2');
+    this.speech3 = game.add.sprite(150,1050, 'speech3');
     
+    this.black = game.add.sprite(0,0, 'black');
+    
+    //this.finalspeech.alpha = 0;
+    this.black.alpha = 0;
+    this.speech3.alpha = 0;
     this.speech2.alpha = 0;
     this.speech1.alpha = 0;
     
@@ -39,6 +46,12 @@ create: function() {
 //    var label = game.add.text(game.width/5, 350,
 //            'Jim is still jobless', { font: '60px Arial', fill: 'rgba(0,0,0,0.5)'});
     
+    
+    game.global.act4.stop();
+    game.global.act5 = game.add.audio('exit');
+    game.global.act5.volume = 0.5;
+    game.global.act5.play();
+
     
     var speed;
     
@@ -66,8 +79,17 @@ update: function() {
         this.display1();
     }
     
-    else if(this.speech2.alpha === 0){
+    else if(this.speech3.alpha === 0){
         this.display2();
+    }
+    
+    else if(this.speech2.alpha === 0){
+        this.display3();
+    }
+
+    
+    if(!game.global.act5.isPlaying){
+        game.global.act5.play();
     }
 
     
@@ -89,13 +111,13 @@ display1: function(){
     }
 },
 
+    
 display2: function(){
     if(this.cursor.right.isDown || this.moveRight){
         if(!flipFlop){
-        this.speech2.alpha = 1; 
+        this.speech3.alpha = 1; 
         //this.womp1.play();
-        game.world.bringToTop(this.speech2);
-        this.timer88882 = this.game.time.events.add(7000, this.nextState, this);
+        game.world.bringToTop(this.speech3);
         //game.add.tween(this.wifeText).to({alpha: 0}, 2000).easing(Phaser.Easing.Exponential.Out).start();
             flipFlop = true;
         }
@@ -107,6 +129,32 @@ display2: function(){
 },
     
 
+display3: function(){
+    if(this.cursor.right.isDown || this.moveRight){
+        if(!flipFlop){
+        this.speech2.alpha = 1; 
+        //this.womp1.play();
+        game.world.bringToTop(this.speech2);
+        this.timer2882 = this.game.time.events.add(10000, this.nextState, this);
+        
+//        game.add.tween(this.speech1).to({alpha: 0}, 5000).easing(Phaser.Easing.Exponential.Out).start();    
+//        game.add.tween(this.speech2).to({alpha: 0}, 5000).easing(Phaser.Easing.Exponential.Out).start();    
+//        game.add.tween(this.speech3).to({alpha: 0}, 5000).easing(Phaser.Easing.Exponential.Out).start();    
+//        
+        game.add.tween(this.speech1).to({alpha: 0}, 3000,Phaser.Easing.Exponential.Out,false,3000).start(); 
+        game.add.tween(this.speech2).to({alpha: 0}, 3000,Phaser.Easing.Exponential.Out,false,3000).start(); 
+        game.add.tween(this.speech3).to({alpha: 0}, 3000,Phaser.Easing.Exponential.Out,false,3000).start(); 
+            
+        this.timer4121 = game.time.events.add(5000, this.fade, this);     
+        //game.add.tween(this.wifeText).to({alpha: 0}, 2000).easing(Phaser.Easing.Exponential.Out).start();
+            flipFlop = true;
+        }
+    }
+    
+    if (this.cursor.right.isUp){
+        flipFlop = false;
+    }
+},
     
 restartGame: function() {
     // Start the 'menu' state, which restarts the game
@@ -114,8 +162,30 @@ restartGame: function() {
 },
 
 nextState: function(){
-    game.state.start('closing');
+    game.state.start('level25');
 },
+    
+    
+fade: function() {
+
+    //  You can set your own fade color and duration
+    game.camera.fade(0x000000, 4000);
+    this.timer98501 = game.time.events.add(5000, this.moveUps, this); 
+    //game.add.tween(this.black).to({alpha: 100}, 3000,Phaser.Easing.Exponential.Out,false,3000).start();    
+},
+    
+    
+    
+moveUps: function(){
+    
+    this.finalspeech = game.add.sprite(game.width/2,game.height, 'finalspeech');
+    this.finalspeech.anchor.set(.5,.5);
+    this.finalspeech.alpha=0;
+    game.add.tween(this.finalspeech).to({alpha: 100},1000,Phaser.Easing.Linear.InOut).start();  
+    
+},
+
+
     
 addMobileInputs: function() {
         

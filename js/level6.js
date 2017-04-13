@@ -243,6 +243,10 @@ update: function() {
         this.changeTimer = this.game.time.events.add(5000, this.nextState, this);
 
     }
+    
+    if(!game.global.act1.isPlaying){
+        game.global.act1.play();
+    }
 },
     
 killWorker1: function(worker1, worker1hole){

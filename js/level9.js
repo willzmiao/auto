@@ -12,12 +12,12 @@ preload: function() {
     game.load.image('text1', 'assets/level9/text1.png');
     
     game.load.audio('act2','assets/sound/act2.wav');
+    game.load.audio('lights','assets/level9/lights.wav');
     game.load.image('up', 'assets/ui/up_arrow.png');
     game.load.image('down', 'assets/ui/down_arrow.png');
     game.load.image('left', 'assets/ui/left_arrow.png');
     game.load.image('right', 'assets/ui/right_arrow.png');
 
-    
     },
 
 create: function() { 
@@ -47,8 +47,11 @@ create: function() {
     
     game.global.act1.stop();
     game.global.act2 = game.add.audio('act2');
+    game.global.act2.volume = 0.2;
     game.global.act2.play();
     
+    this.lights = game.add.audio('lights');
+    this.lights.volume = 0.7;
     
     var speed;
     
@@ -88,7 +91,8 @@ display1: function(){
         game.add.tween(this.light).to({alpha: .9}, 700).to({alpha: 0}, 700,Phaser.Easing.Bounce.InOut).loop().start();    
         game.add.tween(this.workers_spotlight).to({alpha: 0}, 2000).easing(Phaser.Easing.Exponential.Out).start();
         game.add.tween(this.workers).to({alpha: 0}, 2000).easing(Phaser.Easing.Exponential.Out).start();
-        
+        this.lights.play();
+            
         //this.timer913929 = this.game.time.events.add(2000, this.killWorkers, this);    
         this.timer91230 = this.game.time.events.add(5000, this.nextState, this);
         //this.vo2.play();    

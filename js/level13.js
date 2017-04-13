@@ -13,7 +13,8 @@ var level13State = {
         
         game.load.image('wifespeech1','assets/level13/wifespeech1.png');
         
-        game.load.image('mid', 'assets/level4/mid.png');
+        game.load.image('beginning', 'assets/level13/beginning.png');
+        game.load.image('mid', 'assets/level13/middle.png');
         
         game.load.audio('wife1','assets/level13/wife1.wav');
         game.load.audio('wife2','assets/level13/wife2.wav');
@@ -52,12 +53,14 @@ create: function() {
 //    'I should\'ve upgraded \nlong ago', { font: '40px Arial', fill: 'rgba(0,0,0,1)'});
     
     this.background = game.add.sprite(0, 0, 'background');
-    this.mid = game.add.sprite(0, 0, 'mid');
-    this.speech1 = game.add.sprite(300, 1100, 'speech1');
-    this.speech2 = game.add.sprite(350, 900, 'speech2');
-    this.speech3 = game.add.sprite(400, 650, 'speech3');
-    this.speech4 = game.add.sprite(350, 450, 'speech4');
-    this.speech5 = game.add.sprite(400, 250, 'speech5');
+    this.beginning = game.add.sprite(0, 0, 'beginning');
+    
+    this.speech1 = game.add.sprite(450, 1500, 'speech1');
+    this.speech2 = game.add.sprite(500, 1400, 'speech2');
+    this.speech3 = game.add.sprite(550, 1300, 'speech3');
+    this.speech4 = game.add.sprite(600, 1200, 'speech4');
+    this.speech5 = game.add.sprite(650, 1100, 'speech5');
+
     
     //game.physics.arcade.enable(this.speech1);
     this.speech1.alpha = 0;
@@ -74,7 +77,7 @@ create: function() {
     this.wife1 = game.add.audio('wife2');
     this.wife2 = game.add.audio('wife2');
     
-    this.timer39 = this.game.time.events.add(1000, this.wifeText, this);
+    this.timer39 = this.game.time.events.add(400, this.wifeText, this);
     
     var flipFlop;
     
@@ -119,6 +122,11 @@ update: function() {
     else if(this.speech5.alpha === 0){
         this.display5();
     }
+    
+    if(!game.global.act2.isPlaying){
+        game.global.act2.play();
+    }
+
 },
 
 wifeText: function(){
@@ -161,6 +169,10 @@ display3: function(){
         if(!flipFlop){
         this.speech3.alpha = 1;  
         game.world.bringToTop(this.speech3);
+        this.beginning.kill();
+        this.mid = game.add.sprite(0, 0, 'mid');
+        game.world.sendToBack(this.mid);
+        
         this.womp3.play();
             flipFlop = true;
         }

@@ -8,6 +8,7 @@ var level4State = {
         game.load.image('speech3', 'assets/level4/speech3.png');
         game.load.image('speech4', 'assets/level4/speech4.png');
         game.load.image('speech5', 'assets/level4/speech5.png');
+        game.load.image('wifespeech', 'assets/level4/wifespeech.png');
         
         game.load.image('start', 'assets/level4/start.png');
         game.load.image('mid', 'assets/level4/mid.png');
@@ -22,6 +23,7 @@ var level4State = {
         game.load.audio('vo4','assets/level4/vo4.wav');
         game.load.audio('vo5','assets/level4/vo5.wav');
         game.load.audio('vo6','assets/level4/vo6.wav');
+        game.load.audio('snore','assets/level4/snore.wav');
         
         game.load.image('up', 'assets/ui/up_arrow.png');
         game.load.image('down', 'assets/ui/down_arrow.png');
@@ -40,12 +42,19 @@ create: function() {
     // Set the physics system
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
+    this.timer3119 = this.game.time.events.add(400, this.wifeText, this);
 
+    
     this.cursor = game.input.keyboard.createCursorKeys();
         
-    this.end = game.add.sprite(0, 0, 'end');
-    this.mid = game.add.sprite(0, 0, 'mid');
-    this.start = game.add.sprite(0, 0, 'start');
+    this.end = game.add.sprite(-300, -600, 'end');
+    this.mid = game.add.sprite(-300, -600, 'mid');
+    this.start = game.add.sprite(-300, -600, 'start');
+    
+    this.end.scale.set(2,2);
+    this.mid.scale.set(2,2);
+    this.start.scale.set(2,2);
+    
     
 //    items = game.add.group();
 //    items.create(100,400,'speech1');
@@ -55,11 +64,11 @@ create: function() {
 //    var label = game.add.text(game.width/5, game.height/7,
 //    'My work excites me.', { font: '40px Arial', fill: 'rgba(0,0,0,1)'});
     
-    this.speech1 = game.add.sprite(300, 1500, 'speech1');
-    this.speech2 = game.add.sprite(350, 1300, 'speech2');
-    this.speech3 = game.add.sprite(400, 1050, 'speech3');
-    this.speech4 = game.add.sprite(500, 600, 'speech4');
-    this.speech5 = game.add.sprite(450, 400, 'speech5');
+    this.speech1 = game.add.sprite(450, 1500, 'speech1');
+    this.speech2 = game.add.sprite(500, 1400, 'speech2');
+    this.speech3 = game.add.sprite(550, 1300, 'speech3');
+    this.speech4 = game.add.sprite(600, 1200, 'speech4');
+    this.speech5 = game.add.sprite(650, 1100, 'speech5');
     
     //game.physics.arcade.enable(this.speech1);
     this.speech1.alpha = 0;
@@ -76,6 +85,7 @@ create: function() {
     this.vo4 = game.add.audio('vo4');
     this.vo5 = game.add.audio('vo5');
     this.vo6 = game.add.audio('vo6');
+    this.snore = game.add.audio('snore');
     
     var speed;
     
@@ -124,6 +134,7 @@ display1: function(){
     if(this.cursor.right.isDown  || this.moveRight){
         if(!flipFlop){
         this.speech1.alpha = 1; 
+        game.add.tween(this.wifeText).to({alpha: 0}, 2000).easing(Phaser.Easing.Exponential.Out).start();
         this.vo2.play();    
             flipFlop = true;
         }
@@ -180,6 +191,7 @@ display5: function(){
         this.speech5.alpha = 1;
         this.vo2.play();
         game.add.tween(this.mid).to({alpha: 0}, 1000).easing(Phaser.Easing.Exponential.Out).start();
+        this.snore.play();
         this.timer5313 = this.game.time.events.add(7000, this.nextState, this);
             flipFlop = true;
         }
@@ -193,6 +205,7 @@ display5: function(){
 
 
 nextState: function(){
+    this.snore.stop();
     game.state.start('level5');
 },
     
@@ -201,6 +214,10 @@ restartGame: function() {
     // Start the 'main' state, which restarts the game
     game.state.start('menu');
 },
+
+wifeText: function() {
+    this.wifeText = game.add.sprite(100, 1000, 'wifespeech');
+},    
     
 addMobileInputs: function() {
         

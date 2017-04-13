@@ -11,12 +11,13 @@ preload: function() {
         game.load.spritesheet('worker_anim', 'assets/level19/worker_anim.png', 95.17, 249.5, 9);
     
     game.load.audio('act4','assets/sound/act4.wav');
+    game.load.audio('grunt1','assets/level19/grunt1.wav');
+    game.load.audio('grunt3','assets/level19/grunt3.wav');
     
         game.load.image('up', 'assets/ui/up_arrow.png');
         game.load.image('down', 'assets/ui/down_arrow.png');
         game.load.image('left', 'assets/ui/left_arrow.png');
         game.load.image('right', 'assets/ui/right_arrow.png');
-
     
     },
 
@@ -44,7 +45,10 @@ create: function() {
     
     game.global.act3.stop();
     game.global.act4 = game.add.audio('act4');
+    game.global.act4.volume = 0.5;
     game.global.act4.play();
+    
+    this.grunt = game.add.audio('grunt3');
     
     var speed;
     
@@ -98,6 +102,7 @@ killPipe: function(mole, hand){
     //this.worker.kill();
     this.speech = game.add.sprite(mole.x, mole.y-200, 'speech');
     game.add.tween(this.speech).to({alpha:0},1000,Phaser.Easing.Exponential.Out).start();  
+    this.grunt.play();
     //this.input.disabled = true;
 
 //    var heart = game.add.sprite(game.width/2-150, game.height/2-200, 'worker_anim');

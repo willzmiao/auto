@@ -40,6 +40,7 @@ game.state.add('level21', level21State);
 game.state.add('level22', level22State);
 game.state.add('level23', level23State);
 game.state.add('level24', level24State);
+game.state.add('level25', level25State);
 game.state.add('closing', closingState);
 
 

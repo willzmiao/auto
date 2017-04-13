@@ -15,7 +15,9 @@ preload: function() {
         game.load.image('left', 'assets/ui/left_arrow.png');
         game.load.image('right', 'assets/ui/right_arrow.png');
 
-        
+      game.load.audio('email','assets/level18/email.wav');  
+    game.load.audio('click','assets/level18/click.wav'); 
+    game.load.audio('sigh','assets/level18/hmmm.wav'); 
     },
 
 create: function() { 
@@ -37,6 +39,10 @@ create: function() {
     this.changeTimer = this.game.time.events.add(3000, this.display1, this);        
     this.timer10239 = this.game.time.events.add(4000, this.display15, this);        
 
+    this.click = game.add.audio('click');
+    this.email = game.add.audio('email');
+    this.sigh = game.add.audio('sigh');
+    
     var speed;
     
     if(!game.device.desktop){
@@ -59,6 +65,11 @@ update: function() {
     var nKey = game.input.keyboard.addKey(Phaser.Keyboard.N);
     rKey.onDown.add(this.restartGame, this);
     nKey.onDown.add(this.nextState, this);
+    
+        if(!game.global.act3.isPlaying){
+        game.global.act3.play();
+    }
+
 
 },
 
@@ -84,11 +95,11 @@ display15: function(){
         this.comp2.scale.setTo(2,2);
         game.world.sendToBack(this.comp2);
         this.comp1.kill();
+        this.email.play();
         this.line = game.add.sprite(0, game.height/2-250, 'line');
         game.physics.arcade.enable(this.line);
         this.line.scale.setTo(10,1);
 
-    
 },
     
 display2: function(){
@@ -97,11 +108,15 @@ display2: function(){
         this.comp3.anchor.set(0.5,0.5);
         this.comp3.scale.setTo(2,2);
         game.world.sendToBack(this.comp3);
+        this.click.play();
+        //this.timer0019 = this.game.time.events.add(2000, this.sigh, this);        
+        this.line.kill();
         this.comp2.kill();
         this.changeTimer = this.game.time.events.add(7000, this.nextState, this);
 },
 
 moveCursor: function(){
+    
     if(this.cursor.left.isDown || this.moveLeft){
         this.cursor1.body.x -= this.speed;
     }
@@ -114,9 +129,15 @@ moveCursor: function(){
     else if(this.cursor.down.isDown || this.moveDown){
         this.cursor1.body.y += this.speed;
     }   
+    
 },
     
-
+sigh: function(){
+  
+    this.sigh.play();  
+    
+},
+    
 restartGame: function() {
     // Start the 'menu' state, which restarts the game
     game.state.start('menu');

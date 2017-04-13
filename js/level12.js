@@ -8,7 +8,8 @@ preload: function() {
     game.load.image('party', 'assets/level12/robotparty1.png');
     game.load.spritesheet('conveyor', 'assets/level12/conveyor_robot.png', 1080, 972, 6);
     game.load.image('background', 'assets/act2bg.png');
-    
+    game.load.audio('woah','assets/level12/woah.wav');
+    game.load.audio('churn','assets/level12/churn.wav');
 
     },
 
@@ -27,13 +28,22 @@ create: function() {
     
     this.timer1235 = game.time.events.add(1200, this.delayMove, this); 
     
+    this.woah = game.add.audio('woah');
+    this.churn = game.add.audio('churn');
+    this.churn.loop = true;
+    this.churn.volume = 0.5;
+    this.churn.play();
+    
+    this.woah.volume = 2;
+    this.woah.play();
+    //this.timer9019 = this.game.time.events.add(2000, this.playSound, this);    
     // sun moon animation along path
 //    var moveSprite = this.game.add.sprite(-200, game.height/2-400, 'sun');
 //    var tween = game.add.tween(moveSprite).to({
 //        x: [-200, game.width/3, game.width*2/3, game.width+150],
 //        y: [game.height/2-400, game.height/2-700, game.height/2-700, game.height/2-400],}, 4000,Phaser.Easing.Quadratic.InOut, true).interpolation(function(v, k){
 //        return Phaser.Math.bezierInterpolation(v, k);}).loop().start();
-//    
+    
     this.changeTimer = this.game.time.events.add(12000, this.nextState, this);    
 
     },
@@ -47,7 +57,9 @@ update: function() {
     rKey.onDown.add(this.restartGame, this);
     nKey.onDown.add(this.nextState, this);
     
-    
+    if(!game.global.act2.isPlaying){
+        game.global.act2.play();
+    }
 
 },
 
@@ -65,6 +77,11 @@ moveUps: function(){
     
 },
 
+playSound: function(){
+  
+    this.woah.play();  
+},
+    
 restartGame: function() {
     // Start the 'menu' state, which restarts the game
     game.state.start('menu');
@@ -72,6 +89,7 @@ restartGame: function() {
 
 nextState: function(){
     game.state.start('level13');
+    this.churn.stop();
 },
 
 };

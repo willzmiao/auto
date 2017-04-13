@@ -13,6 +13,10 @@ preload: function() {
         game.load.image('pinkslip', 'assets/level23/pinkslip.png');
         game.load.image('background', 'assets/act4bg.png');
     
+        game.load.audio('stutter', 'assets/level23/stutter.wav');
+        game.load.audio('argh1', 'assets/level23/argh1.wav');
+        game.load.audio('argh2', 'assets/level23/argh2.wav');
+    
         game.load.image('up', 'assets/ui/up_arrow.png');
         game.load.image('down', 'assets/ui/down_arrow.png');
         game.load.image('left', 'assets/ui/left_arrow.png');
@@ -57,6 +61,10 @@ create: function() {
     //this.changeTimer = this.game.time.events.add(7000, this.nextState, this);
     
     var flipFlop;
+    
+    this.stutter = game.add.audio('stutter');
+    this.argh1 = game.add.audio('argh1');
+    this.argh2 = game.add.audio('argh2');
     
     this.coupon1.checkWorldBounds = true;
     this.coupon1.outOfBoundsKill = true;
@@ -106,6 +114,10 @@ update: function() {
         this.display4();
     }
     
+    if(!game.global.act4.isPlaying){
+        game.global.act4.play();
+    }
+
 },
     
 
@@ -128,6 +140,7 @@ display1: function(){
         var t1 = this.add.tween(this.spam2).to({x: 2000}, 500,Phaser.Easing.Sinusoidal.InOut).start();
         t1.onComplete.add(this.kill1,this);
         //this.spam2.kill();
+        this.argh1.play();
         flipFlop = true;
         }
     }
@@ -142,6 +155,7 @@ display2: function(){
         if(!flipFlop){
         var t2 = this.add.tween(this.spam1).to({x: 2000}, 500,Phaser.Easing.Sinusoidal.InOut).start();
         t2.onComplete.add(this.kill2,this);
+        this.argh2.play();
         flipFlop = true;
         }
     }
@@ -155,7 +169,7 @@ display3: function(){
         if(!flipFlop){
         var t3= this.add.tween(this.coupon1).to({x: 2000}, 500,Phaser.Easing.Sinusoidal.InOut).start();
         t3.onComplete.add(this.kill3,this);
-            
+        this.argh1.play();    
 //        var label = game.add.text(game.width/5, 150,
 //        'Hmmm...Maybe these \nmachines could do the trick', { font: '60px Arial', fill: 'rgba(0,0,0,0.5)'});
 
@@ -185,6 +199,7 @@ display4: function(){
     var t5= this.add.tween(this.envelope_opened_back).to({y: 3000}, 500,Phaser.Easing.Sinusoidal.InOut).start();    
     
     t5.onComplete.add(this.enlarge,this);
+    this.timerdf7 = this.game.time.events.add(4000, this.playStutter, this);
     this.timer777 = this.game.time.events.add(7000, this.nextState, this);
     //game.add.tween(this.bird.scale).to({x: .75, y: .75}, 500,Phaser.Easing.Sinusoidal.Out).start();
             
@@ -196,6 +211,11 @@ display4: function(){
     }
 },    
 
+playStutter: function(){
+    this.stutter.volume = 2;
+    this.stutter.play();   
+}, 
+    
 enlarge: function(){
     game.add.tween(this.pinkslip.scale).to({x: 3, y: 3}, 1000,Phaser.Easing.Sinusoidal.Out).start();
 },

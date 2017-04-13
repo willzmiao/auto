@@ -18,6 +18,7 @@ preload: function() {
         game.load.audio('vo1','assets/level2/vo1.wav');
         game.load.audio('vo2','assets/level2/vo2.wav');
         game.load.audio('act1','assets/sound/act1.wav');
+        game.load.audio('conveyor','assets/level2/conveyor.wav');
     
         game.load.image('text1', 'assets/level2/text1.png');    
         game.load.image('text2', 'assets/level2/text2.png');    
@@ -76,7 +77,12 @@ create: function() {
 
     this.vo1 = game.add.audio('vo1');
     this.vo2 = game.add.audio('vo2');
+    this.conveyor = game.add.audio('conveyor');
+    this.conveyor.loop = true;
+    this.conveyor.volume = 0.5;
+    
     game.global.act1 = game.add.audio('act1');
+    game.global.act1.volume = 0.2;
     game.global.act1.play();
     
     var speed;
@@ -89,7 +95,6 @@ create: function() {
     else if(game.device.desktop){
         this.speed = 10;
     }
-    
     
     
     },
@@ -142,6 +147,7 @@ killWorker1: function(piece1, rect1){
     
 
     this.vo2.play();
+    this.conveyor.play();
     
     this.text2 = game.add.sprite(game.width/2,game.height-200,'text2');
     this.text2.anchor.setTo(.5,.5);
@@ -346,6 +352,7 @@ restartGame: function() {
     
 nextState: function(){
     game.state.start('level3');
+    this.conveyor.stop();
 },
     
 };

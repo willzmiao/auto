@@ -21,6 +21,8 @@ preload: function() {
     game.load.image('worker8', 'assets/level14/worker8.png');
     
     game.load.audio('act3','assets/sound/act3.wav');
+    game.load.audio('conveyor','assets/level2/conveyor.wav');
+    game.load.audio('churn','assets/level12/churn.wav');
         
     game.load.image('background', 'assets/level14/background.png');
     game.load.image('header', 'assets/level14/header.png');
@@ -116,6 +118,15 @@ create: function() {
     
     this.cursor = game.input.keyboard.createCursorKeys();
     
+    this.conveyorsound = game.add.audio('conveyor');
+    this.conveyorsound.loop = true;
+    this.conveyorsound.volume = 0.5;
+    this.conveyorsound.play();
+    
+    this.churn = game.add.audio('churn');
+    this.churn.loop = true;
+    this.churn.volume = 0.3;
+    
     game.physics.arcade.enable(this.conveyor_analog1);
     game.physics.arcade.enable(this.conveyor_analog2);
     game.physics.arcade.enable(this.conveyor_analog3);
@@ -125,6 +136,7 @@ create: function() {
     
     game.global.act2.stop();
     game.global.act3 = game.add.audio('act3');
+    game.global.act3.volume = 0.6;
     game.global.act3.play();
     
     var speed;
@@ -165,6 +177,10 @@ update: function() {
         this.display4();
     }
 
+    if(!game.global.act3.isPlaying){
+        game.global.act3.play();
+    }
+
     
 },
 
@@ -178,7 +194,9 @@ display1: function(){
         conveyor_automated1.animations.play('beat5', 6, true);
         game.add.tween(this.worker1).to({alpha: 0}, 500,Phaser.Easing.Sinusoidal.Out).start();
         game.add.tween(this.worker6).to({alpha: 0}, 500,Phaser.Easing.Sinusoidal.Out).start();
-
+        this.conveyorsound.volume = 0.3;
+        this.churn.play();
+            
         this.mar.alpha = 0.5;
         this.apr.alpha = 1;
         this.apr.tint = 0xffffff;
@@ -200,7 +218,9 @@ display2: function(){
         var conveyor_automated2 = game.add.sprite(game.width/2, game.height*2/5-200, 'conveyor_automated');
         var beat6 = conveyor_automated2.animations.add('beat6');
         conveyor_automated2.animations.play('beat6', 6, true);
-
+        this.conveyorsound.volume = 0.1;
+        this.churn.volume = 0.5;
+            
         game.add.tween(this.worker3).to({alpha: 0}, 500,Phaser.Easing.Sinusoidal.Out).start();
         game.add.tween(this.worker8).to({alpha: 0}, 500,Phaser.Easing.Sinusoidal.Out).start();
     
@@ -226,7 +246,9 @@ display3: function(){
         var conveyor_automated3 = game.add.sprite(-100, game.height*3/5-200, 'conveyor_automated_left');
         var beat7 = conveyor_automated3.animations.add('beat7');
         conveyor_automated3.animations.play('beat7', 6, true);
-
+            this.conveyorsound.volume = 0.1;
+            this.churn.volume = 0.7;
+            
         game.add.tween(this.worker2).to({alpha: 0}, 500,Phaser.Easing.Sinusoidal.Out).start();
         game.add.tween(this.worker7).to({alpha: 0}, 500,Phaser.Easing.Sinusoidal.Out).start();
     
@@ -252,6 +274,8 @@ display4: function(){
         var conveyor_automated4 = game.add.sprite(game.width/2, game.height*4/5-200, 'conveyor_automated');
         var beat8 = conveyor_automated4.animations.add('beat8');
         conveyor_automated4.animations.play('beat8', 6, true);
+        this.conveyorsound.stop();    
+            this.churn.volume = 0.9;
             
         game.add.tween(this.worker4).to({alpha: 0}, 500,Phaser.Easing.Sinusoidal.Out).start();
         game.add.tween(this.worker5).to({alpha: 0}, 500,Phaser.Easing.Sinusoidal.Out).start();
@@ -276,7 +300,10 @@ display4: function(){
 
     
 nextState: function(){
+    this.conveyorsound.stop();
+    this.churn.stop();
     game.state.start('level15');
+    
 },
     
 addMobileInputs: function() {
