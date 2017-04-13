@@ -33,7 +33,7 @@ create: function() {
     //tell phaser which keys we want to use    
     this.cursor = game.input.keyboard.createCursorKeys();
 
-    this.text1 = game.add.sprite(game.width/2, 200, 'text1');
+    this.text1 = game.add.sprite(game.width/2, 150, 'text1');
     this.text1.anchor.setTo(0.5,0.5);
     this.growl = game.add.audio('growl');
     this.churn = game.add.audio('churn');
@@ -115,7 +115,7 @@ update: function() {
 display1: function(){
     if(this.cursor.right.isDown || this.moveRight){
         if(!flipFlop){
-        this.curse = game.add.sprite(game.width/2, game.height-500, 'curse');
+        this.curse = game.add.sprite(game.width/2, game.height-400, 'curse');
         this.curse.anchor.set(0.5,0.5);
         this.changeTimer = this.game.time.events.add(5000, this.nextState, this);
         this.growl.play();

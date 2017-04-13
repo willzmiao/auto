@@ -86,8 +86,8 @@ display2: function(){
     this.closed.kill();
     //this.text1 = game.add.sprite(300, 300, 'text1');
     
-    game.add.tween(this.open.scale).to({x: 2.5, y: 2.5}, 1000,Phaser.Easing.Sinusoidal.Out, true, 1000).start();
-    game.add.tween(this.open).to({y: this.open.y+700}, 1000,Phaser.Easing.Sinusoidal.Out, true, 1000).start();
+    game.add.tween(this.open.scale).to({x: 3, y: 3}, 1000,Phaser.Easing.Sinusoidal.Out, true, 1000).start();
+    game.add.tween(this.open).to({y: this.open.y+900}, 1000,Phaser.Easing.Sinusoidal.Out, true, 1000).start();
     
     this.timer230948 = this.game.time.events.add(12000, this.nextState, this);
     

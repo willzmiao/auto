@@ -100,7 +100,7 @@ movePlayer: function(){
 killPipe: function(mole, hand){
     
     //this.worker.kill();
-    this.speech = game.add.sprite(mole.x, mole.y-200, 'speech');
+    this.speech = game.add.sprite(mole.x+50, mole.y-200, 'speech');
     game.add.tween(this.speech).to({alpha:0},1000,Phaser.Easing.Exponential.Out).start();  
     this.grunt.play();
     //this.input.disabled = true;

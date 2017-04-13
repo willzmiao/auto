@@ -5,6 +5,10 @@ var level25State = {
 preload: function() { 
 
         game.load.image('finalspeech', 'assets/level24/finalspeech.png');
+    game.load.image('finalspeech1', 'assets/level24/finalspeech1.png');
+    game.load.image('finalspeech2', 'assets/level24/finalspeech2.png');
+    game.load.image('finalspeech3', 'assets/level24/finalspeech3.png');
+    
         game.load.image('black', 'assets/level24/black.png');
     
         game.load.image('up', 'assets/ui/up_arrow.png');
@@ -40,6 +44,8 @@ create: function() {
     }
     
     this.timer10239 = this.game.time.events.add(1000, this.moveUps, this);
+    this.timer5139 = this.game.time.events.add(2500, this.moveUps2, this);
+    this.timer113239 = this.game.time.events.add(6000, this.moveUps3, this);
     this.timer2339 = this.game.time.events.add(10000, this.nextState, this);
 
 
@@ -76,10 +82,22 @@ nextState: function(){
     
 moveUps: function(){
     
-    this.finalspeech = game.add.sprite(game.width/2,game.height/2, 'finalspeech');
+    this.finalspeech = game.add.sprite(game.width/2,game.height/2-300, 'finalspeech1');
     this.finalspeech.anchor.set(.5,.5);
-    //this.finalspeech.alpha=0;
-    //game.add.tween(this.finalspeech).to({alpha: 100},1000).start();  
+    
+},
+    
+moveUps2: function(){
+    
+    this.finalspeech2 = game.add.sprite(game.width/2,game.height/2, 'finalspeech2');
+    this.finalspeech2.anchor.set(.5,.5);
+    
+},
+
+moveUps3: function(){
+    
+    this.finalspeech3 = game.add.sprite(game.width/2,game.height/2+300, 'finalspeech3');
+    this.finalspeech3.anchor.set(.5,.5);
     
 },
 

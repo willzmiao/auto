@@ -40,7 +40,7 @@ create: function() {
 //    this.envelope_opened_front = game.add.sprite(game.width/2, game.height/2, 'envelope_opened_front');
 //    this.envelope_opened_front.anchor.set(0.5,0.5);
     
-    this.envelope_closed = game.add.sprite(game.width/2, game.height/2, 'envelope_closed');
+    this.envelope_closed = game.add.sprite(game.width/2, game.height/2, 'spam2');
     this.envelope_closed.anchor.set(0.5,0.5);
     
     this.coupon1 = game.add.sprite(game.width/2, game.height/2, 'coupon');
@@ -217,7 +217,7 @@ playStutter: function(){
 }, 
     
 enlarge: function(){
-    game.add.tween(this.pinkslip.scale).to({x: 3, y: 3}, 1000,Phaser.Easing.Sinusoidal.Out).start();
+    game.add.tween(this.pinkslip.scale).to({x: 2, y: 2}, 1000,Phaser.Easing.Sinusoidal.Out).start();
 },
 //display4: function(){
 //    if(this.cursor.right.isDown){

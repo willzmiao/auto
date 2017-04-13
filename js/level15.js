@@ -91,15 +91,19 @@ create: function() {
     this.needle = game.add.sprite(game.width/5, game.height*5/6, 'needle');
     this.line = game.add.sprite(0, game.height*4/5, 'line');
     
-    this.speech1 = game.add.sprite(game.width/3, game.height*2/3, 'speech1');
-    this.speech2 = game.add.sprite(-50, game.height/2-200, 'speech2');
-    this.speech3 = game.add.sprite(game.width/3, game.height*2/3, 'speech3');
+    this.speech1 = game.add.sprite(game.width/3, game.height*2/3+200, 'speech1');
+    this.speech2 = game.add.sprite(350, game.height/2-200, 'speech2');
+    this.speech3 = game.add.sprite(game.width/3, game.height*2/3+200, 'speech3');
     
     this.speech1.alpha = 0;
     this.speech2.alpha = 0;
     this.speech3.alpha = 0;
     this.specs.alpha = 0.5;
 
+    this.speech1.scale.setTo(1.5,1.5);
+    this.speech2.scale.setTo(1.5,1.5);
+    this.speech3.scale.setTo(1.5,1.5);
+    
     var speed1 = game.rnd.between(800, 1200);
     var speed2 = game.rnd.between(800, 1200);
     var speed3 = game.rnd.between(800, 1200);
@@ -140,7 +144,7 @@ create: function() {
     this.scale.pageAlignHorizontally = true;
     this.scale.pageAlignVertically = true;
 
-    this.text1 = game.add.sprite(game.width/2, 200, 'text1');
+    this.text1 = game.add.sprite(game.width/2, 250, 'text1');
     this.text1.anchor.setTo(0.5,0.5);
     this.game.world.bringToTop(this.text1);
     
@@ -269,6 +273,7 @@ killBubble3: function(needle, bubble3){
     
     this.bubble3.kill();
     this.speech2.alpha = 1.0;
+    game.add.tween(this.speech1).to({alpha: 0}, 2000).easing(Phaser.Easing.Exponential.Out).start();
     this.pop.play();
     game.add.tween(this.person3).to({y: 3000}, 1000, "Exponential", false, 500).to({alpha: 0}, 200).easing(Phaser.Easing.Exponential.Out).start();
     //this.person3.alpha=0;
@@ -360,8 +365,8 @@ restartGame: function(){
 },
     
 nextState: function(){
-    game.state.start('level16');
     this.hum.stop();
+    game.state.start('level16');
 },
     
 

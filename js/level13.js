@@ -52,8 +52,7 @@ create: function() {
 //    var label = game.add.text(game.width/5, game.height/7,
 //    'I should\'ve upgraded \nlong ago', { font: '40px Arial', fill: 'rgba(0,0,0,1)'});
     
-    this.background = game.add.sprite(0, 0, 'background');
-    this.beginning = game.add.sprite(0, 0, 'beginning');
+    //this.background = game.add.sprite(0, 0, 'background');
     
     this.speech1 = game.add.sprite(450, 1500, 'speech1');
     this.speech2 = game.add.sprite(500, 1400, 'speech2');
@@ -76,6 +75,9 @@ create: function() {
     this.womp5 = game.add.audio('womp5');
     this.wife1 = game.add.audio('wife2');
     this.wife2 = game.add.audio('wife2');
+    
+    this.beginning = game.add.sprite(-300, -600, 'beginning');
+    this.beginning.scale.set(2,2);
     
     this.timer39 = this.game.time.events.add(400, this.wifeText, this);
     
@@ -170,7 +172,8 @@ display3: function(){
         this.speech3.alpha = 1;  
         game.world.bringToTop(this.speech3);
         this.beginning.kill();
-        this.mid = game.add.sprite(0, 0, 'mid');
+        this.mid = game.add.sprite(-300, -600, 'mid');
+        this.mid.scale.set(2,2);
         game.world.sendToBack(this.mid);
         
         this.womp3.play();

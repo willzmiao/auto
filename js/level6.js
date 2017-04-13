@@ -296,7 +296,7 @@ createTimer: function(){
  
     var me = this;
  
-    me.timeLabel = me.game.add.text(me.game.world.centerX, 400, "00:00", {font: "100px Arial", fill: "#fff"}); 
+    me.timeLabel = me.game.add.text(me.game.world.centerX, 300, "00:00", {font: "100px Arial", fill: "#fff"}); 
     me.timeLabel.anchor.setTo(0.5, 0);
     me.timeLabel.align = 'center';
  

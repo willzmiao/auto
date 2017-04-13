@@ -16,6 +16,7 @@ var level4State = {
         //game.load.spritesheet('heart', 'assets/heart.png', 68, 62, 6);
         //game.load.spritesheet('bird', 'assets/level5/bird_sheet.png', 215, 209, 4);
         game.load.spritesheet('bird', 'assets/heart.png', 68, 62, 6);
+        game.load.audio('wife2','assets/level13/wife2.wav');
         
         game.load.audio('vo1','assets/level4/vo1.wav');
         game.load.audio('vo2','assets/level4/vo2.wav');
@@ -55,6 +56,7 @@ create: function() {
     this.mid.scale.set(2,2);
     this.start.scale.set(2,2);
     
+    this.wife1 = game.add.audio('wife2');
     
 //    items = game.add.group();
 //    items.create(100,400,'speech1');
@@ -217,6 +219,7 @@ restartGame: function() {
 
 wifeText: function() {
     this.wifeText = game.add.sprite(100, 1000, 'wifespeech');
+    this.wife1.play();  
 },    
     
 addMobileInputs: function() {
