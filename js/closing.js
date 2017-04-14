@@ -11,7 +11,7 @@ preload: function() {
     game.load.image('bubble3', 'assets/level11/bubble_right.png');
     game.load.image('ending', 'assets/level25/text1.png');
         
-    game.load.spritesheet('robot_anim', 'assets/level25/robot.png', 1080, 765, 4);
+    game.load.spritesheet('robot_anim', 'assets/level25/robot.png', 1080, 695, 4);
     
     //game.load.audio('exit','assets/sound/exit.wav');
     },
@@ -28,7 +28,7 @@ create: function() {
     var heart = game.add.sprite(0, 1155, 'robot_anim');
     //this.heart.anchor(0,1);
     var beat = heart.animations.add('beat');
-    heart.animations.play('beat', 2, true);
+    heart.animations.play('beat', 3, true);
 
     this.timer98501 = game.time.events.loop(1800, this.blowBubbles, this); 
     //this.timer48501 = game.time.events.loop(100, this.moveCamera, this); 
@@ -51,6 +51,11 @@ update: function() {
     var nKey = game.input.keyboard.addKey(Phaser.Keyboard.N);
     rKey.onDown.add(this.restartGame, this);
     nKey.onDown.add(this.nextState, this);
+    
+    if(!game.global.act5.isPlaying){
+        game.global.act5.play();
+    }
+
    
 },
 

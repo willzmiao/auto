@@ -11,8 +11,9 @@ var level20State = {
         game.load.image('cloud1', 'assets/level20/cloud_shadow.png');
         game.load.image('cloud2', 'assets/level20/cloud_noshadow.png');
         game.load.image('cloud3', 'assets/level5/cloud3.png');
-        game.load.image('bird1', 'assets/level20/balloon.png');
-        game.load.spritesheet('bird', 'assets/level5/bird_sheet.png', 215, 209, 2);
+        game.load.image('bird1', 'assets/level20/balloon_full.png');
+        game.load.image('bird2', 'assets/level20/balloon_deflated.png');
+        //game.load.spritesheet('bird', 'assets/level5/bird_sheet.png', 215, 209, 2);
         game.load.image('bubble1', 'assets/level20/bubble1.png');
         game.load.image('bubble2', 'assets/level20/bubble2.png');
         game.load.image('bubble3', 'assets/level20/bubble3.png');
@@ -32,6 +33,9 @@ create: function() {
 
     // Display the bird at the position x=100 and y=245
     this.bird = game.add.sprite(100, 245, 'bird1');
+    this.deflated = game.add.sprite(this.bird.x, this.bird.y, 'bird2');
+    this.deflated.alpha = 0;
+
     //bird = this.game.add.sprite(100, 245, 'bird');
 //    var flap = bird.animations.add('flap');
 //    bird.animations.play('flap', 6, true);
@@ -44,6 +48,7 @@ create: function() {
     
     // Add physics to the bird
     game.physics.arcade.enable(this.bird);
+    game.physics.arcade.enable(this.deflated);
     //this.bird.body.collideWorldBounds = true;
         
     // Add gravity to the bird to make it fall
@@ -80,8 +85,10 @@ create: function() {
     this.timer3 = this.game.time.events.add(9000, this.addBubble3, this);    
         
     this.bird.checkWorldBounds = true;
+    this.deflated.checkWorldBounds = true;
     //bird.outOfBoundsKill = true;
     this.bird.body.collideWorldBounds = true;
+    this.deflated.body.collideWorldBounds = true;
     
     var speed;
     
@@ -97,14 +104,10 @@ create: function() {
     },
     
 update: function() {
-    // If the bird is out of the screen (too high or too low)
-    // Call the 'restartGame' function
-//    if (this.bird.y < 0 || this.bird.y > 490)
-//        this.restartGame();
         
     this.movePlayer();
     //game.physics.arcade.overlap(this.bird, this.pipe, this.killPipe, null, this);
-    game.physics.arcade.overlap(this.bird, this.pipes, this.nextState, null, this);
+    game.physics.arcade.overlap(this.deflated, this.pipes, this.nextState, null, this);
         
     //restart level and next level
     var rKey = game.input.keyboard.addKey(Phaser.Keyboard.R);
@@ -114,7 +117,14 @@ update: function() {
 
     this.game.world.bringToTop(this.pipes);
     this.game.world.bringToTop(this.clouds);
-    this.game.world.bringToTop(this.bird);
+    
+//    if(this.bird.alive){
+//    this.game.world.bringToTop(this.bird);
+//    }
+//    
+//    if(this.deflated.alive){
+//    this.game.world.bringToTop(this.deflated);
+//    }
     //this.game.world.bringToTop(this.label);
 
     if(!game.global.act4.isPlaying){
@@ -127,10 +137,16 @@ update: function() {
     
 movePlayer: function(){
     if(this.cursor.up.isDown || this.moveUp){
-        this.bird.body.y -= this.speed;
+        
+            this.bird.body.y -= this.speed;
+            this.deflated.body.y -= this.speed;
     }
+
+    
     else if(this.cursor.down.isDown || this.moveDown){
-        this.bird.body.y += this.speed;
+        
+            this.bird.body.y += this.speed;
+            this.deflated.body.y += this.speed;    
     }  
 
 },
@@ -196,6 +212,7 @@ addRowOfClouds: function() {
 //    for (var i = 0; i < 20; i++)
             this.addCloud(game.width-200, cloudy);   
 },
+
     
 addCloud2: function(x, y) {
     // Create a pipe at the position x and y
@@ -228,30 +245,35 @@ addRowOfClouds2: function() {
 //    for (var i = 0; i < 20; i++)
             this.addCloud2(game.width-200, cloudy);   
 },
+    
 
 addBubble1: function() {
 
-    game.add.tween(this.bird.scale).to({x: .75, y: .75}, 500,Phaser.Easing.Sinusoidal.Out).start();
+    //game.add.tween(this.bird.scale).to({x: .75, y: .75}, 500,Phaser.Easing.Sinusoidal.Out).start();
+    //this.deflated = game.add.sprit(this.bird.x, this.bird.y, 'bird2');
+    this.deflated.alpha = 1;
     this.sigh.play();
     this.speech1 = game.add.sprite(this.bird.x, this.bird.y-100, 'bubble1');
+    this.bird.alpha = 0;
     
 },
+
     
 addBubble2: function() {
 
-    game.add.tween(this.bird.scale).to({x: .5, y: .5}, 500,Phaser.Easing.Sinusoidal.Out).start();
-    this.speech2 = game.add.sprite(this.bird.x+100, this.bird.y-100, 'bubble2');
+    game.add.tween(this.deflated.scale).to({x: .5, y: .5}, 500,Phaser.Easing.Sinusoidal.Out).start();
+    this.speech2 = game.add.sprite(this.deflated.x+100, this.deflated.y-100, 'bubble2');
     this.sigh.play();
     //this.bird.body.gravity.y = 100;  
-    game.add.tween(this.bird).to({y: this.bird.y+100}, 100).easing(Phaser.Easing.Exponential.In).start();
+    game.add.tween(this.deflated).to({y: this.deflated.y+100}, 100).easing(Phaser.Easing.Exponential.In).start();
 },
     
 addBubble3: function() {
 
-    game.add.tween(this.bird.scale).to({x: .3, y: .3}, 500,Phaser.Easing.Sinusoidal.Out).start();
-    this.speech3 = game.add.sprite(this.bird.x+150, this.bird.y-100, 'bubble3');
+    game.add.tween(this.deflated.scale).to({x: .3, y: .3}, 500,Phaser.Easing.Sinusoidal.Out).start();
+    this.speech3 = game.add.sprite(this.deflated.x+150, this.deflated.y-100, 'bubble3');
     this.sigh.play();
-    this.bird.body.gravity.y = 100;
+    this.deflated.body.gravity.y = 100;
     
 },
     
@@ -279,7 +301,7 @@ addMobileInputs: function() {
     this.moveDown = false;
         
     // Add the move left button
-    var leftButton = game.add.sprite(game.width/3,game.height-175,'left'); 
+    var leftButton = game.add.sprite(game.width/3,game.height-275,'left'); 
     leftButton.inputEnabled = true;
     leftButton.alpha = 0.5; 
     //leftButton.events.onInputOver.add(this.setLeftTrue, this); 
@@ -288,7 +310,7 @@ addMobileInputs: function() {
     leftButton.events.onInputUp.add(this.setLeftFalse, this);
         
     // Add the move right button
-    var rightButton = game.add.sprite(game.width*2/3,game.height-175,'right');
+    var rightButton = game.add.sprite(game.width*2/3,game.height-275,'right');
     rightButton.inputEnabled = true;
     rightButton.alpha = 0.5; 
     //rightButton.events.onInputOver.add(this.setRightTrue, this); 
@@ -297,7 +319,7 @@ addMobileInputs: function() {
     rightButton.events.onInputUp.add(this.setRightFalse, this);
     
     // Add the move up button
-    var upButton = game.add.sprite(game.width/2,game.height-275,'up');
+    var upButton = game.add.sprite(game.width/2,game.height-375,'up');
     upButton.inputEnabled = true;
     upButton.alpha = 0.5; 
     //upButton.events.onInputOver.add(this.setUpTrue, this); 
@@ -306,7 +328,7 @@ addMobileInputs: function() {
     upButton.events.onInputUp.add(this.setUpFalse, this);
     
     // Add the move down button
-    var downButton = game.add.sprite(game.width/2,game.height-150,'down');
+    var downButton = game.add.sprite(game.width/2,game.height-250,'down');
     downButton.inputEnabled = true;
     downButton.alpha = 0.5; 
     //downButton.events.onInputOver.add(this.setDownTrue, this); 

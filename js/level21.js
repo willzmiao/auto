@@ -6,7 +6,7 @@ preload: function() {
 
         game.load.image('background', 'assets/act4bg.png');
         game.load.image('needle', 'assets/level21/pin_blurred.png');
-        game.load.image('bubble', 'assets/level21/bubble_large.png');
+        game.load.image('bubble', 'assets/level21/bubble_large2.png');
         game.load.image('shadow', 'assets/level21/shadow.png');
         game.load.image('text1', 'assets/level21/text1.png');
     game.load.audio('nooo', 'assets/level21/nooo.wav');
@@ -49,7 +49,7 @@ create: function() {
   
     
     game.physics.arcade.enable(this.bubble);
-    this.timer0988 = this.game.time.events.add(6000, this.nextState, this);
+    this.timer0988 = this.game.time.events.add(3000, this.nextState, this);
 
     },
 

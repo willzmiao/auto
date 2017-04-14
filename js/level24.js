@@ -14,7 +14,9 @@ preload: function() {
         game.load.image('speech2', 'assets/level24/speech2.png');
         game.load.image('speech3', 'assets/level24/speech3.png');
         game.load.image('text1', 'assets/level24/text1.png');
-        game.load.image('finalspeech', 'assets/level24/finalspeech.png');
+        game.load.image('finalspeech1', 'assets/level24/finalspeech1.png');
+        game.load.image('finalspeech2', 'assets/level24/finalspeech2.png');
+        game.load.image('finalspeech3', 'assets/level24/finalspeech3.png');
         game.load.image('black', 'assets/level24/black.png');
     
         game.load.image('up', 'assets/ui/up_arrow.png');
@@ -22,15 +24,23 @@ preload: function() {
         game.load.image('left', 'assets/ui/left_arrow.png');
         game.load.image('right', 'assets/ui/right_arrow.png');
 
-        game.load.audio('exit','assets/sound/exit.wav');
+        game.load.audio('exit','assets/sound/exit.mp3');
     },
 
 create: function() { 
         
     this.background = game.add.sprite(0,0, 'background');
-    this.speech1 = game.add.sprite(400,1200, 'speech1');
-    this.speech2 = game.add.sprite(500,900, 'speech2');
-    this.speech3 = game.add.sprite(150,1050, 'speech3');
+    this.speech1 = game.add.sprite(400,650, 'speech1');
+    this.speech2 = game.add.sprite(500,300, 'speech2');
+    this.speech3 = game.add.sprite(150,400, 'speech3');
+    
+    this.finalspeech1 = game.add.sprite(game.width/2,650, 'finalspeech1');
+    this.finalspeech2 = game.add.sprite(game.width/2,450, 'finalspeech2');
+    this.finalspeech3 = game.add.sprite(game.width/2,250, 'finalspeech3');
+    
+    this.finalspeech1.anchor.set(.5,.5);
+    this.finalspeech2.anchor.set(.5,.5);
+    this.finalspeech3.anchor.set(.5,.5);
     
     this.black = game.add.sprite(0,0, 'black');
     
@@ -39,6 +49,10 @@ create: function() {
     this.speech3.alpha = 0;
     this.speech2.alpha = 0;
     this.speech1.alpha = 0;
+    
+    this.finalspeech1.alpha = 0;
+    this.finalspeech2.alpha = 0;
+    this.finalspeech3.alpha = 0;
     
     //tell phaser which keys we want to use    
     this.cursor = game.input.keyboard.createCursorKeys();
@@ -135,17 +149,21 @@ display3: function(){
         this.speech2.alpha = 1; 
         //this.womp1.play();
         game.world.bringToTop(this.speech2);
-        this.timer2882 = this.game.time.events.add(10000, this.nextState, this);
+        this.timer2882 = this.game.time.events.add(15000, this.nextState, this);
         
 //        game.add.tween(this.speech1).to({alpha: 0}, 5000).easing(Phaser.Easing.Exponential.Out).start();    
 //        game.add.tween(this.speech2).to({alpha: 0}, 5000).easing(Phaser.Easing.Exponential.Out).start();    
 //        game.add.tween(this.speech3).to({alpha: 0}, 5000).easing(Phaser.Easing.Exponential.Out).start();    
 //        
-        game.add.tween(this.speech1).to({alpha: 0}, 3000,Phaser.Easing.Exponential.Out,false,3000).start(); 
-        game.add.tween(this.speech2).to({alpha: 0}, 3000,Phaser.Easing.Exponential.Out,false,3000).start(); 
-        game.add.tween(this.speech3).to({alpha: 0}, 3000,Phaser.Easing.Exponential.Out,false,3000).start(); 
+        game.add.tween(this.speech1).to({alpha: 0}, 3000,Phaser.Easing.Exponential.InOut,false,3000).start(); 
+        game.add.tween(this.speech2).to({alpha: 0}, 3000,Phaser.Easing.Exponential.InOut,false,3000).start(); 
+        game.add.tween(this.speech3).to({alpha: 0}, 3000,Phaser.Easing.Exponential.InOut,false,3000).start(); 
             
-        this.timer4121 = game.time.events.add(5000, this.fade, this);     
+            
+        game.add.tween(this.finalspeech1).to({alpha: 100}, 500,Phaser.Easing.Exponential.InOut,false,4500).start();     
+        game.add.tween(this.finalspeech2).to({alpha: 100}, 500,Phaser.Easing.Exponential.InOut,false,7000).start();     
+        game.add.tween(this.finalspeech3).to({alpha: 100}, 500,Phaser.Easing.Exponential.InOut,false,10000).start();     
+        //this.timer4121 = game.time.events.add(5000, this.fade, this);     
         //game.add.tween(this.wifeText).to({alpha: 0}, 2000).easing(Phaser.Easing.Exponential.Out).start();
             flipFlop = true;
         }
@@ -155,6 +173,8 @@ display3: function(){
         flipFlop = false;
     }
 },
+
+    
     
 restartGame: function() {
     // Start the 'menu' state, which restarts the game
@@ -162,7 +182,7 @@ restartGame: function() {
 },
 
 nextState: function(){
-    game.state.start('level25');
+    game.state.start('closing');
 },
     
     
@@ -196,7 +216,7 @@ addMobileInputs: function() {
     this.moveDown = false;
         
     // Add the move left button
-    var leftButton = game.add.sprite(game.width/3,game.height-175,'left'); 
+    var leftButton = game.add.sprite(game.width/3,game.height-275,'left'); 
     leftButton.inputEnabled = true;
     leftButton.alpha = 0.5; 
     //leftButton.events.onInputOver.add(this.setLeftTrue, this); 
@@ -205,7 +225,7 @@ addMobileInputs: function() {
     leftButton.events.onInputUp.add(this.setLeftFalse, this);
         
     // Add the move right button
-    var rightButton = game.add.sprite(game.width*2/3,game.height-175,'right');
+    var rightButton = game.add.sprite(game.width*2/3,game.height-275,'right');
     rightButton.inputEnabled = true;
     rightButton.alpha = 0.5; 
     //rightButton.events.onInputOver.add(this.setRightTrue, this); 
@@ -214,7 +234,7 @@ addMobileInputs: function() {
     rightButton.events.onInputUp.add(this.setRightFalse, this);
     
     // Add the move up button
-    var upButton = game.add.sprite(game.width/2,game.height-275,'up');
+    var upButton = game.add.sprite(game.width/2,game.height-375,'up');
     upButton.inputEnabled = true;
     upButton.alpha = 0.5; 
     //upButton.events.onInputOver.add(this.setUpTrue, this); 
@@ -223,7 +243,7 @@ addMobileInputs: function() {
     upButton.events.onInputUp.add(this.setUpFalse, this);
     
     // Add the move down button
-    var downButton = game.add.sprite(game.width/2,game.height-150,'down');
+    var downButton = game.add.sprite(game.width/2,game.height-250,'down');
     downButton.inputEnabled = true;
     downButton.alpha = 0.5; 
     //downButton.events.onInputOver.add(this.setDownTrue, this); 

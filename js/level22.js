@@ -38,6 +38,11 @@ create: function() {
 
     this.timer1002 = this.game.time.events.add(2000, this.vibrate, this);
     
+    this.open = game.add.sprite(game.width/2, game.height/2-250, 'open');
+    this.open.anchor.set(.5,.5);
+    this.open.alpha = 0;
+
+    
     var speed;
     
     if(!game.device.desktop){
@@ -61,13 +66,17 @@ update: function() {
     rightKey.onDown.add(this.display2, this);
     
     if(this.moveRight){
-        this.display2();
+        this.display2();   
     }
     
     if(!game.global.act4.isPlaying){
         game.global.act4.play();
     }
 
+    if(!this.closed.alive){
+        this.buzz.stop();
+    }
+    
 
 },
 
@@ -79,15 +88,17 @@ vibrate: function(){
 },
     
 display2: function(){
+    
     this.buzz.stop();
     this.flip.play();
-    this.open = game.add.sprite(game.width/2, game.height/2-250, 'open');
-    this.open.anchor.set(.5,.5);
+//    this.open = game.add.sprite(game.width/2, game.height/2-250, 'open');
+//    this.open.anchor.set(.5,.5);
     this.closed.kill();
+    this.open.alpha = 1;
     //this.text1 = game.add.sprite(300, 300, 'text1');
     
     game.add.tween(this.open.scale).to({x: 3, y: 3}, 1000,Phaser.Easing.Sinusoidal.Out, true, 1000).start();
-    game.add.tween(this.open).to({y: this.open.y+900}, 1000,Phaser.Easing.Sinusoidal.Out, true, 1000).start();
+    game.add.tween(this.open).to({y: game.height/2+650}, 1000,Phaser.Easing.Sinusoidal.Out, true, 1000).start();
     
     this.timer230948 = this.game.time.events.add(12000, this.nextState, this);
     
@@ -112,7 +123,7 @@ addMobileInputs: function() {
     this.moveDown = false;
         
     // Add the move left button
-    var leftButton = game.add.sprite(game.width/3,game.height-175,'left'); 
+    var leftButton = game.add.sprite(game.width/3,game.height-275,'left'); 
     leftButton.inputEnabled = true;
     leftButton.alpha = 0.5; 
     //leftButton.events.onInputOver.add(this.setLeftTrue, this); 
@@ -121,7 +132,7 @@ addMobileInputs: function() {
     leftButton.events.onInputUp.add(this.setLeftFalse, this);
         
     // Add the move right button
-    var rightButton = game.add.sprite(game.width*2/3,game.height-175,'right');
+    var rightButton = game.add.sprite(game.width*2/3,game.height-275,'right');
     rightButton.inputEnabled = true;
     rightButton.alpha = 0.5; 
     //rightButton.events.onInputOver.add(this.setRightTrue, this); 
@@ -130,7 +141,7 @@ addMobileInputs: function() {
     rightButton.events.onInputUp.add(this.setRightFalse, this);
     
     // Add the move up button
-    var upButton = game.add.sprite(game.width/2,game.height-275,'up');
+    var upButton = game.add.sprite(game.width/2,game.height-375,'up');
     upButton.inputEnabled = true;
     upButton.alpha = 0.5; 
     //upButton.events.onInputOver.add(this.setUpTrue, this); 
@@ -139,7 +150,7 @@ addMobileInputs: function() {
     upButton.events.onInputUp.add(this.setUpFalse, this);
     
     // Add the move down button
-    var downButton = game.add.sprite(game.width/2,game.height-150,'down');
+    var downButton = game.add.sprite(game.width/2,game.height-250,'down');
     downButton.inputEnabled = true;
     downButton.alpha = 0.5; 
     //downButton.events.onInputOver.add(this.setDownTrue, this); 

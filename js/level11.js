@@ -192,7 +192,7 @@ killBubble2: function(needle, bubble2){
     game.add.tween(this.person2).to({y: 3000}, 1000, "Exponential", false, 500).to({alpha: 0}, 200).easing(Phaser.Easing.Exponential.Out).start();
     game.add.tween(this.needle).to({y: this.needle.y+300}, 200).easing(Phaser.Easing.Exponential.In).start();
     this.changeTimer = this.game.time.events.add(4000, this.nextState, this);
-    this.sigh1.play();
+    this.sigh2.play();
     this.pop.play();
     
     //play animation
@@ -261,7 +261,7 @@ addMobileInputs: function() {
     this.moveDown = false;
         
     // Add the move left button
-    var leftButton = game.add.sprite(game.width/3,game.height-175,'left'); 
+    var leftButton = game.add.sprite(game.width/3,game.height-275,'left'); 
     leftButton.inputEnabled = true;
     leftButton.alpha = 0.5; 
     //leftButton.events.onInputOver.add(this.setLeftTrue, this); 
@@ -270,7 +270,7 @@ addMobileInputs: function() {
     leftButton.events.onInputUp.add(this.setLeftFalse, this);
         
     // Add the move right button
-    var rightButton = game.add.sprite(game.width*2/3,game.height-175,'right');
+    var rightButton = game.add.sprite(game.width*2/3,game.height-275,'right');
     rightButton.inputEnabled = true;
     rightButton.alpha = 0.5; 
     //rightButton.events.onInputOver.add(this.setRightTrue, this); 
@@ -279,7 +279,7 @@ addMobileInputs: function() {
     rightButton.events.onInputUp.add(this.setRightFalse, this);
     
     // Add the move up button
-    var upButton = game.add.sprite(game.width/2,game.height-275,'up');
+    var upButton = game.add.sprite(game.width/2,game.height-375,'up');
     upButton.inputEnabled = true;
     upButton.alpha = 0.5; 
     //upButton.events.onInputOver.add(this.setUpTrue, this); 
@@ -288,7 +288,7 @@ addMobileInputs: function() {
     upButton.events.onInputUp.add(this.setUpFalse, this);
     
     // Add the move down button
-    var downButton = game.add.sprite(game.width/2,game.height-150,'down');
+    var downButton = game.add.sprite(game.width/2,game.height-250,'down');
     downButton.inputEnabled = true;
     downButton.alpha = 0.5; 
     //downButton.events.onInputOver.add(this.setDownTrue, this); 

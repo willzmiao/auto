@@ -19,8 +19,12 @@ preload: function() {
     game.load.image('worker6', 'assets/level14/worker6.png');
     game.load.image('worker7', 'assets/level14/worker7.png');
     game.load.image('worker8', 'assets/level14/worker8.png');
+    game.load.image('worker9', 'assets/level14/worker3.png');
+    game.load.image('worker10', 'assets/level14/worker4.png');
+    game.load.image('worker11', 'assets/level14/worker5.png');
+    game.load.image('worker12', 'assets/level14/worker8.png');
     
-    game.load.audio('act3','assets/sound/act3.wav');
+    game.load.audio('act3','assets/sound/act3.mp3');
     game.load.audio('conveyor','assets/level2/conveyor.wav');
     game.load.audio('churn','assets/level12/churn.wav');
         
@@ -62,17 +66,21 @@ create: function() {
     var beat4 = this.conveyor_analog4.animations.add('beat4');
     this.conveyor_analog4.animations.play('beat4', 4, true);
        
-    this.worker1 = game.add.sprite(150, 310, 'worker1');
+    this.worker1 = game.add.sprite(120, 310, 'worker1');
     this.worker6 = game.add.sprite(230, 750, 'worker6');
+    this.worker9 = game.add.sprite(350, 310, 'worker9');
     
     this.worker2 = game.add.sprite(250, 1080, 'worker2');
     this.worker7 = game.add.sprite(150, 1520, 'worker7');
+    this.worker11 = game.add.sprite(350, 1550, 'worker11');
     
     this.worker3 = game.add.sprite(800, 700, 'worker3');
     this.worker8 = game.add.sprite(900, 1150, 'worker8');
+    this.worker10 = game.add.sprite(1050, 700, 'worker10');
     
     this.worker4 = game.add.sprite(920, 1470, 'worker4');
-    this.worker5 = game.add.sprite(820, 1910, 'worker5');
+    this.worker5 = game.add.sprite(820, 1910, 'worker5')
+    this.worker12 = game.add.sprite(1050, 1910, 'worker12');
     
     this.worker1.scale.setTo(.75,.75);
     this.worker2.scale.setTo(.75,.75);
@@ -82,6 +90,10 @@ create: function() {
     this.worker6.scale.setTo(.75,.75);
     this.worker7.scale.setTo(.75,.75);
     this.worker8.scale.setTo(.75,.75);
+    this.worker9.scale.setTo(.75,.75);
+    this.worker10.scale.setTo(.75,.75);
+    this.worker11.scale.setTo(.75,.75);
+    this.worker12.scale.setTo(.75,.75);
     
     this.worker1.anchor.setTo(.5,.5);
     this.worker2.anchor.setTo(.5,.5);
@@ -90,7 +102,12 @@ create: function() {
     this.worker5.anchor.setTo(.5,.5);
     this.worker6.anchor.setTo(.5,.5);
     this.worker7.anchor.setTo(.5,.5);
-    this.worker8.anchor.setTo(.5,.5);    
+    this.worker8.anchor.setTo(.5,.5);
+    this.worker9.anchor.setTo(.5,.5);
+    this.worker10.anchor.setTo(.5,.5);
+    this.worker11.anchor.setTo(.5,.5);
+    this.worker12.anchor.setTo(.5,.5);
+    
         
     game.add.tween(this.worker1).to({angle: -5}, 500).to({angle: 5}, 500).loop().start();
     game.add.tween(this.worker6).to({angle: -4}, 400).to({angle: 4}, 500).loop().start();
@@ -100,6 +117,10 @@ create: function() {
     game.add.tween(this.worker5).to({angle: -5}, 500).to({angle: 5}, 300).loop().start();
     game.add.tween(this.worker7).to({angle: -5}, 500).to({angle: 5}, 400).loop().start();
     game.add.tween(this.worker8).to({angle: -5}, 500).to({angle: 5}, 400).loop().start();
+    game.add.tween(this.worker9).to({angle: -2}, 500).to({angle: 3}, 300).loop().start();
+    game.add.tween(this.worker10).to({angle: -5}, 500).to({angle: 5}, 400).loop().start();
+    game.add.tween(this.worker11).to({angle: -4}, 500).to({angle: 7}, 500).loop().start();
+    game.add.tween(this.worker12).to({angle: -3}, 500).to({angle: 5}, 400).loop().start();
     
     
     this.rect = game.add.sprite(game.width/6, game.height/5-220, 'rect');
@@ -194,6 +215,7 @@ display1: function(){
         conveyor_automated1.animations.play('beat5', 6, true);
         game.add.tween(this.worker1).to({alpha: 0}, 500,Phaser.Easing.Sinusoidal.Out).start();
         game.add.tween(this.worker6).to({alpha: 0}, 500,Phaser.Easing.Sinusoidal.Out).start();
+        game.add.tween(this.worker9).to({alpha: 0}, 500,Phaser.Easing.Sinusoidal.Out).start();
         this.conveyorsound.volume = 0.3;
         this.churn.play();
             
@@ -223,6 +245,7 @@ display2: function(){
             
         game.add.tween(this.worker3).to({alpha: 0}, 500,Phaser.Easing.Sinusoidal.Out).start();
         game.add.tween(this.worker8).to({alpha: 0}, 500,Phaser.Easing.Sinusoidal.Out).start();
+        game.add.tween(this.worker10).to({alpha: 0}, 500,Phaser.Easing.Sinusoidal.Out).start();
     
             
         this.apr.alpha = 0.5;
@@ -251,6 +274,7 @@ display3: function(){
             
         game.add.tween(this.worker2).to({alpha: 0}, 500,Phaser.Easing.Sinusoidal.Out).start();
         game.add.tween(this.worker7).to({alpha: 0}, 500,Phaser.Easing.Sinusoidal.Out).start();
+        game.add.tween(this.worker11).to({alpha: 0}, 500,Phaser.Easing.Sinusoidal.Out).start();
     
             
         this.may.alpha = 0.5;
@@ -279,6 +303,7 @@ display4: function(){
             
         game.add.tween(this.worker4).to({alpha: 0}, 500,Phaser.Easing.Sinusoidal.Out).start();
         game.add.tween(this.worker5).to({alpha: 0}, 500,Phaser.Easing.Sinusoidal.Out).start();
+        game.add.tween(this.worker12).to({alpha: 0}, 500,Phaser.Easing.Sinusoidal.Out).start();
     
         this.jun.alpha = 0.5;
         this.jul.alpha = 1;
@@ -315,7 +340,7 @@ addMobileInputs: function() {
     this.moveDown = false;
         
     // Add the move left button
-    var leftButton = game.add.sprite(game.width/3,game.height-175,'left'); 
+    var leftButton = game.add.sprite(game.width/3,game.height-275,'left'); 
     leftButton.inputEnabled = true;
     leftButton.alpha = 0.5; 
     //leftButton.events.onInputOver.add(this.setLeftTrue, this); 
@@ -324,7 +349,7 @@ addMobileInputs: function() {
     leftButton.events.onInputUp.add(this.setLeftFalse, this);
         
     // Add the move right button
-    var rightButton = game.add.sprite(game.width*2/3,game.height-175,'right');
+    var rightButton = game.add.sprite(game.width*2/3,game.height-275,'right');
     rightButton.inputEnabled = true;
     rightButton.alpha = 0.5; 
     //rightButton.events.onInputOver.add(this.setRightTrue, this); 
@@ -333,7 +358,7 @@ addMobileInputs: function() {
     rightButton.events.onInputUp.add(this.setRightFalse, this);
     
     // Add the move up button
-    var upButton = game.add.sprite(game.width/2,game.height-275,'up');
+    var upButton = game.add.sprite(game.width/2,game.height-375,'up');
     upButton.inputEnabled = true;
     upButton.alpha = 0.5; 
     //upButton.events.onInputOver.add(this.setUpTrue, this); 
@@ -342,7 +367,7 @@ addMobileInputs: function() {
     upButton.events.onInputUp.add(this.setUpFalse, this);
     
     // Add the move down button
-    var downButton = game.add.sprite(game.width/2,game.height-150,'down');
+    var downButton = game.add.sprite(game.width/2,game.height-250,'down');
     downButton.inputEnabled = true;
     downButton.alpha = 0.5; 
     //downButton.events.onInputOver.add(this.setDownTrue, this); 

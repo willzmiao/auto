@@ -29,17 +29,7 @@ create: function() {
     //game.stage.backgroundColor = '#71c5cf';
     this.background = game.add.sprite(0, 0, 'background');
     this.cursor = game.input.keyboard.createCursorKeys();
-    
-    
-//    this.envelope_opened_back = game.add.sprite(game.width/2, game.height/2, 'envelope_opened_back');
-//    this.envelope_opened_back.anchor.set(0.5,0.5);
-//    
-//    this.pinkslip = game.add.sprite(game.width/2, game.height/2, 'pinkslip');
-//    this.pinkslip.anchor.set(0.5,0.5);
-//
-//    this.envelope_opened_front = game.add.sprite(game.width/2, game.height/2, 'envelope_opened_front');
-//    this.envelope_opened_front.anchor.set(0.5,0.5);
-    
+        
     this.envelope_closed = game.add.sprite(game.width/2, game.height/2, 'spam2');
     this.envelope_closed.anchor.set(0.5,0.5);
     
@@ -192,15 +182,15 @@ display4: function(){
     this.pinkslip = game.add.sprite(game.width/2, game.height/2, 'pinkslip');
     this.pinkslip.anchor.set(0.5,0.5);
 
-    this.envelope_opened_front = game.add.sprite(game.width/2, game.height/2, 'envelope_opened_front');
+    this.envelope_opened_front = game.add.sprite(game.width/2, game.height/2+100, 'envelope_opened_front');
     this.envelope_opened_front.anchor.set(0.5,0.5);
 
-    var t4= this.add.tween(this.envelope_opened_front).to({y: 3000}, 500,Phaser.Easing.Sinusoidal.InOut).start();    
-    var t5= this.add.tween(this.envelope_opened_back).to({y: 3000}, 500,Phaser.Easing.Sinusoidal.InOut).start();    
+    var t4= this.add.tween(this.envelope_opened_front).to({y: 3000}, 500,Phaser.Easing.Sinusoidal.InOut,false,1000).start();    
+    var t5= this.add.tween(this.envelope_opened_back).to({y: 3000}, 500,Phaser.Easing.Sinusoidal.InOut,false,1000).start();    
     
     t5.onComplete.add(this.enlarge,this);
     this.timerdf7 = this.game.time.events.add(4000, this.playStutter, this);
-    this.timer777 = this.game.time.events.add(7000, this.nextState, this);
+    this.timer777 = this.game.time.events.add(9000, this.nextState, this);
     //game.add.tween(this.bird.scale).to({x: .75, y: .75}, 500,Phaser.Easing.Sinusoidal.Out).start();
             
         flipFlop = true;
@@ -259,7 +249,7 @@ addMobileInputs: function() {
     this.moveDown = false;
         
     // Add the move left button
-    var leftButton = game.add.sprite(game.width/3,game.height-175,'left'); 
+    var leftButton = game.add.sprite(game.width/3,game.height-275,'left'); 
     leftButton.inputEnabled = true;
     leftButton.alpha = 0.5; 
     //leftButton.events.onInputOver.add(this.setLeftTrue, this); 
@@ -268,7 +258,7 @@ addMobileInputs: function() {
     leftButton.events.onInputUp.add(this.setLeftFalse, this);
         
     // Add the move right button
-    var rightButton = game.add.sprite(game.width*2/3,game.height-175,'right');
+    var rightButton = game.add.sprite(game.width*2/3,game.height-275,'right');
     rightButton.inputEnabled = true;
     rightButton.alpha = 0.5; 
     //rightButton.events.onInputOver.add(this.setRightTrue, this); 
@@ -277,7 +267,7 @@ addMobileInputs: function() {
     rightButton.events.onInputUp.add(this.setRightFalse, this);
     
     // Add the move up button
-    var upButton = game.add.sprite(game.width/2,game.height-275,'up');
+    var upButton = game.add.sprite(game.width/2,game.height-375,'up');
     upButton.inputEnabled = true;
     upButton.alpha = 0.5; 
     //upButton.events.onInputOver.add(this.setUpTrue, this); 
@@ -286,7 +276,7 @@ addMobileInputs: function() {
     upButton.events.onInputUp.add(this.setUpFalse, this);
     
     // Add the move down button
-    var downButton = game.add.sprite(game.width/2,game.height-150,'down');
+    var downButton = game.add.sprite(game.width/2,game.height-250,'down');
     downButton.inputEnabled = true;
     downButton.alpha = 0.5; 
     //downButton.events.onInputOver.add(this.setDownTrue, this); 

@@ -67,10 +67,10 @@ create: function() {
 //    'My work excites me.', { font: '40px Arial', fill: 'rgba(0,0,0,1)'});
     
     this.speech1 = game.add.sprite(450, 1500, 'speech1');
-    this.speech2 = game.add.sprite(500, 1400, 'speech2');
-    this.speech3 = game.add.sprite(550, 1300, 'speech3');
-    this.speech4 = game.add.sprite(600, 1200, 'speech4');
-    this.speech5 = game.add.sprite(650, 1100, 'speech5');
+    this.speech2 = game.add.sprite(500, 1380, 'speech2');
+    this.speech3 = game.add.sprite(550, 1260, 'speech3');
+    this.speech4 = game.add.sprite(600, 1140, 'speech4');
+    this.speech5 = game.add.sprite(650, 1020, 'speech5');
     
     //game.physics.arcade.enable(this.speech1);
     this.speech1.alpha = 0;
@@ -79,6 +79,13 @@ create: function() {
     this.speech4.alpha = 0;
     this.speech5.alpha = 0;
    
+    this.speech1.scale.set(1.5,1.5);
+    this.speech2.scale.set(1.5,1.5);
+    this.speech3.scale.set(1.5,1.5);
+    this.speech4.scale.set(1.5,1.5);
+    this.speech5.scale.set(1.5,1.5);
+    
+    
     var flipFlop;
     
     this.vo1 = game.add.audio('vo1');
@@ -129,6 +136,10 @@ update: function() {
     
     else if(this.speech5.alpha === 0){
         this.display5();
+    }
+    
+    if(!game.global.act1.isPlaying){
+        game.global.act1.play();
     }
 },
 
@@ -218,7 +229,8 @@ restartGame: function() {
 },
 
 wifeText: function() {
-    this.wifeText = game.add.sprite(100, 1000, 'wifespeech');
+    this.wifeText = game.add.sprite(20, 900, 'wifespeech');
+    this.wifeText.scale.set(1.5,1.5);
     this.wife1.play();  
 },    
     
@@ -231,38 +243,38 @@ addMobileInputs: function() {
     this.moveDown = false;
         
     // Add the move left button
-    var leftButton = game.add.sprite(game.width/3,game.height-175,'left'); 
+    var leftButton = game.add.sprite(game.width/3,game.height-275,'left'); 
     leftButton.inputEnabled = true;
     leftButton.alpha = 0.5; 
     //leftButton.events.onInputOver.add(this.setLeftTrue, this); 
-    //leftButton.events.onInputOut.add(this.setLeftFalse, this); 
+    leftButton.events.onInputOut.add(this.setLeftFalse, this); 
     leftButton.events.onInputDown.add(this.setLeftTrue, this); 
     leftButton.events.onInputUp.add(this.setLeftFalse, this);
         
     // Add the move right button
-    var rightButton = game.add.sprite(game.width*2/3,game.height-175,'right');
+    var rightButton = game.add.sprite(game.width*2/3,game.height-275,'right');
     rightButton.inputEnabled = true;
     rightButton.alpha = 0.5; 
-//    rightButton.events.onInputOver.add(this.setRightTrue, this); 
-//    rightButton.events.onInputOut.add(this.setRightFalse, this); 
+    //rightButton.events.onInputOver.add(this.setRightTrue, this); 
+    rightButton.events.onInputOut.add(this.setRightFalse, this); 
     rightButton.events.onInputDown.add(this.setRightTrue, this); 
     rightButton.events.onInputUp.add(this.setRightFalse, this);
     
     // Add the move up button
-    var upButton = game.add.sprite(game.width/2,game.height-275,'up');
+    var upButton = game.add.sprite(game.width/2,game.height-375,'up');
     upButton.inputEnabled = true;
     upButton.alpha = 0.5; 
-//    upButton.events.onInputOver.add(this.setUpTrue, this); 
-//    upButton.events.onInputOut.add(this.setUpFalse, this); 
+    //upButton.events.onInputOver.add(this.setUpTrue, this); 
+    upButton.events.onInputOut.add(this.setUpFalse, this); 
     upButton.events.onInputDown.add(this.setUpTrue, this); 
     upButton.events.onInputUp.add(this.setUpFalse, this);
     
     // Add the move down button
-    var downButton = game.add.sprite(game.width/2,game.height-150,'down');
+    var downButton = game.add.sprite(game.width/2,game.height-250,'down');
     downButton.inputEnabled = true;
     downButton.alpha = 0.5; 
-//    downButton.events.onInputOver.add(this.setDownTrue, this); 
-//    downButton.events.onInputOut.add(this.setDownFalse, this); 
+    //downButton.events.onInputOver.add(this.setDownTrue, this); 
+    downButton.events.onInputOut.add(this.setDownFalse, this); 
     downButton.events.onInputDown.add(this.setDownTrue, this); 
     downButton.events.onInputUp.add(this.setDownFalse, this);
     

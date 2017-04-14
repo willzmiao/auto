@@ -1,11 +1,11 @@
 var level6State = {
     
 preload: function() { 
-        game.load.image('worker1', 'assets/level6/peg1.png');
-        game.load.image('worker2', 'assets/level6/peg2.png');
-        game.load.image('worker3', 'assets/level6/peg3.png');
-        game.load.image('worker4', 'assets/level6/peg4.png');
-        game.load.image('worker5', 'assets/level6/peg5.png');
+        game.load.image('worker1', 'assets/level6/peg_yellow.png');
+        game.load.image('worker2', 'assets/level6/peg_purple.png');
+        game.load.image('worker3', 'assets/level6/peg_red.png');
+        game.load.image('worker4', 'assets/level6/peg_teal.png');
+        game.load.image('worker5', 'assets/level6/peg_pink.png');
         game.load.image('worker6', 'assets/level6/peg6.png');
         game.load.image('worker7', 'assets/level6/peg7.png');
         game.load.image('worker8', 'assets/level6/peg8.png');
@@ -98,29 +98,29 @@ create: function() {
     this.worker15hole.scale.setTo(1.5, 1.5);
     this.worker16hole.scale.setTo(1.5, 1.5);
     
-    this.worker5 = game.add.sprite(game.width/2+100, game.height-250, 'worker16');
-    this.worker4 = game.add.sprite(game.width/2+110, game.height-250, 'worker12');
-    this.worker3 = game.add.sprite(game.width/2+100, game.height-250, 'worker7');
-    this.worker2 = game.add.sprite(game.width/2+95, game.height-250, 'worker4');
-    this.worker1 = game.add.sprite(game.width/2+105, game.height-250, 'worker1');
+    this.worker5 = game.add.sprite(game.width/2+185, game.height-350, 'worker5');
+    this.worker4 = game.add.sprite(game.width/2+165, game.height-350, 'worker4');
+    this.worker3 = game.add.sprite(game.width/2+145, game.height-350, 'worker3');
+    this.worker2 = game.add.sprite(game.width/2+125, game.height-350, 'worker2');
+    this.worker1 = game.add.sprite(game.width/2+105, game.height-350, 'worker1');
     
-    this.worker1.angle = 80;
-    this.worker2.angle = 8;
-    this.worker3.angle = -20;
-    this.worker4.angle = 50;
-    this.worker5.angle = -48;
+//    this.worker1.angle = 80;
+//    this.worker2.angle = 8;
+//    this.worker3.angle = -20;
+//    this.worker4.angle = 50;
+//    this.worker5.angle = -48;
     
-    this.worker1.scale.setTo(1.5, 1.5);
-    this.worker2.scale.setTo(1.5, 1.5);
-    this.worker3.scale.setTo(1.5, 1.5);
-    this.worker4.scale.setTo(1.5, 1.5);
-    this.worker5.scale.setTo(1.5, 1.5);
+    this.worker1.scale.setTo(1, 1);
+    this.worker2.scale.setTo(1, 1);
+    this.worker3.scale.setTo(1, 1);
+    this.worker4.scale.setTo(1, 1);
+    this.worker5.scale.setTo(1, 1);
     
-    this.rect1 = game.add.sprite(200, game.height/6+200, 'rectangle');
-    this.rect2 = game.add.sprite(600, game.height*3/6+200, 'rectangle');
-    this.rect3 = game.add.sprite(400, game.height/6+200, 'rectangle');
-    this.rect4 = game.add.sprite(800, game.height*3/6+200, 'rectangle');
-    this.rect5 = game.add.sprite(800, game.height*4/6+200, 'rectangle');
+    this.rect1 = game.add.sprite(600, 1000, 'rectangle');
+    this.rect2 = game.add.sprite(400, 600, 'rectangle');
+    this.rect3 = game.add.sprite(800, 600, 'rectangle');
+    this.rect4 = game.add.sprite(300, 600, 'rectangle');
+    this.rect5 = game.add.sprite(300, 1200, 'rectangle');
     
     this.rect1.anchor.setTo(0.5, 0.5);
     this.rect2.anchor.setTo(0.5, 0.5);
@@ -128,22 +128,22 @@ create: function() {
     this.rect4.anchor.setTo(0.5, 0.5);
     this.rect5.anchor.setTo(0.5, 0.5);
     
-    this.worker1hole.alpha = 0.4;
-    this.worker2hole.alpha = 0.4;
-    this.worker3hole.alpha = 0.4;
-    this.worker4hole.alpha = 0.4;
-    this.worker5hole.alpha = 0.4;
-    this.worker6hole.alpha = 0.4;
-    this.worker7hole.alpha = 0.4;
-    this.worker8hole.alpha = 0.4;
-    this.worker9hole.alpha = 0.4;
-    this.worker10hole.alpha = 0.4;
-    this.worker11hole.alpha = 0.4;
-    this.worker12hole.alpha = 0.4;
-    this.worker13hole.alpha = 0.4;
-    this.worker14hole.alpha = 0.4;
-    this.worker15hole.alpha = 0.4;
-    this.worker16hole.alpha = 0.4;
+    this.worker1hole.alpha = 0;
+    this.worker2hole.alpha = 0;
+    this.worker3hole.alpha = 0;
+    this.worker4hole.alpha = 0;
+    this.worker5hole.alpha = 0;
+    this.worker6hole.alpha = 0;
+    this.worker7hole.alpha = 0;
+    this.worker8hole.alpha = 0;
+    this.worker9hole.alpha = 0;
+    this.worker10hole.alpha = 0;
+    this.worker11hole.alpha = 0;
+    this.worker12hole.alpha = 0;
+    this.worker13hole.alpha = 0;
+    this.worker14hole.alpha = 0;
+    this.worker15hole.alpha = 0;
+    this.worker16hole.alpha = 0;
     
     game.physics.arcade.enable(this.worker1);
     game.physics.arcade.enable(this.worker2);
@@ -176,7 +176,7 @@ create: function() {
     var me = this;
  
     
-    me.totalTime = 15;
+    me.totalTime = 10;
     me.timeElapsed = 0;
  
     var speed;
@@ -205,35 +205,41 @@ update: function() {
 
     if(this.worker1.alive){
     this.movePlayer1();
-    game.add.tween(this.worker1).to({angle: 20}, 50).to({angle: 40}, 500).loop().start();
+    //game.add.tween(this.worker1).to({angle: 20}, 50).to({angle: 40}, 500).loop().start();
     game.physics.arcade.overlap(this.worker1, this.rect1, this.killWorker1, null, this);
     }
     
     else if(this.worker2.alive){
     this.movePlayer2();
-    game.add.tween(this.worker2).to({angle: -20}, 50).to({angle: 40}, 50).loop().start();
+    //game.add.tween(this.worker2).to({angle: -20}, 50).to({angle: 40}, 50).loop().start();
     game.physics.arcade.overlap(this.worker2, this.rect2, this.killWorker2, null, this);
     }
     
     else if(this.worker3.alive){
     this.movePlayer3();
-    game.add.tween(this.worker3).to({angle: -20}, 50).to({angle: 40}, 50).loop().start();
+    //game.add.tween(this.worker3).to({angle: -20}, 50).to({angle: 40}, 50).loop().start();
     game.physics.arcade.overlap(this.worker3, this.rect3, this.killWorker3, null, this);
     }
     
     else if(this.worker4.alive){
     this.movePlayer4();
-    game.add.tween(this.worker4).to({angle: -20}, 50).to({angle: 40}, 50).loop().start();
+    //game.add.tween(this.worker4).to({angle: -20}, 50).to({angle: 40}, 50).loop().start();
     game.physics.arcade.overlap(this.worker4, this.rect4, this.killWorker4, null, this);
     }
     
     else if(this.worker5.alive){
     this.movePlayer5();
-    game.add.tween(this.worker5).to({angle: -20}, 50).to({angle: 40}, 50).loop().start();
+    //game.add.tween(this.worker5).to({angle: -20}, 50).to({angle: 40}, 50).loop().start();
     game.physics.arcade.overlap(this.worker5, this.rect5, this.killWorker5, null, this);
     }
     //detect when time has run out
     //if(me.timeElapsed >= me.totalTime){
+    
+    this.game.world.bringToTop(this.worker5);
+    this.game.world.bringToTop(this.worker4);
+    this.game.world.bringToTop(this.worker3);
+    this.game.world.bringToTop(this.worker2);
+    this.game.world.bringToTop(this.worker1);
     
     if(!this.worker5.alive){
     //Do what you need to do
@@ -252,7 +258,8 @@ update: function() {
 killWorker1: function(worker1, worker1hole){
     
     this.worker1.kill();
-    this.worker1hole.alpha = 1.0;
+    //this.worker1hole.alpha = 1.0;
+    this.worker1placed = game.add.sprite(game.width/2, 775, 'worker1');
     //play animation
 //    var heart = game.add.sprite(game.width/2-150, game.height/2-200, 'heart');
 //    var beat = heart.animations.add('beat');
@@ -268,7 +275,9 @@ killWorker1: function(worker1, worker1hole){
 killWorker2: function(worker2, worker11hole){
     
     this.worker2.kill();
-    this.worker11hole.alpha = 1.0;
+    //this.worker11hole.alpha = 1.0;
+    this.worker2placed = game.add.sprite(385, 420, 'worker2');
+
     //play animation
 //    var heart = game.add.sprite(game.width/2-50, game.height/2-200, 'heart');
 //    var beat = heart.animations.add('beat');
@@ -331,12 +340,17 @@ updateTimer: function(){
  
     me.timeLabel.text = result;
  
+    if(!game.global.act1.isPlaying){
+        game.global.act1.play();
+    }
+    
 },
     
 killWorker3: function(worker3, worker2hole){
     
     this.worker3.kill();
-    this.worker2hole.alpha = 1.0;
+    //this.worker2hole.alpha = 1.0;
+    this.worker3placed = game.add.sprite(700, 420, 'worker3');
     //play animation
 //    var heart = game.add.sprite(game.width/2-50, game.height/2-200, 'heart');
 //    var beat = heart.animations.add('beat');
@@ -352,7 +366,8 @@ killWorker3: function(worker3, worker2hole){
 killWorker4: function(worker4, worker12hole){
     
     this.worker4.kill();
-    this.worker12hole.alpha = 1.0;
+    //this.worker12hole.alpha = 1.0;
+    this.worker4placed = game.add.sprite(235, 420, 'worker4');
     //play animation
 //    var heart = game.add.sprite(game.width/2-50, game.height/2-200, 'heart');
 //    var beat = heart.animations.add('beat');
@@ -367,7 +382,8 @@ killWorker4: function(worker4, worker12hole){
 killWorker5: function(worker5, worker16hole){
     
     this.worker5.kill();
-    this.worker16hole.alpha = 1.0;
+    //this.worker16hole.alpha = 1.0;
+    this.worker5placed = game.add.sprite(235, 1120, 'worker5');
     //play animation
 //    var heart = game.add.sprite(game.width/2-50, game.height/2-200, 'heart');
 //    var beat = heart.animations.add('beat');
@@ -378,7 +394,7 @@ killWorker5: function(worker5, worker16hole){
 //    var label = game.add.text(game.width/8, game.height/2+400,
 //            'Hmmm... not enough workers to do the job...', { font: '60px Arial', fill: '#ffffff',boundsAlignH: "center", boundsAlignV: "middle", wordWrap: true, wordWrapWidth: game.width-300});
     
-    this.text2 = game.add.sprite(game.width/2,game.height-200,'text2');
+    this.text2 = game.add.sprite(game.width/2,game.height-120,'text2');
     this.text2.anchor.setTo(.5,.5);
     this.game.world.bringToTop(this.text2);
 
@@ -496,7 +512,7 @@ addMobileInputs: function() {
     this.moveDown = false;
         
     // Add the move left button
-    var leftButton = game.add.sprite(game.width/3,game.height-175,'left'); 
+    var leftButton = game.add.sprite(game.width/3,game.height-275,'left'); 
     leftButton.inputEnabled = true;
     leftButton.alpha = 0.5; 
     //leftButton.events.onInputOver.add(this.setLeftTrue, this); 
@@ -505,7 +521,7 @@ addMobileInputs: function() {
     leftButton.events.onInputUp.add(this.setLeftFalse, this);
         
     // Add the move right button
-    var rightButton = game.add.sprite(game.width*2/3,game.height-175,'right');
+    var rightButton = game.add.sprite(game.width*2/3,game.height-275,'right');
     rightButton.inputEnabled = true;
     rightButton.alpha = 0.5; 
     //rightButton.events.onInputOver.add(this.setRightTrue, this); 
@@ -514,7 +530,7 @@ addMobileInputs: function() {
     rightButton.events.onInputUp.add(this.setRightFalse, this);
     
     // Add the move up button
-    var upButton = game.add.sprite(game.width/2,game.height-275,'up');
+    var upButton = game.add.sprite(game.width/2,game.height-375,'up');
     upButton.inputEnabled = true;
     upButton.alpha = 0.5; 
     //upButton.events.onInputOver.add(this.setUpTrue, this); 
@@ -523,7 +539,7 @@ addMobileInputs: function() {
     upButton.events.onInputUp.add(this.setUpFalse, this);
     
     // Add the move down button
-    var downButton = game.add.sprite(game.width/2,game.height-150,'down');
+    var downButton = game.add.sprite(game.width/2,game.height-250,'down');
     downButton.inputEnabled = true;
     downButton.alpha = 0.5; 
     //downButton.events.onInputOver.add(this.setDownTrue, this); 

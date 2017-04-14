@@ -17,7 +17,7 @@ preload: function() {
     
         game.load.audio('vo1','assets/level2/vo1.wav');
         game.load.audio('vo2','assets/level2/vo2.wav');
-        game.load.audio('act1','assets/sound/act1.wav');
+        game.load.audio('act1','assets/sound/act1.mp3');
         game.load.audio('conveyor','assets/level2/conveyor.wav');
     
         game.load.image('text1', 'assets/level2/text1.png');    
@@ -128,6 +128,10 @@ update: function() {
     game.physics.arcade.overlap(this.piece1, this.rect1, this.killWorker1, null, this);
     }
     
+    if(!game.global.act1.isPlaying){
+        game.global.act1.play();
+    }
+
         
 },
     
@@ -149,7 +153,7 @@ killWorker1: function(piece1, rect1){
     this.vo2.play();
     this.conveyor.play();
     
-    this.text2 = game.add.sprite(game.width/2,game.height-200,'text2');
+    this.text2 = game.add.sprite(game.width/2,game.height-180,'text2');
     this.text2.anchor.setTo(.5,.5);
     game.world.bringToTop(this.text2);
     
@@ -272,7 +276,7 @@ addMobileInputs: function() {
     this.moveDown = false;
         
     // Add the move left button
-    var leftButton = game.add.sprite(game.width/3,game.height-175,'left'); 
+    var leftButton = game.add.sprite(game.width/3,game.height-275,'left'); 
     leftButton.inputEnabled = true;
     leftButton.alpha = 0.5; 
     //leftButton.events.onInputOver.add(this.setLeftTrue, this); 
@@ -281,7 +285,7 @@ addMobileInputs: function() {
     leftButton.events.onInputUp.add(this.setLeftFalse, this);
         
     // Add the move right button
-    var rightButton = game.add.sprite(game.width*2/3,game.height-175,'right');
+    var rightButton = game.add.sprite(game.width*2/3,game.height-275,'right');
     rightButton.inputEnabled = true;
     rightButton.alpha = 0.5; 
     //rightButton.events.onInputOver.add(this.setRightTrue, this); 
@@ -290,7 +294,7 @@ addMobileInputs: function() {
     rightButton.events.onInputUp.add(this.setRightFalse, this);
     
     // Add the move up button
-    var upButton = game.add.sprite(game.width/2,game.height-275,'up');
+    var upButton = game.add.sprite(game.width/2,game.height-375,'up');
     upButton.inputEnabled = true;
     upButton.alpha = 0.5; 
     //upButton.events.onInputOver.add(this.setUpTrue, this); 
@@ -299,7 +303,7 @@ addMobileInputs: function() {
     upButton.events.onInputUp.add(this.setUpFalse, this);
     
     // Add the move down button
-    var downButton = game.add.sprite(game.width/2,game.height-150,'down');
+    var downButton = game.add.sprite(game.width/2,game.height-250,'down');
     downButton.inputEnabled = true;
     downButton.alpha = 0.5; 
     //downButton.events.onInputOver.add(this.setDownTrue, this); 

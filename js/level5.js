@@ -80,13 +80,16 @@ var level5State = {
     this.text1.anchor.setTo(.5,.5);
     
     var speed;
+    var pipespeed;
     
     if(!game.device.desktop){
         this.addMobileInputs();  
         this.speed = 24;
+        this.pipespeed = -600;
     }
     else if (game.device.desktop){
         this.speed = 12;
+        this.pipespeed = -300;
     }
     
 
@@ -113,6 +116,10 @@ update: function() {
     this.game.world.bringToTop(this.bird);
     this.game.world.bringToTop(this.text1);
     
+    if(!game.global.act1.isPlaying){
+        game.global.act1.play();
+    }
+    
 //    if(this.text2.alive){
 //    this.game.world.bringToTop(this.text2);
 //    }
@@ -122,10 +129,10 @@ update: function() {
     
 movePlayer: function(){
     if(this.cursor.up.isDown || this.moveUp){
-        this.bird.body.y -= 10;
+        this.bird.body.y -= this.speed;
     }
     else if(this.cursor.down.isDown || this.moveDown){
-        this.bird.body.y += 10;
+        this.bird.body.y += this.speed;
     }  
 
 },
@@ -141,7 +148,7 @@ addOnePipe: function(x, y) {
     game.physics.arcade.enable(pipe);
 
     // Add velocity to the pipe to make it move left
-    pipe.body.velocity.x = -300; 
+    pipe.body.velocity.x = this.pipespeed; 
     //cloud1.body.velocity.x = -200; 
 
     // Automatically kill the pipe when it's no longer visible 
@@ -174,7 +181,7 @@ addCloud: function(x, y) {
     game.physics.arcade.enable(cloud1);
 
     // Add velocity to the pipe to make it move left
-    cloud1.body.velocity.x = -350; 
+    cloud1.body.velocity.x = this.pipespeed*1.5; 
 
     // Automatically kill the pipe when it's no longer visible 
     cloud1.checkWorldBounds = true;
@@ -206,7 +213,7 @@ addCloud2: function(x, y) {
     game.physics.arcade.enable(cloud3);
 
     // Add velocity to the pipe to make it move left
-    cloud3.body.velocity.x = -200; 
+    cloud3.body.velocity.x = this.pipespeed*2/3; 
 
     // Automatically kill the pipe when it's no longer visible 
     cloud3.checkWorldBounds = true;
@@ -264,7 +271,7 @@ addMobileInputs: function() {
     this.moveDown = false;
         
     // Add the move left button
-    var leftButton = game.add.sprite(game.width/3,game.height-175,'left'); 
+    var leftButton = game.add.sprite(game.width/3,game.height-275,'left'); 
     leftButton.inputEnabled = true;
     leftButton.alpha = 0.5; 
     //leftButton.events.onInputOver.add(this.setLeftTrue, this); 
@@ -273,7 +280,7 @@ addMobileInputs: function() {
     leftButton.events.onInputUp.add(this.setLeftFalse, this);
         
     // Add the move right button
-    var rightButton = game.add.sprite(game.width*2/3,game.height-175,'right');
+    var rightButton = game.add.sprite(game.width*2/3,game.height-275,'right');
     rightButton.inputEnabled = true;
     rightButton.alpha = 0.5; 
     //rightButton.events.onInputOver.add(this.setRightTrue, this); 
@@ -282,7 +289,7 @@ addMobileInputs: function() {
     rightButton.events.onInputUp.add(this.setRightFalse, this);
     
     // Add the move up button
-    var upButton = game.add.sprite(game.width/2,game.height-275,'up');
+    var upButton = game.add.sprite(game.width/2,game.height-375,'up');
     upButton.inputEnabled = true;
     upButton.alpha = 0.5; 
     //upButton.events.onInputOver.add(this.setUpTrue, this); 
@@ -291,7 +298,7 @@ addMobileInputs: function() {
     upButton.events.onInputUp.add(this.setUpFalse, this);
     
     // Add the move down button
-    var downButton = game.add.sprite(game.width/2,game.height-150,'down');
+    var downButton = game.add.sprite(game.width/2,game.height-250,'down');
     downButton.inputEnabled = true;
     downButton.alpha = 0.5; 
     //downButton.events.onInputOver.add(this.setDownTrue, this); 
