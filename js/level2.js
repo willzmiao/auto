@@ -112,19 +112,19 @@ update: function() {
 
     if(this.piece3.alive){
     this.movePlayer3();
-    game.add.tween(this.piece3).to({angle: -20}, 50).to({angle: 40}, 50).loop().start();
+    //game.add.tween(this.piece3).to({angle: -20}, 50).to({angle: 40}, 50).loop().start();
     game.physics.arcade.overlap(this.piece3, this.rect3, this.killWorker3, null, this);
     }
     
     else if(this.piece2.alive){
     this.movePlayer2();
-    game.add.tween(this.piece2).to({angle: -20}, 50).to({angle: 40}, 50).loop().start();
+    //game.add.tween(this.piece2).to({angle: -20}, 50).to({angle: 40}, 50).loop().start();
     game.physics.arcade.overlap(this.piece2, this.rect2, this.killWorker2, null, this);
     }
     
     else if(this.piece1.alive){
     this.movePlayer1();
-    game.add.tween(this.piece1).to({angle: 20}, 50).to({angle: 40}, 500).loop().start();
+    //game.add.tween(this.piece1).to({angle: 20}, 50).to({angle: 40}, 500).loop().start();
     game.physics.arcade.overlap(this.piece1, this.rect1, this.killWorker1, null, this);
     }
     

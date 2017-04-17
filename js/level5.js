@@ -79,6 +79,11 @@ var level5State = {
     this.text1 = game.add.sprite(game.width/2,200,'text1');
     this.text1.anchor.setTo(.5,.5);
     
+    this.text2 = game.add.sprite(game.width/2,game.height-200,'text2');
+    this.text2.anchor.setTo(.5,.5);
+    this.text2.alpha = 0;
+    
+        
     var speed;
     var pipespeed;
     
@@ -115,6 +120,8 @@ update: function() {
     this.game.world.bringToTop(this.clouds);
     this.game.world.bringToTop(this.bird);
     this.game.world.bringToTop(this.text1);
+    this.game.world.bringToTop(this.text2);
+    
     
     if(!game.global.act1.isPlaying){
         game.global.act1.play();
@@ -237,8 +244,9 @@ addRowOfClouds2: function() {
 addText: function() {
     
     //var label = game.add.text(game.width/5, game.height/7+100, 'The autonomy is nice.', { font: '40px Arial', fill: '#ffffff'});
-    this.text2 = game.add.sprite(game.width/2,game.height-200,'text2');
-    this.text2.anchor.setTo(.5,.5);
+//    this.text2 = game.add.sprite(game.width/2,game.height-200,'text2');
+//    this.text2.anchor.setTo(.5,.5);
+//    this.text2.alpha = 1;
     this.game.world.bringToTop(this.text2);
 
     

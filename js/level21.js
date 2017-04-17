@@ -49,7 +49,7 @@ create: function() {
   
     
     game.physics.arcade.enable(this.bubble);
-    this.timer0988 = this.game.time.events.add(3000, this.nextState, this);
+    this.timer0988 = this.game.time.events.add(5000, this.nextState, this);
 
     },
 
