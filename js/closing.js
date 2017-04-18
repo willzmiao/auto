@@ -41,7 +41,7 @@ create: function() {
     this.ends.anchor.set(0.5,0.5);
     this.ends.alpha = 0;
     this.timer483301 = game.time.events.add(6000, this.showText, this); 
-    this.timer422301 = game.time.events.add(18000, this.nextState, this); 
+    this.timer422301 = game.time.events.add(15000, this.nextState, this); 
     
     },
 
@@ -83,8 +83,8 @@ restartGame: function() {
 },
 
 nextState: function(){
-    game.global.act5.stop();
-    game.state.start('menu');
+    //game.global.act5.stop();
+    game.state.start('level25');
 },
     
 fade: function() {

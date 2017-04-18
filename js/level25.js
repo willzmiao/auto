@@ -4,49 +4,34 @@ var level25State = {
  
 preload: function() { 
 
-        game.load.image('finalspeech', 'assets/level24/finalspeech.png');
-        game.load.image('finalspeech1', 'assets/level24/finalspeech1.png');
-        game.load.image('finalspeech2', 'assets/level24/finalspeech2.png');
-        game.load.image('finalspeech3', 'assets/level24/finalspeech3.png');
+    game.load.image('title', 'assets/level25/title.png');
+    game.load.image('credits1', 'assets/level25/credits1.png');
+    game.load.image('credits2', 'assets/level25/credits2.png');
+    game.load.image('credits3', 'assets/level25/credits3.png');
+    game.load.image('credits4', 'assets/level25/credits4.png');
     
-        game.load.image('black', 'assets/level24/black.png');
-    
-        game.load.image('up', 'assets/ui/up_arrow.png');
-        game.load.image('down', 'assets/ui/down_arrow.png');
-        game.load.image('left', 'assets/ui/left_arrow.png');
-        game.load.image('right', 'assets/ui/right_arrow.png');
-
-        game.load.audio('exit','assets/sound/exit.mp3');
+    //game.load.audio('exit','assets/sound/exit.mp3');
     },
 
 create: function() { 
         
-    
-    this.black = game.add.sprite(0,0, 'black');
-    
-    //this.finalspeech.alpha = 0;
-    
-    //tell phaser which keys we want to use    
+    game.stage.backgroundColor = '#000000';
     this.cursor = game.input.keyboard.createCursorKeys();
     
-//    var label = game.add.text(game.width/5, 350,
-//            'Jim is still jobless', { font: '60px Arial', fill: 'rgba(0,0,0,0.5)'});
+    //this.timer10239 = this.game.time.events.add(1000, this.moveUps, this);
+    this.timer5139 = this.game.time.events.add(5000, this.moveUps2, this);
+    this.timer113239 = this.game.time.events.add(8000, this.moveUps3, this);
+    this.timer113239 = this.game.time.events.add(11000, this.moveUps4, this);
     
-        
-    var speed;
+    this.credits = game.add.sprite(game.width/2, 300, 'title');
+    this.credits.anchor.set(0.5,0.5);
     
-    if(!game.device.desktop){
-        this.addMobileInputs();  
-        this.speed = 20;
-    }
-    else if (game.device.desktop){
-        this.speed = 10;
-    }
+    this.credits1 = game.add.sprite(game.width/2, 500, 'credits1');
+    this.credits1.anchor.set(0.5,0);
+    game.add.tween(this.credits1).to({alpha: 0}, 500, Phaser.Easing.Exponential.InOut,false,4000).start();
     
-    this.timer10239 = this.game.time.events.add(1000, this.moveUps, this);
-    this.timer5139 = this.game.time.events.add(2500, this.moveUps2, this);
-    this.timer113239 = this.game.time.events.add(6000, this.moveUps3, this);
-    this.timer2339 = this.game.time.events.add(10000, this.nextState, this);
+    
+    this.timer2339 = this.game.time.events.add(18000, this.nextState, this);
 
 
     },
@@ -74,7 +59,8 @@ restartGame: function() {
 },
 
 nextState: function(){
-    game.state.start('closing');
+    game.global.act5.stop();
+    game.state.start('menu');
 },
     
         
@@ -82,104 +68,48 @@ nextState: function(){
     
 moveUps: function(){
     
-    this.finalspeech = game.add.sprite(game.width/2,game.height/2-300, 'finalspeech1');
-    this.finalspeech.anchor.set(.5,.5);
+    this.credits1 = game.add.sprite(game.width/2,500, 'credits1');
+    this.credits1.alpha = 0;
+    game.add.tween(this.credits1).to({alpha: 1}, 1000).easing(Phaser.Easing.Exponential.Out).start();
+    this.credits1.anchor.set(.5,0);
     
+    game.add.tween(this.credits1).to({alpha: 0}, 1000, Phaser.Easing.Exponential.InOut,false,2000).start();
+    
+    //game.add.tween(this.credits1).to({alpha: 0}, 1000, ).easing(Phaser.Easing.Exponential.Out).start();
+
 },
     
 moveUps2: function(){
     
-    this.finalspeech2 = game.add.sprite(game.width/2,game.height/2, 'finalspeech2');
-    this.finalspeech2.anchor.set(.5,.5);
+    this.credits2 = game.add.sprite(game.width/2,500, 'credits2');
+    this.credits2.alpha = 0;
+    game.add.tween(this.credits2).to({alpha: 1}, 1000).easing(Phaser.Easing.Exponential.Out).start();
+    this.credits2.anchor.set(.5,0);
     
+    game.add.tween(this.credits2).to({alpha: 0}, 1000, Phaser.Easing.Exponential.InOut,false,3000).start();
 },
 
 moveUps3: function(){
     
-    this.finalspeech3 = game.add.sprite(game.width/2,game.height/2+300, 'finalspeech3');
-    this.finalspeech3.anchor.set(.5,.5);
+    this.credits3 = game.add.sprite(game.width/2,500, 'credits3');
+    this.credits3.alpha = 0;
+    game.add.tween(this.credits3).to({alpha: 1}, 1000).easing(Phaser.Easing.Exponential.Out).start();
+    this.credits3.anchor.set(.5,0);    
+    
+    game.add.tween(this.credits3).to({alpha: 0}, 1000, Phaser.Easing.Exponential.InOut,false,3000).start();
+},
+    
+moveUps4: function(){
+    
+    this.credits4 = game.add.sprite(game.width/2,500, 'credits4');
+    this.credits4.alpha = 0;
+    game.add.tween(this.credits4).to({alpha: 1}, 1000).easing(Phaser.Easing.Exponential.Out).start();
+    this.credits4.anchor.set(.5,0);    
+    
+    game.add.tween(this.credits).to({alpha: 0}, 1000, Phaser.Easing.Exponential.InOut,false,5000).start();
+    game.add.tween(this.credits4).to({alpha: 0}, 1000, Phaser.Easing.Exponential.InOut,false,5000).start();
     
 },
 
-
-    
-addMobileInputs: function() {
-        
-    // Movement variables
-    this.moveLeft = false; 
-    this.moveRight = false;
-    this.moveUp = false;
-    this.moveDown = false;
-        
-    // Add the move left button
-    var leftButton = game.add.sprite(game.width/3,game.height-275,'left'); 
-    leftButton.inputEnabled = true;
-    leftButton.alpha = 0.5; 
-    //leftButton.events.onInputOver.add(this.setLeftTrue, this); 
-    leftButton.events.onInputOut.add(this.setLeftFalse, this); 
-    leftButton.events.onInputDown.add(this.setLeftTrue, this); 
-    leftButton.events.onInputUp.add(this.setLeftFalse, this);
-        
-    // Add the move right button
-    var rightButton = game.add.sprite(game.width*2/3,game.height-275,'right');
-    rightButton.inputEnabled = true;
-    rightButton.alpha = 0.5; 
-    //rightButton.events.onInputOver.add(this.setRightTrue, this); 
-    rightButton.events.onInputOut.add(this.setRightFalse, this); 
-    rightButton.events.onInputDown.add(this.setRightTrue, this); 
-    rightButton.events.onInputUp.add(this.setRightFalse, this);
-    
-    // Add the move up button
-    var upButton = game.add.sprite(game.width/2,game.height-375,'up');
-    upButton.inputEnabled = true;
-    upButton.alpha = 0.5; 
-    //upButton.events.onInputOver.add(this.setUpTrue, this); 
-    upButton.events.onInputOut.add(this.setUpFalse, this); 
-    upButton.events.onInputDown.add(this.setUpTrue, this); 
-    upButton.events.onInputUp.add(this.setUpFalse, this);
-    
-    // Add the move down button
-    var downButton = game.add.sprite(game.width/2,game.height-250,'down');
-    downButton.inputEnabled = true;
-    downButton.alpha = 0.5; 
-    //downButton.events.onInputOver.add(this.setDownTrue, this); 
-    downButton.events.onInputOut.add(this.setDownFalse, this); 
-    downButton.events.onInputDown.add(this.setDownTrue, this); 
-    downButton.events.onInputUp.add(this.setDownFalse, this);
-    
-},
-    
-// Basic functions that are used in our callbacks
-setLeftTrue: function() { 
-    this.moveLeft = true;
-},
-    
-setLeftFalse: function() { 
-    this.moveLeft = false;
-},
-    
-setRightTrue: function() { 
-    this.moveRight = true;
-},
-    
-setRightFalse: function() { 
-    this.moveRight = false;
-},    
-    
-setUpTrue: function() { 
-    this.moveUp = true;
-},
-    
-setUpFalse: function() { 
-    this.moveUp = false;
-},
-    
-setDownTrue: function() { 
-    this.moveDown = true;
-},
-    
-setDownFalse: function() { 
-    this.moveDown = false;
-},
 
 };

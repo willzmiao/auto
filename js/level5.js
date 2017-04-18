@@ -246,7 +246,7 @@ addText: function() {
     //var label = game.add.text(game.width/5, game.height/7+100, 'The autonomy is nice.', { font: '40px Arial', fill: '#ffffff'});
 //    this.text2 = game.add.sprite(game.width/2,game.height-200,'text2');
 //    this.text2.anchor.setTo(.5,.5);
-//    this.text2.alpha = 1;
+    this.text2.alpha = 1;
     this.game.world.bringToTop(this.text2);
 
     

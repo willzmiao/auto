@@ -22,6 +22,7 @@ preload: function() {
     
         game.load.image('text1', 'assets/level2/text1.png');    
         game.load.image('text2', 'assets/level2/text2.png');    
+        game.load.image('tip', 'assets/level2/tip.png');    
     
     },
 
@@ -47,6 +48,7 @@ create: function() {
     this.piece1 = game.add.sprite(game.width/2,game.height-300,'piece_lower');
     this.piece2 = game.add.sprite(game.width/2,game.height-300,'piece_upper');
     this.piece3 = game.add.sprite(game.width/2,game.height-300,'piece_mid');
+    this.tip = game.add.sprite(game.width/2,game.height-400,'tip');
         
     this.rect1 = game.add.sprite(game.width/3-150,game.height-400,'rect');
     this.rect2 = game.add.sprite(game.width/3-100,game.height/3-100,'rect');
@@ -55,10 +57,14 @@ create: function() {
     this.rect1.scale.setTo(2,2);
     this.rect2.scale.setTo(2,2);
     this.rect3.scale.setTo(2,2);
+    this.tip.scale.setTo(2,2);
+
+    this.tip.anchor.setTo(.5,.5);
         
     this.piece1cover.alpha = 0;
     this.piece2cover.alpha = 0;
     this.piece3cover.alpha = 0;
+    this.tip.alpha = 0;
     
     game.physics.arcade.enable(this.piece1);
     game.physics.arcade.enable(this.piece2);
@@ -84,6 +90,9 @@ create: function() {
     game.global.act1 = game.add.audio('act1');
     game.global.act1.volume = 0.2;
     game.global.act1.play();
+    
+    game.add.tween(this.tip).to({alpha: 1}, 500, Phaser.Easing.Linear.InOut,false,2000).start();
+    game.add.tween(this.tip).to({alpha: 0}, 500, Phaser.Easing.Linear.InOut,false,7000).start();
     
     var speed;
     

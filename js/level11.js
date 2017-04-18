@@ -44,7 +44,7 @@ create: function() {
     //tell phaser which keys we want to use    
     this.cursor = game.input.keyboard.createCursorKeys();    
     this.person1 = game.add.sprite(game.width/3, game.height/3, 'person_left');
-    this.bubble1 = game.add.sprite(game.width/3, game.height/3, 'bubble_left');
+    this.bubble1 = game.add.sprite(game.width/3, game.height/3, 'bubble_right');
     this.person1.anchor.set(0.5,0.5);
     this.bubble1.anchor.set(0.5,0.5);
     

@@ -212,7 +212,7 @@ display5: function(){
         this.speech5.alpha = 1;
         game.world.bringToTop(this.speech5);
         this.womp5.play();
-        this.timer012390 = this.game.time.events.add(7000, this.nextState, this);
+        this.timer012390 = this.game.time.events.add(4000, this.nextState, this);
             flipFlop = true;
         }
     }

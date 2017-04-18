@@ -117,6 +117,9 @@ update: function() {
 
     this.game.world.bringToTop(this.pipes);
     this.game.world.bringToTop(this.clouds);
+    this.game.world.bringToTop(this.bird);
+    this.game.world.bringToTop(this.deflated);
+    this.game.world.bringToTop(this.text1);
     
 //    if(this.bird.alive){
 //    this.game.world.bringToTop(this.bird);

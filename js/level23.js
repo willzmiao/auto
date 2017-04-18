@@ -207,7 +207,7 @@ playStutter: function(){
 }, 
     
 enlarge: function(){
-    game.add.tween(this.pinkslip.scale).to({x: 2, y: 2}, 1000,Phaser.Easing.Sinusoidal.Out).start();
+    game.add.tween(this.pinkslip.scale).to({x: 1.5, y: 1.5}, 1000,Phaser.Easing.Sinusoidal.Out).start();
 },
 //display4: function(){
 //    if(this.cursor.right.isDown){

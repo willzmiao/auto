@@ -32,11 +32,11 @@ create: function() {
     this.background = game.add.sprite(0,0, 'background');
     this.speech1 = game.add.sprite(400,650, 'speech1');
     this.speech2 = game.add.sprite(500,300, 'speech2');
-    this.speech3 = game.add.sprite(150,400, 'speech3');
+    this.speech3 = game.add.sprite(150,430, 'speech3');
     
     this.finalspeech1 = game.add.sprite(game.width/2,650, 'finalspeech1');
     this.finalspeech2 = game.add.sprite(game.width/2,450, 'finalspeech2');
-    this.finalspeech3 = game.add.sprite(game.width/2,250, 'finalspeech3');
+    this.finalspeech3 = game.add.sprite(game.width/2,220, 'finalspeech3');
     
     this.finalspeech1.anchor.set(.5,.5);
     this.finalspeech2.anchor.set(.5,.5);
@@ -114,7 +114,7 @@ display1: function(){
         if(!flipFlop){
         this.speech1.alpha = 1; 
         //this.womp1.play();
-        game.world.bringToTop(this.speech1);
+        //game.world.bringToTop(this.speech1);
         //game.add.tween(this.wifeText).to({alpha: 0}, 2000).easing(Phaser.Easing.Exponential.Out).start();
             flipFlop = true;
         }
@@ -131,7 +131,7 @@ display2: function(){
         if(!flipFlop){
         this.speech3.alpha = 1; 
         //this.womp1.play();
-        game.world.bringToTop(this.speech3);
+        //game.world.bringToTop(this.speech3);
         //game.add.tween(this.wifeText).to({alpha: 0}, 2000).easing(Phaser.Easing.Exponential.Out).start();
             flipFlop = true;
         }
@@ -148,8 +148,8 @@ display3: function(){
         if(!flipFlop){
         this.speech2.alpha = 1; 
         //this.womp1.play();
-        game.world.bringToTop(this.speech2);
-        this.timer2882 = this.game.time.events.add(15000, this.nextState, this);
+        //game.world.bringToTop(this.speech2);
+        this.timer2882 = this.game.time.events.add(17000, this.nextState, this);
         
 //        game.add.tween(this.speech1).to({alpha: 0}, 5000).easing(Phaser.Easing.Exponential.Out).start();    
 //        game.add.tween(this.speech2).to({alpha: 0}, 5000).easing(Phaser.Easing.Exponential.Out).start();    
@@ -158,12 +158,17 @@ display3: function(){
         game.add.tween(this.speech1).to({alpha: 0}, 3000,Phaser.Easing.Exponential.InOut,false,3000).start(); 
         game.add.tween(this.speech2).to({alpha: 0}, 3000,Phaser.Easing.Exponential.InOut,false,3000).start(); 
         game.add.tween(this.speech3).to({alpha: 0}, 3000,Phaser.Easing.Exponential.InOut,false,3000).start(); 
+                        
+        game.add.tween(this.finalspeech1).to({alpha: .9}, 1000,Phaser.Easing.Exponential.InOut,false,6500).start();     
+        game.add.tween(this.finalspeech2).to({alpha: .9}, 1000,Phaser.Easing.Exponential.InOut,false,9000).start();     
+        game.add.tween(this.finalspeech3).to({alpha: .9}, 1000,Phaser.Easing.Exponential.InOut,false,12000).start();   
+        
             
-            
-        game.add.tween(this.finalspeech1).to({alpha: 100}, 500,Phaser.Easing.Exponential.InOut,false,4500).start();     
-        game.add.tween(this.finalspeech2).to({alpha: 100}, 500,Phaser.Easing.Exponential.InOut,false,7000).start();     
-        game.add.tween(this.finalspeech3).to({alpha: 100}, 500,Phaser.Easing.Exponential.InOut,false,10000).start();     
-        //this.timer4121 = game.time.events.add(5000, this.fade, this);     
+        //this.q1.onComplete.add(this.killBubbles);
+//        this.q2.onComplete.add(function(){this.speech2.kill();});
+//        this.q3.onComplete.add(function(){this.speech3.kill();});
+
+        this.timer12321 = game.time.events.add(3000, this.killBubbles, this);     
         //game.add.tween(this.wifeText).to({alpha: 0}, 2000).easing(Phaser.Easing.Exponential.Out).start();
             flipFlop = true;
         }
@@ -174,6 +179,12 @@ display3: function(){
     }
 },
 
+killBubbles: function(){
+    
+        game.world.sendToBack(this.speech1);
+        game.world.sendToBack(this.speech2);
+        game.world.sendToBack(this.speech3);
+},
     
     
 restartGame: function() {
@@ -201,7 +212,7 @@ moveUps: function(){
     this.finalspeech = game.add.sprite(game.width/2,game.height, 'finalspeech');
     this.finalspeech.anchor.set(.5,.5);
     this.finalspeech.alpha=0;
-    game.add.tween(this.finalspeech).to({alpha: 100},1000,Phaser.Easing.Linear.InOut).start();  
+    game.add.tween(this.finalspeech).to({alpha: 1},1000,Phaser.Easing.Linear.InOut).start();  
     
 },
 

@@ -70,7 +70,7 @@ create: function() {
     this.game.world.bringToTop(this.text1);
     //game.add.tween(this.vertigo).to({alpha: 0}, 3000).to({alpha: 0.9}, 500,Phaser.Easing.Elastic.Out).loop().start();
     
-    this.timer9192 = this.game.time.events.add(2000, this.stopMachine, this);
+    this.timer9192 = this.game.time.events.add(500, this.stopMachine, this);
     
     //smoke particles
     var emitter;

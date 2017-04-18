@@ -25,8 +25,8 @@ create: function() {
     this.scene = game.add.sprite(0, 0, 'scene');
     //this.scene.anchor.set(0.5,0.5);
     
-//    this.text1 = game.add.sprite(game.width/2, 200, 'text1');
-//    this.text1.anchor.set(0.5,0.5);
+    this.text1 = game.add.sprite(game.width/2, 200, 'text1');
+    this.text1.anchor.set(0.5,0.5);
     
     //this.timer94 = this.game.time.events.add(1000, this.unsure1, this);
     this.gobble = game.add.audio('gobble');

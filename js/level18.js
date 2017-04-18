@@ -36,7 +36,7 @@ create: function() {
     //game.physics.arcade.enable(this.line);
     this.cursor1.body.collideWorldBounds = true;
     
-    this.changeTimer = this.game.time.events.add(3000, this.display1, this);        
+    this.changeTimer = this.game.time.events.add(2000, this.display1, this);        
     this.timer10239 = this.game.time.events.add(4000, this.display15, this);        
 
     this.click = game.add.audio('click');

@@ -162,6 +162,7 @@ create: function() {
     this.worker4.body.collideWorldBounds = true;
     this.worker5.body.collideWorldBounds = true;
     
+    this.scale1 = game.add.sprite(game.width/2+130, 530, 'scale');
     this.affirmative1 = game.add.audio('affirmative1');
     this.nervous1 = game.add.audio('nervous1');
     this.nervous2 = game.add.audio('nervous2');
@@ -171,6 +172,7 @@ create: function() {
     this.text1.anchor.setTo(.5,.5);
     this.game.world.bringToTop(this.text1);
 
+    this.scale1.alpha = 0;
     
     //timer stuff
     var me = this;
@@ -240,6 +242,7 @@ update: function() {
     this.game.world.bringToTop(this.worker3);
     this.game.world.bringToTop(this.worker2);
     this.game.world.bringToTop(this.worker1);
+    this.game.world.bringToTop(this.scale1);
     
     if(!this.worker5.alive){
     //Do what you need to do
@@ -288,7 +291,8 @@ killWorker2: function(worker2, worker11hole){
 //    var label = game.add.text(game.width/2, 300,
 //            'Boss: We need to \nscale faster!', { font: '60px Arial', fill: 'rgba(0,0,0,1)'});
     
-    this.scale1 = game.add.sprite(game.width/2+130, 230, 'scale');
+//    this.scale1 = game.add.sprite(game.width/2+130, 530, 'scale');
+    this.scale1.alpha = 1;
     
     var me = this;
     me.createTimer();

@@ -63,9 +63,12 @@ update: function() {
     nKey.onDown.add(this.nextState, this);
 
     var rightKey = game.input.keyboard.addKey(Phaser.Keyboard.RIGHT);
-    rightKey.onDown.add(this.display2, this);
     
-    if(this.moveRight){
+    if(this.closed.alive){
+    rightKey.onDown.add(this.display2, this);
+    }
+        
+    if(this.moveRight && this.closed.alive){
         this.display2();   
     }
     
@@ -89,18 +92,19 @@ vibrate: function(){
     
 display2: function(){
     
+    this.closed.kill();
     this.buzz.stop();
     this.flip.play();
 //    this.open = game.add.sprite(game.width/2, game.height/2-250, 'open');
 //    this.open.anchor.set(.5,.5);
-    this.closed.kill();
+    
     this.open.alpha = 1;
     //this.text1 = game.add.sprite(300, 300, 'text1');
     
     game.add.tween(this.open.scale).to({x: 3, y: 3}, 1000,Phaser.Easing.Sinusoidal.Out, true, 1000).start();
     game.add.tween(this.open).to({y: game.height/2+650}, 1000,Phaser.Easing.Sinusoidal.Out, true, 1000).start();
     
-    this.timer230948 = this.game.time.events.add(12000, this.nextState, this);
+    this.timer230948 = this.game.time.events.add(6000, this.nextState, this);
     
 },
 

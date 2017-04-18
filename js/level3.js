@@ -216,7 +216,7 @@ killWorker3: function(worker3, worker3hole){
     
     this.vo2.play();
     
-    this.timer5813 = this.game.time.events.add(4000, this.nextState, this);
+    this.timer5813 = this.game.time.events.add(3000, this.nextState, this);
     //game.add.tween(this.label).to({fill : '#rgba(255,0,0,0)'}, 50).to({fill : '#rgba(255,0,0,1)'}, 50).loop().start();
 
     //delay switching states by X time

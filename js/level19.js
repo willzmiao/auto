@@ -32,7 +32,7 @@ create: function() {
 //
     this.timer = game.time.events.loop(3000, this.moveHand, this); 
     
-    this.mole = game.add.sprite(game.width/2,game.height*4/6, 'mole');
+    this.mole = game.add.sprite(game.width/2,game.height-200, 'mole');
     game.physics.arcade.enable(this.mole);
     var playerX;
     

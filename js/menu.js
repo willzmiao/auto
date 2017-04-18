@@ -8,11 +8,13 @@ preload: function() {
         game.load.image('left', 'assets/ui/left_arrow.png');
         game.load.image('right', 'assets/ui/right_arrow.png');
     
-    game.load.image('title', 'assets/menu/title.png');
+    game.load.image('title', 'assets/menu/introscreen2.png');
+    //game.load.image('title', 'assets/menu/title.png');
     game.load.image('intro', 'assets/menu/intro.png');
     game.load.image('press', 'assets/menu/press.png');
     
     game.load.audio('intro','assets/sound/intro.mp3');
+    game.load.spritesheet('intro_anim', 'assets/menu/intro_anim.png', 1080, 1920, 10);
     //game.load.bitmapFont('karma', 'assets/Karmakooma.gif', 'assets/Karmakooma.ttf');
 
     },
@@ -34,8 +36,15 @@ create: function() {
     
     game.input.keyboard.addKeyCapture([Phaser.Keyboard.UP, Phaser.Keyboard.DOWN,Phaser.Keyboard.RIGHT,Phaser.Keyboard.LEFT]);
     
-    this.title = game.add.sprite(game.width/2,game.height/2-200,'title');
-    this.title.anchor.setTo(.5,.5);
+//    this.heart = game.add.sprite(0, 0, 'intro_anim');
+//    var beat = this.heart.animations.add('beat');
+//    this.heart.animations.play('beat', 30, true);
+    //this.heart.animations.stop();
+
+    
+    
+    this.title = game.add.sprite(0,0,'title');
+    //this.title.anchor.setTo(.5,.5);
     
     this.intro = game.add.sprite(game.width*3/2,game.height/2-200,'intro');
     this.intro.anchor.setTo(.5,.5);
@@ -51,6 +60,7 @@ create: function() {
     if (!game.device.desktop) {
         this.press = game.add.sprite(game.width/2,game.height-200,'press');
         this.press.anchor.setTo(.5,.5);
+        this.press.scale.setTo(.8,.8);
         game.add.tween(this.press).to({y: this.press.y+15}, 1000).to({y: this.press.y}, 1000,Phaser.Easing.Sinusoidal.InOut).loop().start();
         
         //enable touch to start
@@ -65,6 +75,7 @@ create: function() {
         
         this.press = game.add.sprite(game.width/2,game.height-200,'press');
         this.press.anchor.setTo(.5,.5);
+        this.press.scale.setTo(.8,.8);
         game.add.tween(this.press).to({y: this.press.y+15}, 1000).to({y: this.press.y}, 1000,Phaser.Easing.Sinusoidal.InOut).loop().start();
 
         //this.addMobileInputs();
@@ -167,7 +178,8 @@ setLeftFalse: function() {
     
 start: function() {
 // Start the actual game
-    game.add.tween(this.title).to({x: -1000}, 2000, "Exponential").easing(Phaser.Easing.Exponential.Out).start();
+    //this.heart.animations.stop();
+    game.add.tween(this.title).to({x: -1200}, 2000, "Exponential").easing(Phaser.Easing.Exponential.Out).start();
     game.add.tween(this.press).to({x: -1000}, 2000, "Exponential").easing(Phaser.Easing.Exponential.Out).start();
     game.add.tween(this.intro).to({x: game.width/2}, 2000, "Exponential").easing(Phaser.Easing.Exponential.Out).start();
     this.timer591 = this.game.time.events.add(10000, this.nextState1, this);

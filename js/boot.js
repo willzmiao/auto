@@ -9,7 +9,7 @@ preload: function () {
 
 create: function() {
 // Set some game settings 
-    game.stage.backgroundColor = '#FF6161'; 
+    game.stage.backgroundColor = '#000000'; 
     game.physics.startSystem(Phaser.Physics.ARCADE); 
     game.renderer.renderSession.roundPixels = true;
     //this.timer = game.time.events.loop(1500); 

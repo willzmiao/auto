@@ -93,7 +93,7 @@ create: function() {
     
     this.speech1 = game.add.sprite(game.width/3, game.height*2/3+200, 'speech1');
     this.speech2 = game.add.sprite(350, game.height/2-200, 'speech2');
-    this.speech3 = game.add.sprite(game.width/3, game.height*2/3+200, 'speech3');
+    this.speech3 = game.add.sprite(game.width/3-100, game.height*2/3+200, 'speech3');
     
     this.speech1.alpha = 0;
     this.speech2.alpha = 0;
